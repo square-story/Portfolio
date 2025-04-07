@@ -13,7 +13,7 @@ export const DATA = {
     "Skilled in developing RESTful APIs, implementing authentication systems, and creating intuitive user interfaces.Passionate about writing clean, maintainable code and staying current with emerging technologies.Demonstrated ability to collaborate effectively in team environments and deliver high- quality solutions that meet business requirements.",
   avatarUrl: "/me.jpg",
   skills: [
-    "React",
+    "React.js",
     "Next.js",
     "Express.js",
     "MongoDB",
@@ -106,7 +106,7 @@ export const DATA = {
     {
       company: "New Quality Supermarket",
       badges: [],
-      href: "https://shopify.com",
+      href: "https://g.co/kgs/ET8uNCn",
       location: "OnSite",
       title: "Senior Accountant",
       logoUrl: "/newQuality.jpg",
@@ -166,8 +166,8 @@ export const DATA = {
     {
       title: "Anime Avatar Generator",
       href: "https://anime-avatar-generator.vercel.app/",
-      dates: "June 2023 - Present",
-      active: true,
+      dates: "June 2024 - Present",
+      active: false,
       description:
         "Designed, developed and maintain the Anime profile photo creation platform",
       technologies: [
@@ -192,7 +192,7 @@ export const DATA = {
       image: "/chrome_siSfTHoPAb.png",
     },
     {
-      title: "yet another user management system (YAUMS)",
+      title: "Yet another user management system (YAUMS)",
       href: "https://github.com/square-story/UserManagmentSystem-using-React.JS-and-Express.JS",
       dates: "April 2023 - September 2023",
       active: true,
