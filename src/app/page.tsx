@@ -115,15 +115,15 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <section id="interests">
+      <section id="github-activity">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
             <h2 className="text-xl font-bold">GitHub Activity</h2>
+            <GithubGraph
+              username="square-story"
+              blockMargin={5}
+            />
           </BlurFade>
-          <GithubGraph
-            username="square-story"
-            blockMargin={5}
-          />
         </div>
       </section>
       <section id="projects">
