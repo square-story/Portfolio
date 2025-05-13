@@ -74,8 +74,8 @@ export const DATA = {
         name: "X",
         url: "https://x.com/SadikBuilds",
         icon: Icons.x,
-
         navbar: true,
+        username: "SadikBuilds",
       },
       email: {
         name: "Send Email",

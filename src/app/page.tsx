@@ -303,23 +303,54 @@ export default function Page() {
       <section id="contact">
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
-            <div className="space-y-3">
-              <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                Contact
+            <div className="space-y-6">
+            <div className="inline-block rounded-lg bg-foreground/90 text-background px-4 py-2 text-sm font-medium shadow-sm transition-all hover:scale-105 hover:bg-foreground group cursor-pointer">
+                <Link
+                  href={`https://twitter.com/messages/compose?recipient_id=${DATA.contact.social.X.username}`}
+                  className="flex items-center gap-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Contact
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="size-4 fill-current transition-transform group-hover:translate-x-0.5"
+                  >
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </Link>
               </div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
                 Get in Touch
               </h2>
-              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Want to chat? Just shoot me a dm{" "}
+              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed leading-relaxed">
+                Want to chat? Just shoot me a dm on{" "}
                 <Link
                   href={DATA.contact.social.X.url}
-                  className="text-blue-500 hover:underline"
+                  className="group relative inline-flex items-center gap-1 text-foreground hover:text-foreground/80 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  with a direct question on twitter
-                </Link>{" "}
-                and I&apos;ll respond whenever I can. I will ignore all
-                soliciting.
+                  Twitter
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="size-4 transition-transform group-hover:translate-x-1"
+                  >
+                    <path d="M7 7h10v10" />
+                    <path d="M7 17 17 7" />
+                  </svg>
+                  <span className="absolute -bottom-px left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 group-hover:scale-x-100"></span>
+                </Link>
+                {" "}and I&apos;ll respond whenever I can.{" "}
+                <span className="text-foreground/80 italic">I will ignore all soliciting.</span>
               </p>
             </div>
           </BlurFade>
