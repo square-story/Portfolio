@@ -131,7 +131,7 @@ export const DATA = {
     {
       title: "Inspecto",
       href: "https://github.com/square-story/Inspecto",
-      dates: "Jan 2025 - Present",
+      dates: "Jan 2025 - Mar 2025",
       active: true,
       description:
         "A web application that simplifies vehicle inspections by connecting users with verified inspectors. ",
@@ -148,6 +148,11 @@ export const DATA = {
         "Vite",
       ],
       links: [
+        {
+          type: "Website",
+          href: "https://inspecto-flax.vercel.app/",
+          icon: <Icons.globe className="size-3" />,
+        },
         {
           type: "Source",
           href: "https://github.com/square-story/Inspecto",
