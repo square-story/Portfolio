@@ -26,14 +26,16 @@ function RepoLink({ username }: { username: string }) {
       <div className="flex justify-center mt-8">
         <Link
           href={`https://github.com/${username}?tab=repositories`}
-          className="inline-flex items-center gap-2 px-4 py-2 text-xl font-medium text-muted-foreground hover:text-foreground transition-colors"
+          className="group inline-flex items-center gap-3 px-6 py-3 text-base font-medium text-muted-foreground hover:text-foreground transition-all rounded-lg border border-border/50 hover:border-border hover:bg-accent/50"
           target="_blank"
           rel="noopener noreferrer"
         >
           <Suspense fallback="View all repositories">
-            <GetRepoCount username="square-story" />
+            <span className="flex items-center gap-2">
+              View <GetRepoCount username="square-story" /> Projects
+            </span>
           </Suspense>
-          {" "} Others Projects On <FaGithub className="size-5" />
+          <FaGithub className="size-5 transition-transform group-hover:scale-110 group-hover:rotate-12 animate-[pulse_2s_ease-in-out_infinite]" />
         </Link>
       </div>
     </BlurFade>
