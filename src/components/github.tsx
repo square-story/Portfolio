@@ -94,7 +94,7 @@ export const GithubGraph = memo(({
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
         </div>
       )}
-      <div className="rounded-lg p-4">
+      <div className="rounded-lg py-4">
         <div className="overflow-hidden">
           <ActivityCalendar
             data={contribution}

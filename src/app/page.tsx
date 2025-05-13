@@ -7,7 +7,9 @@ import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { DATA } from "@/data/resume";
+import { Github } from "lucide-react";
 import Link from "next/link";
+import { FaGithub } from "react-icons/fa";
 import Markdown from "react-markdown";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -118,7 +120,16 @@ export default function Page() {
       <section id="github-activity">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
-            <h2 className="text-xl font-bold">GitHub Activity</h2>
+            <h2 className="text-xl font-bold">
+              <Link 
+                href="https://github.com/square-story"
+                className="flex items-center gap-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Github Contributions <FaGithub className="size-5"/>
+              </Link>
+            </h2>
             <GithubGraph
               username="square-story"
               blockMargin={5}
