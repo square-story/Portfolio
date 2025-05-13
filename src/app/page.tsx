@@ -221,9 +221,6 @@ export default function Page() {
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                  My Projects
-                </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                   Check out my latest work
                 </h2>
@@ -304,7 +301,7 @@ export default function Page() {
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
             <div className="space-y-6">
-            <div className="inline-block rounded-lg bg-foreground/90 text-background px-4 py-2 text-sm font-medium shadow-sm transition-all hover:scale-105 hover:bg-foreground group cursor-pointer">
+              <div className="inline-block rounded-lg bg-foreground/90 text-background px-4 py-2 text-sm font-medium shadow-sm transition-all hover:scale-105 hover:bg-foreground group cursor-pointer">
                 <Link
                   href={`https://twitter.com/messages/compose?recipient_id=${DATA.contact.social.X.username}`}
                   className="flex items-center gap-2"

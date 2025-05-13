@@ -105,7 +105,7 @@ export const DATA = {
     {
       school: "Brototype",
       href: "https://www.brototype.com/",
-      degree: "7-month full-stack training program",
+      degree: "Full-stack development program",
       logoUrl: "/brototype_logo.jpeg",
       start: "March 2024",
       end: "Present",
