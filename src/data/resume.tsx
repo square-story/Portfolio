@@ -89,18 +89,6 @@ export const DATA = {
 
   work: [
     {
-      company: "Brototype",
-      href: "https://www.brototype.com/",
-      badges: ["Internship"],
-      location: "OnSite",
-      title: "Full Stack Developer (MERN)",
-      logoUrl: "/brototype_logo.jpeg",
-      start: "March 2024",
-      end: "Present",
-      description:
-        "Developing full-stack web applications using the MERN stack (MongoDB, Express.js, React.js, Node.js) • Implementing responsive UI designs with Tailwind CSS and component libraries • Building RESTful APIs and integrating authentication systems • Collaborating with team members using Git for version control",
-    },
-    {
       company: "New Quality Supermarket",
       badges: [],
       href: "https://g.co/kgs/ET8uNCn",
@@ -114,6 +102,14 @@ export const DATA = {
     },
   ],
   education: [
+    {
+      school: "Brototype",
+      href: "https://www.brototype.com/",
+      degree: "7-month full-stack training program",
+      logoUrl: "/brototype_logo.jpeg",
+      start: "March 2024",
+      end: "Present",
+    },
     {
       school: "University of Calicut",
       href: "https://uoc.ac.in/",

@@ -1,3 +1,4 @@
+import { GithubGraph } from "@/components/github";
 import { HackathonCard } from "@/components/hackathon-card";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
@@ -112,6 +113,17 @@ export default function Page() {
               </BlurFade>
             ))}
           </div>
+        </div>
+      </section>
+      <section id="interests">
+        <div className="flex min-h-0 flex-col gap-y-3">
+          <BlurFade delay={BLUR_FADE_DELAY * 11}>
+            <h2 className="text-xl font-bold">GitHub Activity</h2>
+          </BlurFade>
+          <GithubGraph
+            username="square-story"
+            blockMargin={5}
+          />
         </div>
       </section>
       <section id="projects">
