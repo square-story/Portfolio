@@ -9,8 +9,36 @@ import { DATA } from "@/data/resume";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 import Markdown from "react-markdown";
+import Image from "next/image";
+import { Suspense } from "react";
 
 const BLUR_FADE_DELAY = 0.04;
+
+async function GetRepoCount({ username }: { username: string }) {
+  const response = await fetch(`https://api.github.com/users/${username}`);
+  const data = await response.json();
+  return data.public_repos;
+}
+
+function RepoLink({ username }: { username: string }) {
+  return (
+    <BlurFade delay={BLUR_FADE_DELAY * 13}>
+      <div className="flex justify-center mt-8">
+        <Link
+          href={`https://github.com/${username}?tab=repositories`}
+          className="inline-flex items-center gap-2 px-4 py-2 text-xl font-medium text-muted-foreground hover:text-foreground transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Suspense fallback="View all repositories">
+            <GetRepoCount username="square-story" />
+          </Suspense>
+          {" "} Others Projects On <FaGithub className="size-5" />
+        </Link>
+      </div>
+    </BlurFade>
+  );
+}
 
 export default function Page() {
   return (
@@ -19,7 +47,7 @@ export default function Page() {
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="gap-2 flex justify-between">
             <div className="flex-col flex flex-1 space-y-1.5">
-              
+
               <div className="flex items-center gap-2">
                 <BlurFadeText
                   delay={BLUR_FADE_DELAY}
@@ -28,7 +56,14 @@ export default function Page() {
                   text={`Hi, I'm ${DATA.name.split(" ")[0]} `}
                 />
                 <BlurFade delay={BLUR_FADE_DELAY}>
-                  <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="60px" alt="Wave" />
+                  <Image
+                    src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif"
+                    width={60}
+                    height={60}
+                    alt="Wave"
+                    unoptimized
+                    className="w-[40px] sm:w-[70px]"
+                  />
                 </BlurFade>
               </div>
               <BlurFadeText
@@ -39,7 +74,7 @@ export default function Page() {
               <div className="flex items-center gap-2">
                 <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
                   <Badge variant="outline" className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 border-green-300 dark:border-green-800 gap-2">
-                  <span
+                    <span
                       className="size-2 rounded-full bg-emerald-500 animate-pulse"
                       aria-hidden="true"
                     ></span>
@@ -48,7 +83,7 @@ export default function Page() {
                 </BlurFade>
               </div>
             </div>
-            
+
             <BlurFade delay={BLUR_FADE_DELAY}>
               <div className="relative">
                 <Avatar className="size-28 border">
@@ -217,6 +252,7 @@ export default function Page() {
               </BlurFade>
             ))}
           </div>
+          <RepoLink username="square-story" />
         </div>
       </section>
       {/* <section id="hackathons">
