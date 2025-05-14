@@ -216,7 +216,7 @@ export const DATA = {
     },
     {
       title: "Zay E-commerce",
-      href: "https://automatic.chat",
+      href: "https://github.com/square-story/Zay-Ecommerce",
       dates: "April 2023 - March 2024",
       active: true,
       description:

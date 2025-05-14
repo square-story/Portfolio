@@ -46,7 +46,7 @@ export default function Page() {
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
       <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
+        <div className="mx-auto w-full max-w-5xl space-y-8">
           <div className="gap-2 flex justify-between">
             <div className="flex-col flex flex-1 space-y-1.5">
 
@@ -81,6 +81,22 @@ export default function Page() {
                       aria-hidden="true"
                     ></span>
                     Open to Work
+                  </Badge>
+                </BlurFade>
+                <BlurFade delay={BLUR_FADE_DELAY * 2}>
+                  <Badge variant="outline" className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 border-blue-300 dark:border-blue-800 gap-2 cursor-pointer">
+                    <Link
+                      href="/resume.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2"
+                    >
+                      <span
+                        className="size-2 rounded-full bg-blue-500 animate-pulse"
+                        aria-hidden="true"
+                      ></span>
+                      Download Resume
+                    </Link>
                   </Badge>
                 </BlurFade>
               </div>
@@ -219,7 +235,7 @@ export default function Page() {
       <section id="projects">
         <div className="space-y-12 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center sm:items-start sm:text-left">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                   Check out my latest work
@@ -232,7 +248,7 @@ export default function Page() {
               </div>
             </div>
           </BlurFade>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-[1200px] mx-auto">
             {DATA.projects.map((project, id) => (
               <BlurFade
                 key={project.title}
@@ -247,11 +263,14 @@ export default function Page() {
                   tags={project.technologies}
                   image={project.image}
                   links={project.links}
+                  className="transition-transform transform hover:scale-105 hover:shadow-lg"
                 />
               </BlurFade>
             ))}
           </div>
-          <RepoLink username="square-story" />
+          <div className="flex justify-center mt-8">
+            <RepoLink username="square-story" />
+          </div>
         </div>
       </section>
       {/* <section id="hackathons">
