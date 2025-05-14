@@ -86,7 +86,7 @@ export default function Page() {
                 <BlurFade delay={BLUR_FADE_DELAY * 2}>
                   <Badge variant="outline" className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 border-blue-300 dark:border-blue-800 gap-2 cursor-pointer">
                     <Link
-                      href="/resume.pdf"
+                      href="/MOHAMMED_SADIK_MERN_STACK.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2"
