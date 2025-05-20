@@ -1,6 +1,6 @@
 import { Icons } from "@/components/icons";
 import { FaReact, FaNodeJs, FaDocker, FaGitAlt, FaGithub, FaAws, FaFigma } from "react-icons/fa";
-import { SiNextdotjs, SiExpress, SiMongodb, SiJavascript, SiTypescript, SiTailwindcss, SiRedux, SiReactquery, SiShadcnui, SiFramer, SiReacthookform, SiZod, SiJsonwebtokens, SiCloudinary, SiMongoose, SiEjs, SiAxios, SiHtml5, SiCss3, SiRedis, SiPostgresql, SiFirebase, SiVercel, SiPostman, SiGithubactions } from "react-icons/si";
+import { SiNextdotjs, SiExpress, SiMongodb, SiJavascript, SiTypescript, SiTailwindcss, SiRedux, SiReactquery, SiShadcnui, SiFramer, SiReacthookform, SiZod, SiJsonwebtokens, SiCloudinary, SiMongoose, SiEjs, SiAxios, SiHtml5, SiCss3, SiRedis, SiPostgresql, SiFirebase, SiVercel, SiPostman, SiGithubactions, SiPeerlist } from "react-icons/si";
 import { HomeIcon } from "lucide-react";
 
 export const DATA = {
@@ -53,7 +53,7 @@ export const DATA = {
     // { href: "/blog", icon: NotebookIcon, label: "Blog" },
   ],
   contact: {
-    email: "shasadik3@gmail.com",
+    email: "sadik.build@gmail.com",
     tel: "+91 90488-34867",
     social: {
       GitHub: {
@@ -65,7 +65,7 @@ export const DATA = {
       },
       LinkedIn: {
         name: "LinkedIn",
-        url: "https://www.linkedin.com/in/mohammedsadikkattattupurath/",
+        url: "https://www.linkedin.com/in/sadikkp/",
         icon: Icons.linkedin,
 
         navbar: true,
@@ -84,6 +84,12 @@ export const DATA = {
 
         navbar: true,
       },
+      peerlist: {
+        name: "Peerlist",
+        url: "https://peerlist.io/sadikkp",
+        icon: SiPeerlist,
+        navbar: true,
+      }
     },
   },
 
