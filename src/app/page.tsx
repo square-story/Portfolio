@@ -46,16 +46,16 @@ function RepoLink({ username }: { username: string }) {
 
 export default function Page() {
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-10">
+    <main className="flex flex-col min-h-[100dvh] space-y-10 px-2 sm:px-4 md:px-8">
       <section id="hero">
         <div className="mx-auto w-full max-w-5xl space-y-8">
-          <div className="gap-2 flex justify-between">
+          <div className="gap-2 flex flex-col-reverse sm:flex-row justify-between">
             <div className="flex-col flex flex-1 space-y-1.5">
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <BlurFadeText
                   delay={BLUR_FADE_DELAY}
-                  className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
+                  className="text-2xl font-bold tracking-tighter sm:text-4xl xl:text-6xl/none"
                   yOffset={8}
                   text={`Hi, I'm ${DATA.name.split(" ")[0]} `}
                 />
@@ -66,16 +66,16 @@ export default function Page() {
                     height={60}
                     alt="Wave"
                     unoptimized
-                    className="w-[40px] sm:w-[70px]"
+                    className="w-[32px] sm:w-[40px] md:w-[60px] xl:w-[70px]"
                   />
                 </BlurFade>
               </div>
               <BlurFadeText
-                className="max-w-[600px] md:text-xl"
+                className="max-w-full md:max-w-[600px] md:text-xl text-base"
                 delay={BLUR_FADE_DELAY}
                 text={DATA.description}
               />
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
                   <Magnet padding={100} disabled={false} magnetStrength={100}>
                     <ConfettiButton
@@ -113,12 +113,12 @@ export default function Page() {
             </div>
 
             <BlurFade delay={BLUR_FADE_DELAY}>
-              <div className="relative">
-                <Avatar className="size-28 border">
+              <div className="relative flex justify-center sm:block mb-4 sm:mb-0">
+                <Avatar className="size-24 sm:size-28 border">
                   <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
                   <AvatarFallback>{DATA.initials}</AvatarFallback>
                 </Avatar>
-                <span className="absolute -bottom-2 -right-2">
+                <span className="absolute hidden sm:-right-2 sm:bottom-0 sm:block">
                   <span className="sr-only">Verified</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -149,10 +149,10 @@ export default function Page() {
       </section>
       <section id="about">
         <BlurFade delay={BLUR_FADE_DELAY * 3}>
-          <h2 className="text-xl font-bold">About</h2>
+          <h2 className="text-lg sm:text-xl font-bold">About</h2>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
+          <Markdown className="prose max-w-full text-pretty font-sans text-sm sm:text-base text-muted-foreground dark:prose-invert">
             {DATA.summary}
           </Markdown>
         </BlurFade>
@@ -160,7 +160,7 @@ export default function Page() {
       <section id="work">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-xl font-bold">Work Experience</h2>
+            <h2 className="text-lg sm:text-xl font-bold">Work Experience</h2>
           </BlurFade>
           {DATA.work.map((work, id) => (
             <BlurFade
@@ -185,7 +185,7 @@ export default function Page() {
       <section id="education">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 7}>
-            <h2 className="text-xl font-bold">Education</h2>
+            <h2 className="text-lg sm:text-xl font-bold">Education</h2>
           </BlurFade>
           {DATA.education.map((education, id) => (
             <BlurFade
@@ -208,12 +208,12 @@ export default function Page() {
       <section id="skills">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-bold">Skills</h2>
+            <h2 className="text-lg sm:text-xl font-bold">Skills</h2>
           </BlurFade>
           <div className="flex flex-wrap gap-1 cursor-pointer">
             {DATA.skills.map((skill, id) => (
               <BlurFade key={skill.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
-                <Badge key={skill.name} className="flex items-center gap-2">
+                <Badge key={skill.name} className="flex items-center gap-2 text-xs sm:text-sm">
                   {skill.icon}
                   {skill.name}
                 </Badge>
@@ -225,7 +225,7 @@ export default function Page() {
       <section id="github-activity">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
-            <h2 className="text-xl font-bold">
+            <h2 className="text-lg sm:text-xl font-bold">
               <Link
                 href="https://github.com/square-story"
                 className="flex items-center gap-2"
@@ -235,10 +235,12 @@ export default function Page() {
                 Github Contributions <FaGithub className="size-5" />
               </Link>
             </h2>
-            <GithubGraph
-              username="square-story"
-              blockMargin={5}
-            />
+            <div className="overflow-x-auto">
+              <GithubGraph
+                username="square-story"
+                blockMargin={5}
+              />
+            </div>
           </BlurFade>
         </div>
       </section>
@@ -247,10 +249,10 @@ export default function Page() {
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
             <div className="flex flex-col items-center justify-center space-y-4 text-center sm:items-start sm:text-left">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                <h2 className="text-2xl  font-bold tracking-tighter sm:text-5xl">
                   Check out my latest work
                 </h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="text-muted-foreground text-base md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   I&apos;ve worked on a variety of projects, from simple
                   websites to complex web applications. Here are a few of my
                   favorites.
@@ -283,51 +285,8 @@ export default function Page() {
           </div>
         </div>
       </section>
-      {/* <section id="hackathons">
-        <div className="space-y-12 w-full py-12">
-          <BlurFade delay={BLUR_FADE_DELAY * 13}>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                  Hackathons
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  I like building things
-                </h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  During my time in university, I attended{" "}
-                  {DATA.hackathons.length}+ hackathons. People from around the
-                  country would come together and build incredible things in 2-3
-                  days. It was eye-opening to see the endless possibilities
-                  brought to life by a group of motivated and passionate
-                  individuals.
-                </p>
-              </div>
-            </div>
-          </BlurFade>
-          <BlurFade delay={BLUR_FADE_DELAY * 14}>
-            <ul className="mb-4 ml-4 divide-y divide-dashed border-l">
-              {DATA.hackathons.map((project, id) => (
-                <BlurFade
-                  key={project.title + project.dates}
-                  delay={BLUR_FADE_DELAY * 15 + id * 0.05}
-                >
-                  <HackathonCard
-                    title={project.title}
-                    description={project.description}
-                    location={project.location}
-                    dates={project.dates}
-                    image={project.image}
-                    links={project.links}
-                  />
-                </BlurFade>
-              ))}
-            </ul>
-          </BlurFade>
-        </div>
-      </section> */}
       <section id="contact">
-        <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
+        <div className="grid items-center justify-center gap-4 px-2 sm:px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
             <div className="space-y-6">
               <div className="inline-block rounded-lg bg-foreground/90 text-background px-4 py-2 text-sm font-medium shadow-sm transition-all hover:scale-105 hover:bg-foreground group cursor-pointer">
@@ -346,10 +305,10 @@ export default function Page() {
                   </svg>
                 </Link>
               </div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+              <h2 className="text-2xl font-bold tracking-tighter sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
                 Get in Touch
               </h2>
-              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed leading-relaxed">
+              <p className="mx-auto max-w-full sm:max-w-[600px] text-muted-foreground text-base md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed leading-relaxed">
                 Want to chat? Just shoot me a dm on{" "}
                 <Link
                   href={DATA.contact.social.X.url}
