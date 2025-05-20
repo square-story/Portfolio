@@ -113,8 +113,8 @@ export default function Page() {
             </div>
 
             <BlurFade delay={BLUR_FADE_DELAY}>
-              <div className="relative flex justify-center sm:block mb-4 sm:mb-0">
-                <Avatar className="size-24 sm:size-28 border">
+              <div className="relative flex justify-center sm:block mb-4 sm:mb-0 ">
+                <Avatar className="size-24 sm:size-28 bg-background relative hidden sm:block">
                   <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
                   <AvatarFallback>{DATA.initials}</AvatarFallback>
                 </Avatar>
