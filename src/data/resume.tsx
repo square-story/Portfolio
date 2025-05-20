@@ -12,7 +12,7 @@ export const DATA = {
   description:
     "MERN Stack Developer | Builds Scalable Web Apps | Obsessed with Clean Code & Seamless UX | #1PercentBetterEveryday",
   summary:
-    "MERN stack developer with a background in accounting, now focused on building clean, scalable web apps with strong user experience. Started from spreadsheets, grew through self-driven learning, and now crafting real-world solutions with code. Passionate about continuous improvement and delivering value through technology.",
+    "MERN stack developer with a [background in accounting](#work), now focused on building clean, scalable web apps with strong user experience. Started from spreadsheets, grew through self-driven learning, and [now crafting real-world solutions with code](#projects). Passionate about continuous improvement and [delivering value through technology](#skills).",
   avatarUrl: "/me.jpg",
   skills: [
     { name: "React.js", icon: <FaReact /> },
