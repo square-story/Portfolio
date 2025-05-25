@@ -1,7 +1,6 @@
 import { GithubGraph } from "@/components/github";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
-import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +12,7 @@ import Image from "next/image";
 import { Suspense } from "react";
 import Magnet from "@/components/Magnet";
 import { ConfettiButton } from "@/components/magicui/confetti";
+import { MinimalProjectList } from "@/components/MinimalProjectCard";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -249,7 +249,7 @@ export default function Page() {
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
             <div className="flex flex-col items-center justify-center space-y-4 text-center sm:items-start sm:text-left">
               <div className="space-y-2">
-                <h2 className="text-2xl  font-bold tracking-tighter sm:text-5xl">
+                <h2 className="text-2xl font-bold tracking-tighter sm:text-5xl">
                   Check out my latest work
                 </h2>
                 <p className="text-muted-foreground text-base md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -260,29 +260,12 @@ export default function Page() {
               </div>
             </div>
           </BlurFade>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-[1200px] mx-auto">
-            {DATA.projects.map((project, id) => (
-              <BlurFade
-                key={project.title}
-                delay={BLUR_FADE_DELAY * 12 + id * 0.05}
-              >
-                <ProjectCard
-                  href={project.href}
-                  key={project.title}
-                  title={project.title}
-                  description={project.description}
-                  dates={project.dates}
-                  tags={project.technologies}
-                  image={project.image}
-                  links={project.links}
-                  className="transition-transform transform hover:scale-105 hover:shadow-lg"
-                />
-              </BlurFade>
-            ))}
-          </div>
-          <div className="flex justify-center mt-8">
-            <RepoLink username="square-story" />
-          </div>
+          <BlurFade delay={BLUR_FADE_DELAY * 12}>
+            <MinimalProjectList />
+            <div className="flex justify-center mt-8">
+              <RepoLink username="square-story" />
+            </div>
+          </BlurFade>
         </div>
       </section>
       <section id="contact">
