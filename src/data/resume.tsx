@@ -84,12 +84,12 @@ export const DATA = {
 
         navbar: true,
       },
-      peerlist: {
-        name: "Peerlist",
-        url: "https://peerlist.io/sadikkp",
-        icon: SiPeerlist,
-        navbar: true,
-      }
+      // peerlist: {
+      //   name: "Peerlist",
+      //   url: "https://peerlist.io/sadikkp",
+      //   icon: SiPeerlist,
+      //   navbar: true,
+      // }
     },
   },
 

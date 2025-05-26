@@ -13,6 +13,7 @@ import { Suspense } from "react";
 import Magnet from "@/components/Magnet";
 import { ConfettiButton } from "@/components/magicui/confetti";
 import { MinimalProjectList } from "@/components/MinimalProjectCard";
+import CalendarConfettiButton from "@/components/CalendarConfettiButton";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -78,15 +79,9 @@ export default function Page() {
               <div className="flex flex-wrap items-center gap-2">
                 <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
                   <Magnet padding={100} disabled={false} magnetStrength={100}>
-                    <ConfettiButton
+                    <CalendarConfettiButton
                       className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-400 border-emerald-300 dark:border-emerald-800 gap-2 cursor-pointer hover:bg-emerald-100 hover:text-emerald-800 hover:border-emerald-300 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400 dark:hover:border-emerald-800"
-                    >
-                      <span
-                        className="size-2 rounded-full bg-emerald-500 animate-pulse"
-                        aria-hidden="true"
-                      ></span>
-                      Open to Work
-                    </ConfettiButton>
+                    />
                   </Magnet>
                 </BlurFade>
                 <BlurFade delay={BLUR_FADE_DELAY * 2}>
