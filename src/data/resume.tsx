@@ -168,6 +168,39 @@ export const DATA = {
       image: "/chrome_BU150hXWkI.png",
     },
     {
+      title: "SurveyForm",
+      href: "https://github.com/square-story/SurveyForm",
+      dates: "May 2025",
+      active: true,
+      description:
+        "Experience effortless data collection with this interactive survey application",
+      technologies: [
+        "MongoDB",
+        "Express.js",
+        "React.js",
+        "Node.js",
+        "Typescript",
+        "Mongoose",
+        "TailwindCSS",
+        "Docker",
+        "Shadcn UI",
+        "Vite",
+      ],
+      links: [
+        {
+          type: "Website",
+          href: "https://survey-form-five-silk.vercel.app/",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "Source",
+          href: "https://github.com/square-story/SurveyForm",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "/chrome_zTXss89ENW.png",
+    },
+    {
       title: "Anime Avatar Generator",
       href: "https://anime-avatar-generator.vercel.app/",
       dates: "June 2024 - Present",

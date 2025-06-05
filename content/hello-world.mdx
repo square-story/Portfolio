@@ -42,33 +42,33 @@ Both returned substrings of length k, but when I dug a little deeper — I reali
 Let’s break it down:
 String.substr(start, length)
 
-    start: The index to start from.
+start: The index to start from.
 
-    length: How many characters to extract.
+length: How many characters to extract.
 
-    ✅ Returns a substring of given length starting from the start index.
+✅ Returns a substring of given length starting from the start index.
 
-    ❌ Deprecated — it's not recommended to use in modern JavaScript.
+❌ Deprecated — it's not recommended to use in modern JavaScript.
 
-    ```jsx
-    'hello'.substr(1, 3); // 'ell'
-    ```
+```jsx
+'hello'.substr(1, 3); // 'ell'
+```
 
 String.substring(start, end)
-    start: Start index (inclusive).
+start: Start index (inclusive).
 
-    end: End index (exclusive).
+end: End index (exclusive).
 
-    ✅ Returns characters between start and end.
+✅ Returns characters between start and end.
 
-    🔁 If start > end, it swaps the arguments.
+🔁 If start > end, it swaps the arguments.
 
-    ✅ Safe and preferred in modern JavaScript.
+✅ Safe and preferred in modern JavaScript.
 
 
-    ```jsx
-    'hello'.substring(1, 4); // 'ell'
-    ```
+```jsx
+'hello'.substring(1, 4); // 'ell'
+```
 
 Looks similar, right? But when you're dealing with edge cases or unclear variable values, the difference between length and end index becomes everything.
 
@@ -79,6 +79,5 @@ In the context of Leetcode 2269, both methods can work — but only if you're cr
 
 And honestly, that’s when I thought:
 
-    “Wait — how many other devs are making this same mistake thinking these two are interchangeable?”
+“Wait — how many other devs are making this same mistake thinking these two are interchangeable?”
 
-That’s why I’m sharing this here on Peerlist. Sometimes the bugs we encounter are little reminders of how much we assume while coding.
