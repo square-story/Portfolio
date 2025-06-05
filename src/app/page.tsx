@@ -10,7 +10,6 @@ import { FaGithub } from "react-icons/fa";
 import Markdown from "react-markdown";
 import Image from "next/image";
 import { Suspense } from "react";
-import Magnet from "@/components/Magnet";
 import { ConfettiButton } from "@/components/magicui/confetti";
 import { MinimalProjectList } from "@/components/MinimalProjectCard";
 import CalendarConfettiButton from "@/components/CalendarConfettiButton";
@@ -78,31 +77,29 @@ export default function Page() {
               />
               <div className="flex flex-wrap items-center gap-2">
                 <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
-                  <Magnet padding={100} disabled={false} magnetStrength={100}>
-                    <CalendarConfettiButton
-                      className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-400 border-emerald-300 dark:border-emerald-800 gap-2 cursor-pointer hover:bg-emerald-100 hover:text-emerald-800 hover:border-emerald-300 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400 dark:hover:border-emerald-800"
-                    />
-                  </Magnet>
+
+                  <CalendarConfettiButton
+                    className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-400 border-emerald-300 dark:border-emerald-800 gap-2 cursor-pointer hover:bg-emerald-100 hover:text-emerald-800 hover:border-emerald-300 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400 dark:hover:border-emerald-800"
+                  />
                 </BlurFade>
                 <BlurFade delay={BLUR_FADE_DELAY * 2}>
-                  <Magnet padding={100} disabled={false} magnetStrength={100}>
-                    <ConfettiButton
-                      className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 border-blue-300 dark:border-blue-800 gap-2 cursor-pointer hover:bg-blue-100 hover:text-blue-800 hover:border-blue-300 dark:hover:bg-blue-900/30 dark:hover:text-blue-400 dark:hover:border-blue-800"
+
+                  <ConfettiButton
+                    className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 border-blue-300 dark:border-blue-800 gap-2 cursor-pointer hover:bg-blue-100 hover:text-blue-800 hover:border-blue-300 dark:hover:bg-blue-900/30 dark:hover:text-blue-400 dark:hover:border-blue-800"
+                  >
+                    <Link
+                      href="/MOHAMMED_SADIK_MERN_STACK.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2"
                     >
-                      <Link
-                        href="/MOHAMMED_SADIK_MERN_STACK.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2"
-                      >
-                        <span
-                          className="size-2 rounded-full bg-blue-500 animate-pulse"
-                          aria-hidden="true"
-                        ></span>
-                        Download Resume
-                      </Link>
-                    </ConfettiButton>
-                  </Magnet>
+                      <span
+                        className="size-2 rounded-full bg-blue-500 animate-pulse"
+                        aria-hidden="true"
+                      ></span>
+                      Download Resume
+                    </Link>
+                  </ConfettiButton>
                 </BlurFade>
               </div>
             </div>
