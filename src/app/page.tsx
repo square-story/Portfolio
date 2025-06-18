@@ -88,7 +88,7 @@ export default function Page() {
                     className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 border-blue-300 dark:border-blue-800 gap-2 cursor-pointer hover:bg-blue-100 hover:text-blue-800 hover:border-blue-300 dark:hover:bg-blue-900/30 dark:hover:text-blue-400 dark:hover:border-blue-800"
                   >
                     <Link
-                      href="/MOHAMMED SADIK KP FULL STACK DEVELOPER (MERN).pdf"
+                      href="/MOHAMMED_SADIK_KP_MERN_STACK_DEVELOPER.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2"
