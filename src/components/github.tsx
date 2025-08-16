@@ -90,8 +90,41 @@ export const GithubGraph = memo(({
   return (
     <div className="relative">
       {loading && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm rounded-lg">
+          <div className="p-4">
+            <div className="mb-4">
+              <div className="h-4 bg-muted rounded w-48 animate-pulse"></div>
+            </div>
+            <div className="overflow-hidden">
+              <div className="grid grid-cols-53 gap-1">
+                {/* Generate skeleton blocks for the heatmap */}
+                {Array.from({ length: 365 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className="w-3 h-3 bg-muted rounded-sm animate-pulse"
+                    style={{
+                      animationDelay: `${(index % 10) * 100}ms`,
+                    }}
+                  />
+                ))}
+              </div>
+              <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+                <span>Less</span>
+                <div className="flex gap-1">
+                  {[0, 1, 2, 3, 4].map((level) => (
+                    <div
+                      key={level}
+                      className="w-3 h-3 bg-muted rounded-sm animate-pulse"
+                      style={{
+                        animationDelay: `${level * 100}ms`,
+                      }}
+                    />
+                  ))}
+                </div>
+                <span>More</span>
+              </div>
+            </div>
+          </div>
         </div>
       )}
       <div className="rounded-lg py-4">
