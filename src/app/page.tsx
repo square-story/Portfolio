@@ -1,4 +1,3 @@
-import { GithubGraph } from "@/components/github";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { ResumeCard } from "@/components/resume-card";
@@ -13,6 +12,7 @@ import { Suspense } from "react";
 import { ConfettiButton } from "@/components/magicui/confetti";
 import { MinimalProjectList } from "@/components/MinimalProjectCard";
 import CalendarConfettiButton from "@/components/CalendarConfettiButton";
+import GithubCalendarWidget from "@/components/GithubCalendarWidget";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -215,24 +215,22 @@ export default function Page() {
         </div>
       </section>
       <section id="github-activity">
-        <div className="flex min-h-0 flex-col gap-y-3">
+        <div className="flex min-h-0 flex-col">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
-            <h2 className="text-lg sm:text-xl font-bold">
-              <Link
-                href="https://github.com/square-story"
-                className="flex items-center gap-2"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Github Contributions <FaGithub className="size-5" />
-              </Link>
-            </h2>
-            <div className="overflow-x-auto">
-              <GithubGraph
-                username="square-story"
-                blockMargin={5}
-              />
-            </div>
+            <Link
+              href="https://github.com/square-story"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <h2 className="text-lg sm:text-xl font-bold">
+                <div className="flex items-center gap-5">
+                  Github Contributions <FaGithub className="size-5" />
+                </div>
+              </h2>
+              <div className="overflow-x-auto mt-2">
+                <GithubCalendarWidget username="square-story" blockMargin={5} />
+              </div>
+            </Link>
           </BlurFade>
         </div>
       </section>
