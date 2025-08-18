@@ -227,9 +227,7 @@ export default function Page() {
                   Github Contributions <FaGithub className="size-5" />
                 </div>
               </h2>
-              <div className="overflow-x-auto mt-2">
-                <GithubCalendarWidget username="square-story" blockMargin={5} />
-              </div>
+              <GithubCalendarWidget username="square-story" blockMargin={4} />
             </Link>
           </BlurFade>
         </div>
