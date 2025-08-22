@@ -13,6 +13,7 @@ import { ConfettiButton } from "@/components/magicui/confetti";
 import { MinimalProjectList } from "@/components/MinimalProjectCard";
 import CalendarConfettiButton from "@/components/CalendarConfettiButton";
 import GithubCalendarWidget from "@/components/GithubCalendarWidget";
+import LeetcodeCalendar from "@/components/LeetcodeCalendar";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -227,7 +228,25 @@ export default function Page() {
                   Github Contributions <FaGithub className="size-5" />
                 </div>
               </h2>
-              <GithubCalendarWidget username="square-story" blockMargin={4} />
+              <GithubCalendarWidget username="square-story" />
+            </Link>
+          </BlurFade>
+        </div>
+      </section>
+      <section id="leetcode-activity">
+        <div className="flex min-h-0 flex-col">
+          <BlurFade delay={BLUR_FADE_DELAY * 11}>
+            <Link
+              href="https://leetcode.com/square-story"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <h2 className="text-lg sm:text-xl font-bold">
+                <div className="flex items-center gap-5">
+                  Leetcode Submissions
+                </div>
+              </h2>
+              <LeetcodeCalendar username="square-story" />
             </Link>
           </BlurFade>
         </div>
