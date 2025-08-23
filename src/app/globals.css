@@ -33,6 +33,11 @@
       --ring: 0 0% 3.9%;
 
       --radius: 0.5rem;
+
+    }
+
+    section {
+      @apply pt-5;
     }
 
     .dark {
