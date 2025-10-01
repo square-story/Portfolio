@@ -1,8 +1,6 @@
 "use client"
 
 import type React from "react"
-
-
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
@@ -47,9 +45,4 @@ export function Reveal({ children, className, delay = 0, once = true }: RevealPr
       {children}
     </div>
   )
-}
-
-Reveal.defaultProps = {
-  delay: 0,
-  once: true,
 }
