@@ -93,7 +93,7 @@
   }
 
   code {
-    @apply text-sm md:text-base !leading-loose;
+    @apply text-sm md:text-base !leading-loose font-mono;
   }
   
   pre > code {

@@ -1,6 +1,7 @@
+"use client";
+
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
-import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { DATA } from "@/data/resume";
@@ -8,7 +9,6 @@ import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 import Markdown from "react-markdown";
 import Image from "next/image";
-import { Suspense } from "react";
 import { ConfettiButton } from "@/components/magicui/confetti";
 import { MinimalProjectList } from "@/components/MinimalProjectCard";
 import CalendarConfettiButton from "@/components/CalendarConfettiButton";
@@ -17,13 +17,24 @@ import LeetcodeCalendar from "@/components/LeetcodeCalendar";
 
 const BLUR_FADE_DELAY = 0.04;
 
-async function GetRepoCount({ username }: { username: string }) {
-  const response = await fetch(`https://api.github.com/users/${username}`);
-  const data = await response.json();
-  return data.public_repos;
-}
+import { useEffect, useState } from "react";
 
 function RepoLink({ username }: { username: string }) {
+  const [repoCount, setRepoCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    async function fetchRepoCount() {
+      try {
+        const response = await fetch(`https://api.github.com/users/${username}`);
+        const data = await response.json();
+        setRepoCount(data.public_repos);
+      } catch (error) {
+        setRepoCount(null);
+      }
+    }
+    fetchRepoCount();
+  }, [username]);
+
   return (
     <BlurFade delay={BLUR_FADE_DELAY * 13}>
       <div className="flex justify-center mt-8">
@@ -33,11 +44,9 @@ function RepoLink({ username }: { username: string }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Suspense fallback="View all repositories">
-            <span className="flex items-center gap-2">
-              View <GetRepoCount username="square-story" /> Projects
-            </span>
-          </Suspense>
+          <span className="flex items-center gap-2">
+            View {repoCount !== null ? repoCount : "all"} Projects
+          </span>
           <FaGithub className="size-5 transition-transform group-hover:scale-110 group-hover:rotate-12 animate-[pulse_2s_ease-in-out_infinite]" />
         </Link>
       </div>
@@ -145,59 +154,11 @@ export default function Page() {
           <h2 className="text-lg sm:text-xl font-bold">About</h2>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <Markdown className="prose max-w-full text-pretty font-sans text-sm sm:text-base text-muted-foreground dark:prose-invert">
+          <Markdown className="prose max-w-full text-pretty font-sans text-sm sm:text-base text-muted-foreground dark:prose-invert prose-code:font-mono">
             {DATA.summary}
           </Markdown>
         </BlurFade>
       </section>
-      {/* <section id="work">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-lg sm:text-xl font-bold">Work Experience</h2>
-          </BlurFade>
-          {DATA.work.map((work, id) => (
-            <BlurFade
-              key={work.company}
-              delay={BLUR_FADE_DELAY * 6 + id * 0.05}
-            >
-              <ResumeCard
-                key={work.company}
-                logoUrl={work.logoUrl}
-                altText={work.company}
-                title={work.company}
-                subtitle={work.title}
-                href={work.href}
-                badges={work.badges}
-                period={`${work.start} - ${work.end ?? "Present"}`}
-                description={work.description}
-              />
-            </BlurFade>
-          ))}
-        </div>
-      </section>
-      <section id="education">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 7}>
-            <h2 className="text-lg sm:text-xl font-bold">Education</h2>
-          </BlurFade>
-          {DATA.education.map((education, id) => (
-            <BlurFade
-              key={education.school}
-              delay={BLUR_FADE_DELAY * 8 + id * 0.05}
-            >
-              <ResumeCard
-                key={education.school}
-                href={education.href}
-                logoUrl={education.logoUrl}
-                altText={education.school}
-                title={education.school}
-                subtitle={education.degree}
-                period={`${education.start} - ${education.end}`}
-              />
-            </BlurFade>
-          ))}
-        </div>
-      </section> */}
       <section id="skills">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
