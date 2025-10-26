@@ -2,17 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Font loading optimization */
-@font-face {
-  font-family: 'Inter';
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-display: swap;
-}
-
 @layer base {
     :root {
       --background: 0 0% 100%;
