@@ -56,9 +56,6 @@ function ProjectCard({ project, index, active, setActive }: ProjectCardProps) {
                             <h3 className="font-semibold text-base tracking-tight truncate">
                                 {project.title}
                             </h3>
-                            <span className="text-[10px] text-muted-foreground whitespace-nowrap font-mono">
-                                {project.dates}
-                            </span>
                         </div>
                         <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
                             {project.description}
