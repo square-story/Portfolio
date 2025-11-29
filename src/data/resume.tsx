@@ -157,6 +157,11 @@ export const DATA = {
           href: "https://github.com/square-story/blipko",
           icon: <Icons.github className="size-3" />,
         },
+        {
+          type: "Website",
+          href: "https://blipko.vercel.app",
+          icon: <Icons.globe className="size-3" />,
+        }
       ],
       image: "/blipko-banner.png", // Placeholder, user might need to update
       contribution: "Architected the entire backend using Clean Architecture and DDD principles. Implemented multi-modal input processing (text, audio, image) and automated ledger management.",
