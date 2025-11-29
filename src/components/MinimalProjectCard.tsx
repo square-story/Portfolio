@@ -1,121 +1,175 @@
 "use client";
+
 import { DATA } from "@/data/resume";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Github, Globe } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
+interface ProjectCardProps {
+    project: (typeof DATA.projects)[number];
+    index: number;
+    active: number | null;
+    setActive: (index: number | null) => void;
+}
+
+function ProjectCard({ project, index, active, setActive }: ProjectCardProps) {
+    const isActive = active === index;
+
+    return (
+        <li
+            className={cn(
+                "group relative rounded-xl border bg-card text-card-foreground shadow-sm transition-colors hover:bg-accent/50",
+                isActive ? "ring-2 ring-primary/20 bg-accent/50" : "hover:border-primary/50"
+            )}
+            onMouseEnter={() => setActive(index)}
+            onMouseLeave={() => setActive(null)}
+            onClick={() => setActive(isActive ? null : index)}
+            onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setActive(isActive ? null : index);
+                }
+            }}
+            tabIndex={0}
+            role="button"
+            aria-expanded={isActive}
+            aria-label={`View details for ${project.title}`}
+        >
+            <div className="p-4 sm:p-5">
+                <div className="flex items-start gap-4">
+                    {project.image && (
+                        <div className="relative h-12 w-16 shrink-0 overflow-hidden rounded-md border sm:h-14 sm:w-14 bg-muted">
+                            <img
+                                src={project.image}
+                                alt={project.title}
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                            />
+                        </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                            <h3 className="font-semibold text-base tracking-tight truncate">
+                                {project.title}
+                            </h3>
+                            <span className="text-[10px] text-muted-foreground whitespace-nowrap font-mono">
+                                {project.dates}
+                            </span>
+                        </div>
+                        <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+                            {project.description}
+                        </p>
+
+                        {/* Technologies - Visible on Desktop when not active, hidden on mobile initially */}
+                        {!isActive && project.technologies && project.technologies.length > 0 && (
+                            <div className="mt-3 hidden sm:flex flex-wrap gap-1.5">
+                                {project.technologies.slice(0, 4).map((tech) => (
+                                    <Badge
+                                        key={tech}
+                                        variant="secondary"
+                                        className="px-1.5 py-0 text-[10px] font-normal"
+                                    >
+                                        {tech}
+                                    </Badge>
+                                ))}
+                                {project.technologies.length > 4 && (
+                                    <span className="text-[10px] text-muted-foreground self-center px-1">
+                                        +{project.technologies.length - 4}
+                                    </span>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <AnimatePresence>
+                    {isActive && (
+                        <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="overflow-hidden"
+                        >
+                            {/* Expanded Content */}
+                            <div className="space-y-3 pt-3 mt-3 border-t border-border/50">
+                                {project.image && (
+                                    <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-muted/50 sm:hidden">
+                                        <img
+                                            src={project.image}
+                                            alt={`${project.title} preview`}
+                                            className="h-full w-full object-cover"
+                                        />
+                                    </div>
+                                )}
+
+
+
+                                {project.technologies && project.technologies.length > 0 && (
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {project.technologies.map((tech) => (
+                                            <Badge
+                                                key={tech}
+                                                variant="secondary"
+                                                className="px-2 py-0.5 text-[10px] sm:text-xs font-normal"
+                                            >
+                                                {tech}
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {project.links && project.links.length > 0 && (
+                                    <div className="flex flex-wrap gap-2 pt-1">
+                                        {project.links.map((link, i) => (
+                                            <Link
+                                                key={i}
+                                                href={link.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={cn(
+                                                    "inline-flex items-center gap-1.5 text-xs font-medium transition-colors hover:text-primary",
+                                                    "px-3 py-1.5 rounded-md bg-secondary/50 hover:bg-secondary"
+                                                )}
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                {link.type === "Website" && <Globe className="h-3.5 w-3.5" />}
+                                                {link.type === "Source" && <Github className="h-3.5 w-3.5" />}
+                                                {link.type}
+                                                <ArrowUpRight className="h-3 w-3 opacity-50" />
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+        </li>
+    );
+}
 
 export function MinimalProjectList() {
     const [active, setActive] = useState<number | null>(null);
 
     return (
-        <ul className="flex flex-col gap-3 sm:gap-4 w-full max-w-5xl mx-auto">
-            {DATA.projects.map((project, idx) => (
-                <li
-                    key={project.title}
-                    className={`
-            group relative border rounded-xl px-4 py-3 sm:px-5 sm:py-4 transition-all
-            cursor-pointer bg-background/70 backdrop-blur-[1px] hover:bg-accent/40
-            hover:shadow-md focus:shadow-md outline-none
-            ${active === idx ? "ring-2 ring-border/60 shadow-lg z-10" : ""}
-          `}
-                    onMouseEnter={() => setActive(idx)}
-                    onMouseLeave={() => setActive(null)}
-                    onClick={() => setActive(active === idx ? null : idx)}
-                    tabIndex={0}
-                    onFocus={() => setActive(idx)}
-                    onBlur={() => setActive(null)}
-                >
-                    <div className="flex items-start gap-3">
-                        {project.image && (
-                            <img
-                                src={project.image}
-                                alt={project.title}
-                                className="hidden xs:block w-16 h-16 sm:w-20 sm:h-20 rounded-md object-cover border"
-                                loading="lazy"
-                            />
-                        )}
-                        <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between gap-2">
-                                <span className="font-semibold truncate text-sm sm:text-base">
-                                    {project.title}
-                                </span>
-                                <span className="whitespace-nowrap text-[10px] sm:text-xs text-muted-foreground">
-                                    {project.dates}
-                                </span>
-                            </div>
-                            <div className="text-xs sm:text-sm text-muted-foreground line-clamp-2 group-focus:line-clamp-none">
-                                {project.description}
-                            </div>
-                            {project.technologies && project.technologies.length > 0 && (
-                                <div className="mt-2 hidden sm:flex flex-wrap gap-1">
-                                    {project.technologies.slice(0, 6).map((tech) => (
-                                        <span
-                                            key={tech}
-                                            className="inline-flex items-center px-2 py-0.5 rounded border text-[10px] text-muted-foreground"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                    {project.technologies.length > 6 && (
-                                        <span className="text-[10px] text-muted-foreground px-1">
-                                            +{project.technologies.length - 6}
-                                        </span>
-                                    )}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                    {/* Reveal on hover/focus/active */}
-                    <div
-                        className={`
-              transition-all overflow-hidden
-              ${active === idx ? "max-h-[700px] mt-3 opacity-100" : "max-h-0 opacity-0"}
-            `}
-                    >
-                        {project.image && (
-                            <img
-                                src={project.image}
-                                alt={project.title}
-                                className="w-full max-h-52 object-cover rounded-md mb-3 border"
-                                loading="lazy"
-                            />
-                        )}
-                        {project.technologies && project.technologies.length > 0 && (
-                            <div className="mb-3 flex sm:hidden flex-wrap gap-1">
-                                {project.technologies.slice(0, 6).map((tech) => (
-                                    <span
-                                        key={tech}
-                                        className="inline-flex items-center px-2 py-0.5 rounded border text-[10px] text-muted-foreground"
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
-                                {project.technologies.length > 6 && (
-                                    <span className="text-[10px] text-muted-foreground px-1">
-                                        +{project.technologies.length - 6}
-                                    </span>
-                                )}
-                            </div>
-                        )}
-                        {project.links && project.links.length > 0 && (
-                            <div className="flex gap-2 flex-wrap">
-                                {project.links.map((link, i) => (
-                                    <a
-                                        key={i}
-                                        href={link.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 text-[11px] sm:text-xs px-2.5 py-1 rounded border bg-accent/40 hover:bg-accent/60 transition-colors"
-                                    >
-                                        {link.icon}
-                                        {link.type}
-                                    </a>
-                                ))}
-                            </div>
-                        )}
-                        {/* Add more details if needed */}
-                    </div>
-                </li>
-            ))}
-        </ul>
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6">
+            <ul className="flex flex-col gap-4">
+                {DATA.projects.map((project, idx) => (
+                    <ProjectCard
+                        key={project.title}
+                        project={project}
+                        index={idx}
+                        active={active}
+                        setActive={setActive}
+                    />
+                ))}
+            </ul>
+        </section>
     );
 }

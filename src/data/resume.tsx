@@ -135,6 +135,69 @@ export const DATA = {
   ],
   projects: [
     {
+      title: "Blipko",
+      href: "https://github.com/square-story/blipko",
+      dates: "Nov 2024 - Present",
+      active: true,
+      description:
+        "A fintech-grade WhatsApp chatbot that functions as a full-stack digital accountant. Users can input financial information through typing, speaking, or sending photos.",
+      technologies: [
+        "Node.js",
+        "TypeScript",
+        "WhatsApp API",
+        "OpenAI Whisper",
+        "Prisma",
+        "PostgreSQL",
+        "Docker",
+        "Clean Architecture",
+      ],
+      links: [
+        {
+          type: "Source",
+          href: "https://github.com/square-story/blipko",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "/blipko-banner.png", // Placeholder, user might need to update
+      contribution: "Architected the entire backend using Clean Architecture and DDD principles. Implemented multi-modal input processing (text, audio, image) and automated ledger management.",
+    },
+    {
+      title: "Sarcastic Remarks",
+      href: "https://sarcastic-remarks.vercel.app",
+      dates: "Aug 2025 - Present",
+      active: true,
+      description:
+        "An AI-powered resume critique tool that grades resumes like a strict teacher, with multi-language support, detailed scoring, and red-ink style corrections across PDF, DOCX, and DOC uploads.",
+      technologies: [
+        "React 19",
+        "TypeScript",
+        "Vite",
+        "Tailwind CSS",
+        "shadcn/ui",
+        "Vaul Drawer",
+        "Google Gemini 2.5 Flash",
+        "pdfjs-dist",
+        "mammoth",
+        "Vercel Analytics",
+        "Vercel",
+      ],
+      links: [
+        {
+          type: "Website",
+          href: "https://sarcastic-remarks.vercel.app",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "Source",
+          href: "https://github.com/square-story/sarcastic-remarks",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "/sarcastic-remarks-banner.png",
+      contribution:
+        "Built the full resume grading experience: implemented PDF/DOCX/DOC text extraction, integrated Google Gemini 2.5 Flash for analysis, designed the paper-style UI with red-ink highlights, and added multi-language feedback (8 languages), detailed scoring (letter grade, score out of 100, strengths, mistake breakdown), and responsive layout with Vercel deployment and analytics."
+    },
+    {
       title: "Inspecto",
       href: "https://github.com/square-story/Inspecto",
       dates: "Jan 2025 - Mar 2025",
@@ -166,6 +229,7 @@ export const DATA = {
         },
       ],
       image: "/chrome_BU150hXWkI.png",
+      contribution: "Developed the core inspection booking flow and integrated Stripe for secure payments.",
     },
     {
       title: "SurveyForm",
@@ -199,6 +263,7 @@ export const DATA = {
         },
       ],
       image: "/chrome_zTXss89ENW.png",
+      contribution: "Built the dynamic form builder interface and implemented data visualization for survey results.",
     },
     {
       title: "Anime Avatar Generator",
@@ -227,6 +292,7 @@ export const DATA = {
         },
       ],
       image: "/chrome_siSfTHoPAb.png",
+      contribution: "Created the frontend UI and integrated third-party avatar generation APIs.",
     },
     {
       title: "Yet another user management system (YAUMS)",
@@ -252,6 +318,7 @@ export const DATA = {
         },
       ],
       image: "/userManagment.png",
+      contribution: "Designed the admin dashboard and implemented role-based access control (RBAC).",
     },
     {
       title: "Zay E-commerce",
@@ -279,6 +346,7 @@ export const DATA = {
         },
       ],
       image: "/Zay.png",
+      contribution: "Implemented the shopping cart logic and integrated payment gateways.",
     },
   ],
   // hackathons: [
