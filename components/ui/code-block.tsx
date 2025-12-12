@@ -1,7 +1,7 @@
 'use client'
 
 import { Check, Copy } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCopyToClipboard } from '@uidotdev/usehooks'
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLPreElement> {
@@ -11,6 +11,11 @@ interface CodeBlockProps extends React.HTMLAttributes<HTMLPreElement> {
 export function CodeBlock({ children, className, ...props }: CodeBlockProps) {
     const [isCopied, copyToClipboard] = useCopyToClipboard()
     const hasCopiedText = Boolean(isCopied);
+    useEffect(() => {
+        setTimeout(() => {
+            copyToClipboard('')
+        }, 2000);
+    }, [isCopied])
     const getText = (node: React.ReactNode): string => {
         if (typeof node === 'string' || typeof node === 'number') {
             return String(node)
