@@ -4,6 +4,7 @@ import { formatDate, getBlogPosts, getPost } from '@/app/blog/utils'
 import { baseUrl } from '@/app/sitemap'
 import parse, { Element, DOMNode, HTMLReactParserOptions } from 'html-react-parser'
 import { CodeBlock } from '@/components/ui/code-block'
+import Image from 'next/image'
 
 export async function generateStaticParams() {
     let posts = await getBlogPosts()
@@ -129,11 +130,11 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
 
             {/* Hero Image */}
             {post.metadata.image && (
-                <div className="relative mb-10 aspect-video w-full overflow-hidden rounded-xl">
+                <div className="aspect-auto w-full overflow-hidden rounded-xl">
                     <img
                         src={post.metadata.image}
                         alt={post.metadata.title}
-                        className="h-full w-full object-cover"
+                        className="object-cover"
                     />
                 </div>
             )}
