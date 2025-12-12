@@ -2,11 +2,12 @@
 import { TextMorph } from '@/components/ui/text-morph'
 import { ScrollProgress } from '@/components/ui/scroll-progress'
 import { useEffect, useState } from 'react'
+import { useCopyToClipboard } from '@uidotdev/usehooks'
 
 function CopyButton() {
   const [text, setText] = useState('Copy')
+  const [_, setCopy] = useCopyToClipboard()
   const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
-
   useEffect(() => {
     setTimeout(() => {
       setText('Copy')
@@ -17,7 +18,7 @@ function CopyButton() {
     <button
       onClick={() => {
         setText('Copied')
-        navigator.clipboard.writeText(currentUrl)
+        setCopy(currentUrl)
       }}
       className="font-base flex items-center gap-1 text-center text-sm text-zinc-500 transition-colors dark:text-zinc-400"
       type="button"
