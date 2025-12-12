@@ -1,6 +1,8 @@
 import { getBlogPosts } from '@/app/blog/utils'
 import Link from 'next/link'
 
+export const revalidate = 60 // ISR: re-generate at most every 60 seconds
+
 export const metadata = {
     title: 'Blog',
     description: 'Read my thoughts on software development, design, and more.',
