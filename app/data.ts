@@ -2,7 +2,7 @@ type Project = {
   name: string
   description: string
   link: string
-  video: string
+  media: string[]
   id: string
 }
 
@@ -33,8 +33,10 @@ export const PROJECTS: Project[] = [
     description:
       'A WhatsApp chatbot that acts as a full-stack digital accountant, allowing users to input financial information via typing, speaking, or photo sharing.',
     link: 'https://github.com/square-story/blipko',
-    video:
-      'https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/XSfIvT7BUWbPRXhrbLed/ee6871c9-8400-49d2-8be9-e32675eabf7e.mp4?_a=DATAdtAAZAA0',
+    media: [
+      'https://github.com/square-story/blipko/raw/main/public/screenshot02.png',
+      'https://github.com/square-story/blipko/raw/main/public/screenshot01.png'
+    ],
     id: 'project1',
   },
   {
@@ -42,8 +44,9 @@ export const PROJECTS: Project[] = [
     description:
       'A web application that simplifies vehicle inspections by connecting users with verified inspectors.',
     link: 'https://github.com/square-story/Inspecto',
-    video:
-      'https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/XSfIvT7BUWbPRXhrbLed/ee6871c9-8400-49d2-8be9-e32675eabf7e.mp4?_a=DATAdtAAZAA0',
+    media: [
+      '/inspecto-admin.mp4',
+    ],
     id: 'project2',
   },
 ]

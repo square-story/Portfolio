@@ -1,10 +1,8 @@
 import { notFound } from 'next/navigation'
-import { CustomMDX } from '@/components/mdx'
 import { formatDate, getBlogPosts, getPost } from '@/app/blog/utils'
-import { baseUrl } from '@/app/sitemap'
-import parse, { Element, DOMNode, HTMLReactParserOptions } from 'html-react-parser'
+import parse, { Element } from 'html-react-parser'
 import { CodeBlock } from '@/components/ui/code-block'
-import Image from 'next/image'
+import { WEBSITE_URL } from '@/lib/constants'
 
 export async function generateStaticParams() {
     let posts = await getBlogPosts()
@@ -32,7 +30,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     } = post.metadata
     let ogImage = image
         ? image
-        : `${baseUrl}/og?title=${encodeURIComponent(title)}`
+        : `${WEBSITE_URL}/og?title=${encodeURIComponent(title)}`
 
     return {
         title,
@@ -42,7 +40,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
             description,
             type: 'article',
             publishedTime,
-            url: `${baseUrl}/blog/${post.slug}`,
+            url: `${WEBSITE_URL}/blog/${post.slug}`,
             images: [
                 {
                     url: ogImage,
@@ -81,9 +79,9 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
                         dateModified: post.metadata.publishedAt,
                         description: post.metadata.summary,
                         image: post.metadata.image
-                            ? `${baseUrl}${post.metadata.image}`
+                            ? `${WEBSITE_URL}${post.metadata.image}`
                             : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-                        url: `${baseUrl}/blog/${post.slug}`,
+                        url: `${WEBSITE_URL}/blog/${post.slug}`,
                         author: {
                             '@type': 'Person',
                             name: post.metadata.author?.name || 'Sadik',

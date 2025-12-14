@@ -12,6 +12,7 @@ import {
 import { PROJECTS, EMAIL, SOCIAL_LINKS } from './data'
 import GithubCalendarWidget from '@/components/ui/GithubCalendarWidget'
 import { AnimatedBackground } from '@/components/ui/animated-background'
+import { Carousel } from '@/components/ui/carousel'
 import Link from 'next/link'
 
 const VARIANTS_CONTAINER = {
@@ -33,11 +34,15 @@ const TRANSITION_SECTION = {
     duration: 0.3,
 }
 
-type ProjectVideoProps = {
-    src: string
+type ProjectModalProps = {
+    media: string[]
 }
 
-function ProjectVideo({ src }: ProjectVideoProps) {
+function ProjectModal({ media }: ProjectModalProps) {
+    const src = media[0]
+    const isVideo =
+        src.match(/\.(mp4|webm|ogg)$/i) || src.includes('cloudinary')
+
     return (
         <MorphingDialog
             transition={{
@@ -47,23 +52,26 @@ function ProjectVideo({ src }: ProjectVideoProps) {
             }}
         >
             <MorphingDialogTrigger>
-                <video
-                    src={src}
-                    autoPlay
-                    loop
-                    muted
-                    className="aspect-video w-full cursor-zoom-in rounded-xl"
-                />
-            </MorphingDialogTrigger>
-            <MorphingDialogContainer>
-                <MorphingDialogContent className="relative aspect-video rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
+                {isVideo ? (
                     <video
                         src={src}
                         autoPlay
                         loop
                         muted
-                        className="aspect-video h-[50vh] w-full rounded-xl md:h-[70vh]"
+                        playsInline
+                        className="aspect-video w-full cursor-zoom-in rounded-xl object-cover"
                     />
+                ) : (
+                    <img
+                        src={src}
+                        alt="Project preview"
+                        className="aspect-video w-full cursor-zoom-in rounded-xl object-cover"
+                    />
+                )}
+            </MorphingDialogTrigger>
+            <MorphingDialogContainer>
+                <MorphingDialogContent className="relative aspect-video w-full max-w-4xl rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
+                    <Carousel items={media} />
                 </MorphingDialogContent>
                 <MorphingDialogClose
                     className="fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1"
@@ -154,7 +162,7 @@ export default function HomePageClient({ posts }: { posts: BlogPost[] }) {
                     {PROJECTS.map((project) => (
                         <div key={project.name} className="space-y-2">
                             <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                                <ProjectVideo src={project.video} />
+                                <ProjectModal media={project.media} />
                             </div>
                             <div className="px-1">
                                 <a

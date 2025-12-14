@@ -3,7 +3,7 @@ import HomePageClient from './home-page-client'
 
 export const metadata = {
   title: 'Portfolio',
-  description: 'Portfolio of Muhammed Sadiq',
+  description: 'Portfolio of Mohammed Sadik',
 }
 
 export default async function Page() {
