@@ -34,6 +34,7 @@ export const PROJECTS: Project[] = [
       'A WhatsApp chatbot that acts as a full-stack digital accountant, allowing users to input financial information via typing, speaking, or photo sharing.',
     link: 'https://github.com/square-story/blipko',
     media: [
+      '/blipko-dashboard.mp4',
       'https://github.com/square-story/blipko/raw/main/public/screenshot02.png',
       'https://github.com/square-story/blipko/raw/main/public/screenshot01.png'
     ],
