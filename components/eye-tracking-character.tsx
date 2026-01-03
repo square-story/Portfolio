@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { cn } from '@/lib/utils'; // Assuming standard shadcn/ui utils exist, otherwise I'll use template literal
 
 interface EyeProps {
     cx: string; // Center X as percentage

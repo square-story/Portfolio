@@ -14,6 +14,7 @@ import GithubCalendarWidget from '@/components/ui/GithubCalendarWidget'
 import { AnimatedBackground } from '@/components/ui/animated-background'
 import { Carousel } from '@/components/ui/carousel'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const VARIANTS_CONTAINER = {
     hidden: { opacity: 0 },
@@ -62,9 +63,11 @@ function ProjectModal({ media }: ProjectModalProps) {
                         className="aspect-video w-full cursor-zoom-in rounded-xl object-cover"
                     />
                 ) : (
-                    <img
+                    <Image
                         src={src}
                         alt="Project preview"
+                        width={1280}
+                        height={720}
                         className="aspect-video w-full cursor-zoom-in rounded-xl object-cover"
                     />
                 )}
@@ -133,7 +136,9 @@ type BlogPost = {
     slug: string
 }
 
-export default function HomePageClient({ posts }: { posts: BlogPost[] }) {
+import { Activity } from 'react-activity-calendar'
+
+export default function HomePageClient({ posts, githubData }: { posts: BlogPost[], githubData: Activity[] }) {
     return (
         <motion.main
             className="space-y-24"
@@ -186,7 +191,7 @@ export default function HomePageClient({ posts }: { posts: BlogPost[] }) {
                 variants={VARIANTS_SECTION}
                 transition={TRANSITION_SECTION}
             >
-                <GithubCalendarWidget username="square-story" />
+                <GithubCalendarWidget data={githubData} />
             </motion.section>
 
             <motion.section

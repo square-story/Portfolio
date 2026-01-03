@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { formatDate, getBlogPosts, getPost } from '@/app/blog/utils'
 import parse, { Element } from 'html-react-parser'
@@ -115,9 +116,11 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
                             <span>•</span>
                             <div className="flex items-center space-x-2">
                                 {post.metadata.author.image && (
-                                    <img
+                                    <Image
                                         src={post.metadata.author.image}
                                         alt={post.metadata.author.name}
+                                        width={24}
+                                        height={24}
                                         className="h-6 w-6 rounded-full"
                                     />
                                 )}
@@ -128,12 +131,16 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
                 </div>
             </div>
 
+
+
             {/* Hero Image */}
             {post.metadata.image && (
                 <div className="aspect-auto w-full overflow-hidden rounded-xl">
-                    <img
+                    <Image
                         src={post.metadata.image}
                         alt={post.metadata.title}
+                        width={1200}
+                        height={630}
                         className="object-cover"
                     />
                 </div>
@@ -170,9 +177,11 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
                 <div className="mt-12 border-t border-zinc-200 pt-8 dark:border-zinc-800">
                     <div className="flex items-center gap-4">
                         {post.metadata.author.image && (
-                            <img
+                            <Image
                                 src={post.metadata.author.image}
                                 alt={post.metadata.author.name}
+                                width={64}
+                                height={64}
                                 className="h-16 w-16 rounded-full border border-zinc-200 dark:border-zinc-800"
                             />
                         )}

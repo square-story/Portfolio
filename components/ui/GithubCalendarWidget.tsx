@@ -1,39 +1,24 @@
-'use client'
-
 import { useTheme } from 'next-themes'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { ActivityCalendar, Activity } from 'react-activity-calendar'
-import { Skeleton } from '@/components/ui/skeleton'
 
-type GithubCalendarWidgetProps = {
-  username: string
-  blockMargin?: number
-  blockSize?: number
-}
+
 
 export default function GithubCalendarWidget({
-  username,
+  data,
   blockMargin = 4,
   blockSize = 12,
-}: GithubCalendarWidgetProps) {
+}: {
+  data: Activity[]
+  blockMargin?: number
+  blockSize?: number
+}) {
   const { resolvedTheme } = useTheme()
-  const [data, setData] = useState<Activity[]>([])
-  const [loading, setLoading] = useState(true)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setLoading(true)
-    fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`)
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.contributions) {
-          setData(res.contributions)
-        } else {
-          setData([])
-        }
-      })
-      .catch(() => setData([]))
-      .finally(() => setLoading(false))
-  }, [username])
+    setMounted(true)
+  }, [])
 
   const labels = useMemo(
     () => ({
@@ -45,16 +30,9 @@ export default function GithubCalendarWidget({
     }),
     [],
   )
-  if (loading) {
-    return (
-      <div className="w-full space-y-4">
-        <Skeleton className="h-[128px] w-full rounded-md" />
-        <div className="flex items-center justify-between">
-          <Skeleton className="h-4 w-1/4" />
-          <Skeleton className="h-4 w-1/6" />
-        </div>
-      </div>
-    )
+
+  if (!mounted) {
+    return null
   }
 
   return (
