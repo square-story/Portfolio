@@ -13,7 +13,7 @@ export async function generateStaticParams() {
     }))
 }
 
-export const revalidate = 60 // ISR: re-generate individual post pages at most every 60 seconds
+export const revalidate = 3600 // ISR: re-generate individual post pages at most every hour
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
     const params = await props.params
