@@ -1,6 +1,8 @@
 import { getBlogPosts } from './blog/utils'
 import HomePageClient from './home-page-client'
 
+export const revalidate = 3600 // ISR: re-generate home page at most every hour
+
 export const metadata = {
   title: 'Portfolio',
   description: 'Portfolio of Mohammed Sadik',
