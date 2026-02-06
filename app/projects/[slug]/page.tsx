@@ -6,6 +6,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { PROJECTS } from '@/app/data'
 import { getProjectMDX } from '@/lib/mdx'
 import { useMDXComponents } from '@/mdx-components'
+import { TechIcon } from '@/components/tech-icon'
 
 export async function generateStaticParams() {
     return PROJECTS.map((project) => ({
@@ -74,12 +75,7 @@ export default async function ProjectPage(props: { params: Promise<{ slug: strin
                 <div className="flex flex-wrap gap-4 border-y border-zinc-200 py-6 dark:border-zinc-800">
                     <div className="flex flex-wrap gap-2">
                         {project.techStack.map((tech) => (
-                            <span
-                                key={tech}
-                                className="rounded-md bg-zinc-100 px-2.5 py-1 text-sm font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
-                            >
-                                {tech}
-                            </span>
+                            <TechIcon key={tech} name={tech} />
                         ))}
                     </div>
 

@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
 import { Project } from '@/app/data'
 import { cn } from '@/lib/utils'
+import { TechIcon } from '@/components/tech-icon'
 
 export function ProjectCard({ project }: { project: Project }) {
     const [isLoading, setIsLoading] = useState(true)
@@ -49,19 +50,16 @@ export function ProjectCard({ project }: { project: Project }) {
                     </p>
 
                     <div className="mt-auto flex flex-wrap gap-2 pt-2">
-                        {project.techStack.slice(0, 3).map((tech) => (
-                            <span
-                                key={tech}
-                                className="inline-flex items-center rounded-md bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
-                            >
-                                {tech}
-                            </span>
-                        ))}
-                        {project.techStack.length > 3 && (
-                            <span className="inline-flex items-center rounded-md bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-                                +{project.techStack.length - 3}
-                            </span>
-                        )}
+                        <div className="mt-auto flex flex-wrap gap-2 pt-2">
+                            {project.techStack.slice(0, 5).map((tech) => (
+                                <TechIcon key={tech} name={tech} />
+                            ))}
+                            {project.techStack.length > 5 && (
+                                <span className="inline-flex h-6 items-center rounded-md bg-zinc-100 px-2 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                                    +{project.techStack.length - 5}
+                                </span>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
