@@ -1,50 +1,32 @@
 'use client'
 
+import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
+import { Project } from '@/app/data'
+import { cn } from '@/lib/utils'
 
-type ProjectCardProps = {
-    project: {
-        name: string
-        description: string
-        slug: string
-        media: string[]
-        techStack: string[]
-        featured: boolean
-        repoLink?: string
-        link: string
-    }
-}
-
-export function ProjectCard({ project }: ProjectCardProps) {
-    const src = project.media[0]
-    const isVideo = src.match(/\.(mp4|webm|ogg)$/i) || src.includes('cloudinary')
+export function ProjectCard({ project }: { project: Project }) {
+    const [isLoading, setIsLoading] = useState(true)
 
     return (
         <Link href={`/projects/${project.slug}`} className="group block h-full">
             <div className="flex h-full flex-col space-y-4">
                 {/* Media Container */}
-                <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                    <div className="relative h-full w-full overflow-hidden rounded-xl">
-                        {isVideo ? (
-                            <video
-                                src={src}
-                                muted
-                                loop
-                                playsInline
-                                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                onMouseOver={(e) => e.currentTarget.play()}
-                                onMouseOut={(e) => e.currentTarget.pause()}
-                            />
-                        ) : (
-                            <Image
-                                src={src}
-                                alt={project.name}
-                                fill
-                                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                        )}
+                <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-zinc-100 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-800/50 dark:ring-zinc-800/50">
+                    <div className="relative h-full w-full overflow-hidden rounded-xl bg-zinc-200 dark:bg-zinc-800">
+                        <Image
+                            src={project.thumbnail}
+                            alt={project.name}
+                            fill
+                            className={cn(
+                                "object-cover transition-all duration-500 ease-in-out group-hover:scale-105",
+                                isLoading ? "scale-110 blur-xl grayscale" : "scale-100 blur-0 grayscale-0"
+                            )}
+                            onLoad={() => setIsLoading(false)}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
                         <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
                         <div className="absolute right-3 top-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                             <span className="flex items-center justify-center rounded-full bg-white/90 p-2 shadow-sm backdrop-blur-sm dark:bg-black/90">

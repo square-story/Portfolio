@@ -8,6 +8,7 @@ export type Project = {
   slug: string
   techStack: string[]
   featured: boolean
+  thumbnail: string
   category: "Web App" | "Mobile App" | "Tool" | "Other"
 }
 
@@ -40,14 +41,15 @@ export const PROJECTS: Project[] = [
     link: 'https://blipko.vercel.app/',
     repoLink: 'https://github.com/square-story/blipko',
     media: [
-      '/blipko-dashboard.mp4',
-      'https://github.com/square-story/blipko/raw/main/public/screenshot02.png',
-      'https://github.com/square-story/blipko/raw/main/public/screenshot01.png'
+      '/Blipko/blipko-dashboard.mp4',
+      '/Blipko/screenshot02.png',
+      '/Blipko/screenshot01.png'
     ],
     id: 'project1',
     slug: 'blipko',
     techStack: ['Node.js', 'WhatsApp API', 'OpenAI', 'PostgreSQL'],
     featured: true,
+    thumbnail: '/Blipko/thumbnail.png',
     category: 'Tool'
   },
   {
@@ -57,12 +59,13 @@ export const PROJECTS: Project[] = [
     link: 'https://inspecto-flax.vercel.app/',
     repoLink: 'https://github.com/square-story/Inspecto',
     media: [
-      '/inspecto-admin.mp4',
+      '/Inspecto/inspecto-admin.mp4',
     ],
     id: 'project2',
     slug: 'inspecto',
     techStack: ['React', 'Node.js', 'Express', 'MongoDB'],
     featured: true,
+    thumbnail: '/Inspecto/thumbnail.png',
     category: 'Web App'
   },
 ]
