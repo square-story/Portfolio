@@ -1,9 +1,14 @@
-type Project = {
+export type Project = {
   name: string
   description: string
   link: string
+  repoLink?: string
   media: string[]
   id: string
+  slug: string
+  techStack: string[]
+  featured: boolean
+  category: "Web App" | "Mobile App" | "Tool" | "Other"
 }
 
 type WorkExperience = {
@@ -32,23 +37,33 @@ export const PROJECTS: Project[] = [
     name: 'Blipko',
     description:
       'A WhatsApp chatbot that acts as a full-stack digital accountant, allowing users to input financial information via typing, speaking, or photo sharing.',
-    link: 'https://github.com/square-story/blipko',
+    link: 'https://blipko.vercel.app/',
+    repoLink: 'https://github.com/square-story/blipko',
     media: [
       '/blipko-dashboard.mp4',
       'https://github.com/square-story/blipko/raw/main/public/screenshot02.png',
       'https://github.com/square-story/blipko/raw/main/public/screenshot01.png'
     ],
     id: 'project1',
+    slug: 'blipko',
+    techStack: ['Node.js', 'WhatsApp API', 'OpenAI', 'PostgreSQL'],
+    featured: true,
+    category: 'Tool'
   },
   {
     name: 'Inspecto',
     description:
       'A web application that simplifies vehicle inspections by connecting users with verified inspectors.',
-    link: 'https://github.com/square-story/Inspecto',
+    link: 'https://inspecto-flax.vercel.app/',
+    repoLink: 'https://github.com/square-story/Inspecto',
     media: [
       '/inspecto-admin.mp4',
     ],
     id: 'project2',
+    slug: 'inspecto',
+    techStack: ['React', 'Node.js', 'Express', 'MongoDB'],
+    featured: true,
+    category: 'Web App'
   },
 ]
 

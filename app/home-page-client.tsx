@@ -1,20 +1,13 @@
 'use client'
 import { motion } from 'motion/react'
-import { XIcon } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Magnetic } from '@/components/ui/magnetic'
-import {
-    MorphingDialog,
-    MorphingDialogTrigger,
-    MorphingDialogContent,
-    MorphingDialogClose,
-    MorphingDialogContainer,
-} from '@/components/ui/morphing-dialog'
-import { PROJECTS, EMAIL, SOCIAL_LINKS } from './data'
+import { PROJECTS, EMAIL, SOCIAL_LINKS, Project } from './data'
 import GithubCalendarWidget from '@/components/ui/GithubCalendarWidget'
 import { AnimatedBackground } from '@/components/ui/animated-background'
-import { Carousel } from '@/components/ui/carousel'
 import Link from 'next/link'
 import Image from 'next/image'
+import { ProjectCard } from '@/components/project-card'
 
 const VARIANTS_CONTAINER = {
     hidden: { opacity: 0 },
@@ -33,65 +26,6 @@ const VARIANTS_SECTION = {
 
 const TRANSITION_SECTION = {
     duration: 0.3,
-}
-
-type ProjectModalProps = {
-    media: string[]
-}
-
-function ProjectModal({ media }: ProjectModalProps) {
-    const src = media[0]
-    const isVideo =
-        src.match(/\.(mp4|webm|ogg)$/i) || src.includes('cloudinary')
-
-    return (
-        <MorphingDialog
-            transition={{
-                type: 'spring',
-                bounce: 0,
-                duration: 0.3,
-            }}
-        >
-            <MorphingDialogTrigger>
-                {isVideo ? (
-                    <video
-                        src={src}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="aspect-video w-full cursor-zoom-in rounded-xl object-cover"
-                    />
-                ) : (
-                    <Image
-                        src={src}
-                        alt="Project preview"
-                        width={1280}
-                        height={720}
-                        className="aspect-video w-full cursor-zoom-in rounded-xl object-cover"
-                    />
-                )}
-            </MorphingDialogTrigger>
-            <MorphingDialogContainer>
-                <MorphingDialogContent className="relative aspect-video w-full max-w-4xl rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
-                    <Carousel items={media} />
-                </MorphingDialogContent>
-                <MorphingDialogClose
-                    className="fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1"
-                    variants={{
-                        initial: { opacity: 0 },
-                        animate: {
-                            opacity: 1,
-                            transition: { delay: 0.3, duration: 0.1 },
-                        },
-                        exit: { opacity: 0, transition: { duration: 0 } },
-                    }}
-                >
-                    <XIcon className="h-5 w-5 text-zinc-500" />
-                </MorphingDialogClose>
-            </MorphingDialogContainer>
-        </MorphingDialog>
-    )
 }
 
 function MagneticSocialLink({
@@ -162,26 +96,17 @@ export default function HomePageClient({ posts, githubData }: { posts: BlogPost[
                 variants={VARIANTS_SECTION}
                 transition={TRANSITION_SECTION}
             >
-                <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
+                <div className="mb-5 flex items-center justify-between">
+                    <h3 className="text-lg font-medium">Selected Projects</h3>
+                    <Link href="/projects" className="group flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300">
+                        View All <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                </div>
+
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                     {PROJECTS.map((project) => (
-                        <div key={project.name} className="space-y-2">
-                            <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                                <ProjectModal media={project.media} />
-                            </div>
-                            <div className="px-1">
-                                <a
-                                    className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                                    href={project.link}
-                                    target="_blank"
-                                >
-                                    {project.name}
-                                    <span className="absolute bottom-0.5 left-0 block h-px w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
-                                </a>
-                                <p className="text-base text-zinc-600 dark:text-zinc-400">
-                                    {project.description}
-                                </p>
-                            </div>
+                        <div key={project.name} className="h-64 sm:h-80">
+                            <ProjectCard project={project} />
                         </div>
                     ))}
                 </div>
