@@ -14,7 +14,14 @@ import {
     Gemini,
     Nextjs,
     Vercel,
-    PostgreSQL
+    PostgreSQL,
+    JWT,
+    Stripe,
+    SocketIO,
+    Git,
+    Docker,
+    Cloudinary,
+    Prisma
 } from '@/components/icons'
 
 export function TechIcon({ name }: { name: string }) {
@@ -32,7 +39,14 @@ export function TechIcon({ name }: { name: string }) {
         'Gemini': Gemini,
         'Nextjs': Nextjs,
         'Vercel': Vercel,
-        'PostgreSQL': PostgreSQL
+        'PostgreSQL': PostgreSQL,
+        'JWT': JWT,
+        'Stripe': Stripe,
+        'SocketIO': SocketIO,
+        'Git': Git,
+        'Docker': Docker,
+        'Cloudinary': Cloudinary,
+        'Prisma': Prisma,
     }
 
     const IconComponent = iconMap[name]

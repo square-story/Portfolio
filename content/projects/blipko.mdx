@@ -3,21 +3,42 @@ title: Blipko
 summary: A WhatsApp chatbot that acts as a full-stack digital accountant.
 ---
 
-## Overview
+## The Spark ✨
 
-Blipko is an innovative solution designed to simplify personal finance management. By leveraging the ubiquity of WhatsApp, it allows users to track their expenses and income as naturally as chatting with a friend.
+I tried them all—complex finance apps, rigorous Excel sheets, and manual notebooks. They all failed for one reason: **friction**. Standing in line for a coffee, the last thing I want to do is open an app, wait for it to load, navigate three menus, and log an expense.
 
-## Key Features
+I realized the only app I open without thinking is **WhatsApp**. So, I decided to build my accountant right there.
 
-- **Natural Language Input**: Type "Spent 50 on lunch" and it's recorded.
-- **Voice Commands**: meaningful expense tracking on the go.
-- **Image Recognition**: Snap a photo of a receipt to log it automatically.
-- **Monthly Reports**: Get automated summaries of your financial health.
+## How it Works
 
-## Technologies
+Blipko changes the paradigm from "Data Entry" to "Conversation".
 
-Built with a robust stack ensuring reliability and scalability:
-- **Node.js** for the backend logic.
-- **WhatsApp Cloud API** for the messaging interface.
-- **OpenAI** for parsing natural language and receipt images.
-- **PostgreSQL** for secure and structured data storage.
+You simply text: *"Spent 45 on dinner and 15 for the cab home."*
+
+In the background, Blipko uses **OpenAI** to parse your natural language, identifying multiple transactions, assigning categories (Food, Transport), and recording the time. It replies instantly with a confirmation and a playful emoji.
+
+## Technical Architecture 🛠️
+
+- **Backend**: Node.js serverless functions handling webhooks from Meta.
+- **Intelligence**: GPT-4o mini for cost-effective, high-accuracy intent classification.
+- **Database**: PostgreSQL with strict schemas to ensure financial data integrity.
+
+## Recent Polish 💎
+
+I recently tackled some critical user experience issues:
+
+- **Reduced Latency**: Optimized the webhook handshake and processing pipeline, bringing response times down from ~3s to &lt;800ms.
+- **Context Awareness**: Blipko now remembers recent context, so if you correct a category ("Actually, that was for Work"), it understands which transaction you're referring to.
+
+## Roadmap 🗺️
+
+The goal is to make Blipko a complete financial companion:
+
+- **Visual Charts**: Generating spend analysis charts on the fly and sending them as images.
+- **Group Splitting**: "Split 50 with @Sarah for lunch" will automatically handle the math.
+- **PDF Reports**: One-click export for monthly statements.
+
+## Gallery
+
+<RoundedImage alt="Blipko Dashboard" src="/Blipko/Screenshot01.png" width={800} height={500} />
+<RoundedImage alt="Blipko Dashboard" src="/Blipko/Screenshot02.png" width={800} height={500} />

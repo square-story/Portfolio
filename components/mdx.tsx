@@ -120,6 +120,7 @@ let components = {
     code: Code,
     Table,
     Cover,
+    RoundedImage,
 }
 
 export function CustomMDX(props: any) {

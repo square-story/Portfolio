@@ -33,5 +33,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       const codeHTML = highlight(children as string)
       return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
     },
+    RoundedImage: (props: ComponentPropsWithoutRef<typeof Image>) => {
+      return <Image className="rounded-lg border border-zinc-200 dark:border-zinc-800" {...props} />
+    },
   }
 }

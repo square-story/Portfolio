@@ -47,7 +47,7 @@ export const PROJECTS: Project[] = [
     ],
     id: 'project1',
     slug: 'blipko',
-    techStack: ['Node.js', 'WhatsApp API', 'OpenAI', 'PostgreSQL', 'Gemini', 'Tailwind CSS'],
+    techStack: ['Prisma', 'Node.js', 'WhatsApp API', 'OpenAI', 'PostgreSQL', 'Gemini', 'Tailwind CSS', 'Vercel', 'Nextjs', 'React', 'Express', 'MongoDB'],
     featured: true,
     thumbnail: '/Blipko/thumbnail.png',
     category: 'Tool'
@@ -63,7 +63,7 @@ export const PROJECTS: Project[] = [
     ],
     id: 'project2',
     slug: 'inspecto',
-    techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'Vercel', 'Nextjs', 'Tailwind CSS'],
+    techStack: ['Stripe', 'SocketIO', 'Git', 'Docker', 'Cloudinary', 'React', 'Node.js', 'Express', 'MongoDB', 'Vercel', 'Tailwind CSS', 'JWT',],
     featured: true,
     thumbnail: '/Inspecto/thumbnail.png',
     category: 'Web App'
