@@ -72,10 +72,12 @@ type BlogPost = {
 
 import { Activity } from 'react-activity-calendar'
 
+import { TechLogoLoop } from '@/components/tech-logo-loop'
+
 export default function HomePageClient({ posts, githubData }: { posts: BlogPost[], githubData: Activity[] }) {
     return (
         <motion.main
-            className="space-y-24"
+            className="space-y-12"
             variants={VARIANTS_CONTAINER}
             initial="hidden"
             animate="visible"
@@ -96,7 +98,15 @@ export default function HomePageClient({ posts, githubData }: { posts: BlogPost[
                 variants={VARIANTS_SECTION}
                 transition={TRANSITION_SECTION}
             >
-                <div className="mb-5 flex items-center justify-between">
+                <TechLogoLoop />
+            </motion.section>
+
+            <motion.section
+                variants={VARIANTS_SECTION}
+                transition={TRANSITION_SECTION}
+                className="space-y-6"
+            >
+                <div className="flex items-center justify-between">
                     <h3 className="text-lg font-medium">Selected Projects</h3>
                     <Link href="/projects" className="group flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300">
                         View All <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
