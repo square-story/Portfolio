@@ -132,8 +132,14 @@ export default function HomePageClient({ posts, githubData }: { posts: BlogPost[
             <motion.section
                 variants={VARIANTS_SECTION}
                 transition={TRANSITION_SECTION}
+                className="space-y-6"
             >
-                <h3 className="mb-3 text-lg font-medium">Blog</h3>
+                <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-medium">Blog</h3>
+                    <Link href="/blog" className="group flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300">
+                        View All <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                </div>
                 <div className="flex flex-col space-y-0">
                     <AnimatedBackground
                         enableHover
