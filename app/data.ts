@@ -19,6 +19,8 @@ type WorkExperience = {
   end: string
   link: string
   id: string
+  description?: string
+  technologies?: string[]
 }
 
 type BlogPost = {
@@ -78,6 +80,18 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     end: 'Present',
     link: 'https://sadik.is-a.dev',
     id: 'work1',
+    description: 'Designed and developed responsive web applications, created custom interactive UI components with motion primitives, and integrated generative AI services.',
+    technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'MongoDB'],
+  },
+  {
+    company: 'Inspecto',
+    title: 'Full-stack Developer (Contract)',
+    start: '2023',
+    end: '2024',
+    link: 'https://inspecto-flax.vercel.app/',
+    id: 'work2',
+    description: 'Engineered a vehicle inspection platform. Built real-time communications using Socket.io and implemented secure payment workflows with Stripe.',
+    technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'Socket.io', 'Stripe'],
   },
 ]
 

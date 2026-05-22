@@ -1,8 +1,8 @@
 'use client'
 import { motion } from 'motion/react'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { Magnetic } from '@/components/ui/magnetic'
-import { PROJECTS, EMAIL, SOCIAL_LINKS, Project } from './data'
+import { PROJECTS, EMAIL, SOCIAL_LINKS, Project, WORK_EXPERIENCE } from './data'
 import GithubCalendarWidget from '@/components/ui/GithubCalendarWidget'
 import { AnimatedBackground } from '@/components/ui/animated-background'
 import Link from 'next/link'
@@ -122,6 +122,68 @@ export default function HomePageClient({ posts, githubData }: { posts: BlogPost[
                     {PROJECTS.map((project) => (
                         <ProjectCard key={project.name} project={project} />
                     ))}
+                </div>
+            </motion.section>
+
+            <motion.section
+                variants={VARIANTS_SECTION}
+                transition={TRANSITION_SECTION}
+                className="space-y-6"
+            >
+                <h3 className="text-lg font-medium">Work Experience</h3>
+                <div className="flex flex-col space-y-0">
+                    <AnimatedBackground
+                        enableHover
+                        className="h-full w-full rounded-lg bg-zinc-100 dark:bg-zinc-900/80"
+                        transition={{
+                            type: 'spring',
+                            bounce: 0,
+                            duration: 0.2,
+                        }}
+                    >
+                        {WORK_EXPERIENCE.map((exp) => (
+                            <a
+                                key={exp.id}
+                                className="-mx-3 flex flex-col space-y-2 rounded-xl px-3 py-3"
+                                href={exp.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-id={exp.id}
+                            >
+                                <div className="flex items-start justify-between w-full gap-4">
+                                    <div className="flex flex-col">
+                                        <div className="flex items-center gap-1 font-medium text-black dark:text-zinc-100 group">
+                                            <span>{exp.company}</span>
+                                            <ArrowUpRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 text-zinc-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
+                                        </div>
+                                        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                                            {exp.title}
+                                        </p>
+                                    </div>
+                                    <span className="text-sm text-zinc-400 dark:text-zinc-500 font-normal shrink-0">
+                                        {exp.start} — {exp.end}
+                                    </span>
+                                </div>
+                                {exp.description && (
+                                    <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
+                                        {exp.description}
+                                    </p>
+                                )}
+                                {exp.technologies && exp.technologies.length > 0 && (
+                                    <div className="flex flex-wrap gap-1.5 pt-1">
+                                        {exp.technologies.map((tech) => (
+                                            <span
+                                                key={tech}
+                                                className="inline-flex items-center rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 font-normal"
+                                            >
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
+                            </a>
+                        ))}
+                    </AnimatedBackground>
                 </div>
             </motion.section>
 
