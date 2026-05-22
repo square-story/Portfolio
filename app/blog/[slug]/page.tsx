@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { formatDate, getBlogPosts, getPost } from '@/app/blog/utils'
-import parse, { Element } from 'html-react-parser'
+import parse, { Element, domToReact } from 'html-react-parser'
 import { CodeBlock } from '@/components/ui/code-block'
 import { WEBSITE_URL } from '@/lib/constants'
 
@@ -155,7 +155,7 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
                             return (
                                 <CodeBlock {...(attribs as any)}>
                                     {/* @ts-ignore: domNodeToReact is working */}
-                                    {require('html-react-parser').domToReact(children)}
+                                    {domToReact(children as any)}
                                 </CodeBlock>
                             )
                         }

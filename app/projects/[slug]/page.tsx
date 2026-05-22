@@ -7,6 +7,8 @@ import { PROJECTS } from '@/app/data'
 import { getProjectMDX } from '@/lib/mdx'
 import { useMDXComponents } from '@/mdx-components'
 import { TechIcon } from '@/components/tech-icon'
+import { MagneticSocialLink } from '@/app/home-page-client'
+import { Carousel } from '@/components/ui/carousel'
 
 export async function generateStaticParams() {
     return PROJECTS.map((project) => ({
@@ -72,58 +74,31 @@ export default async function ProjectPage(props: { params: Promise<{ slug: strin
                     </p>
                 </div>
 
-                <div className="flex flex-wrap gap-4 border-y border-zinc-200 py-6 dark:border-zinc-800">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-y border-zinc-200 py-6 dark:border-zinc-800">
                     <div className="flex flex-wrap gap-2">
                         {project.techStack.map((tech) => (
                             <TechIcon key={tech} name={tech} />
                         ))}
                     </div>
 
-                    <div className="ml-auto flex gap-3">
+                    <div className="flex gap-3 sm:ml-auto">
                         {project.repoLink && (
-                            <a
-                                href={project.repoLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 rounded-full border border-zinc-200 px-4 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
-                            >
-                                <Github className="h-4 w-4" />
-                                <span>Source</span>
-                            </a>
+                            <MagneticSocialLink key={project.repoLink} link={project.repoLink}>
+                                Repo
+                            </MagneticSocialLink>
                         )}
-                        <a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 rounded-full bg-zinc-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
-                        >
-                            <Globe className="h-4 w-4" />
-                            <span>Visit Site</span>
-                        </a>
+                        {project.link && (
+                            <MagneticSocialLink key={project.link} link={project.link}>
+                                Demo
+                            </MagneticSocialLink>
+                        )}
                     </div>
                 </div>
             </header>
 
-            {/* Main Image/Video */}
-            <div className="mb-12 overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900">
-                {project.media[0].match(/\.(mp4|webm|ogg)$/i) ? (
-                    <video
-                        src={project.media[0]}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="w-full"
-                    />
-                ) : (
-                    <Image
-                        src={project.media[0]}
-                        alt={project.name}
-                        width={1280}
-                        height={720}
-                        className="w-full object-cover"
-                    />
-                )}
+            {/* Main Image/Video Carousel */}
+            <div className="mb-12 aspect-video overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900">
+                <Carousel items={project.media} />
             </div>
 
             {/* Content */}

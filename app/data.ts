@@ -37,8 +37,8 @@ export const PROJECTS: Project[] = [
   {
     name: 'Blipko',
     description:
-      'A WhatsApp chatbot that acts as a full-stack digital accountant, allowing users to input financial information via typing, speaking, or photo sharing.',
-    link: 'https://blipko.vercel.app/',
+      'A Telegram chatbot that acts as a full-stack digital accountant, allowing users to track expenses and ledger balances via voice notes, natural language text, or a web dashboard.',
+    link: 'https://blipko.lol/',
     repoLink: 'https://github.com/square-story/blipko',
     media: [
       '/Blipko/blipko-dashboard.mp4',

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Inter_Tight } from 'next/font/google'
 import './globals.css'
 import { Header } from './header'
 import { Footer } from './footer'
@@ -36,6 +36,11 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
+const interTight = Inter_Tight({
+  variable: '--font-inter-tight',
+  subsets: ['latin'],
+})
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -44,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${geistMono.variable} bg-white text-zinc-900 tracking-tight antialiased dark:bg-zinc-950 dark:text-zinc-50`}
+        className={`${geist.variable} ${geistMono.variable} ${interTight.variable} bg-white text-zinc-900 tracking-tight antialiased dark:bg-zinc-950 dark:text-zinc-50`}
       >
         <ThemeProvider
           enableSystem={true}

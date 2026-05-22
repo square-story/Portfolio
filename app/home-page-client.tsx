@@ -8,6 +8,9 @@ import { AnimatedBackground } from '@/components/ui/animated-background'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ProjectCard } from '@/components/project-card'
+import { Activity } from 'react-activity-calendar'
+import { TechLogoLoop } from '@/components/tech-logo-loop'
+import { TextLoop } from '@/components/ui/text-loop'
 
 const VARIANTS_CONTAINER = {
     hidden: { opacity: 0 },
@@ -28,7 +31,7 @@ const TRANSITION_SECTION = {
     duration: 0.3,
 }
 
-function MagneticSocialLink({
+export function MagneticSocialLink({
     children,
     link,
 }: {
@@ -70,10 +73,6 @@ type BlogPost = {
     slug: string
 }
 
-import { Activity } from 'react-activity-calendar'
-
-import { TechLogoLoop } from '@/components/tech-logo-loop'
-
 export default function HomePageClient({ posts, githubData }: { posts: BlogPost[], githubData: Activity[] }) {
     return (
         <motion.main
@@ -88,8 +87,14 @@ export default function HomePageClient({ posts, githubData }: { posts: BlogPost[
             >
                 <div className="flex-1">
                     <p className="text-zinc-600 dark:text-zinc-400">
-                        Creating intuitive, performant web experiences bridging design and
-                        development.
+                        Creating{' '}
+                        <TextLoop className="font-medium text-black dark:text-zinc-100">
+                            <span>intuitive</span>
+                            <span>performant</span>
+                            <span>delightful</span>
+                            <span>beautiful</span>
+                        </TextLoop>{' '}
+                        web experiences bridging design and development.
                     </p>
                 </div>
             </motion.section>
@@ -115,9 +120,7 @@ export default function HomePageClient({ posts, githubData }: { posts: BlogPost[
 
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                     {PROJECTS.map((project) => (
-                        <div key={project.name} className="h-64 sm:h-80">
-                            <ProjectCard project={project} />
-                        </div>
+                        <ProjectCard key={project.name} project={project} />
                     ))}
                 </div>
             </motion.section>

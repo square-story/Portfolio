@@ -50,16 +50,14 @@ export function ProjectCard({ project }: { project: Project }) {
                     </p>
 
                     <div className="mt-auto flex flex-wrap gap-2 pt-2">
-                        <div className="mt-auto flex flex-wrap gap-2 pt-2">
-                            {project.techStack.slice(0, 5).map((tech) => (
-                                <TechIcon key={tech} name={tech} />
-                            ))}
-                            {project.techStack.length > 5 && (
-                                <span className="inline-flex h-6 items-center rounded-md bg-zinc-100 px-2 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-                                    +{project.techStack.length - 5}
-                                </span>
-                            )}
-                        </div>
+                        {project.techStack.slice(0, 5).map((tech) => (
+                            <TechIcon key={tech} name={tech} />
+                        ))}
+                        {project.techStack.length > 5 && (
+                            <span className="inline-flex h-6 items-center rounded-md bg-zinc-100 px-2 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                                +{project.techStack.length - 5}
+                            </span>
+                        )}
                     </div>
                 </div>
             </div>

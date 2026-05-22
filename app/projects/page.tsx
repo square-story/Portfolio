@@ -9,6 +9,7 @@ export const metadata = {
 
 export default function ProjectsPage() {
     const featuredProjects = PROJECTS.filter((p) => p.featured)
+    const nonFeaturedProjects = PROJECTS.filter((p) => !p.featured)
 
     return (
         <div className="mx-auto max-w-4xl space-y-12 px-4 py-8 md:px-0 lg:py-12">
@@ -34,7 +35,7 @@ export default function ProjectsPage() {
 
             <div className="space-y-6">
                 <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">All Projects</h2>
-                <ProjectsClient projects={PROJECTS} />
+                <ProjectsClient projects={nonFeaturedProjects} />
             </div>
         </div>
     )

@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
         if (tag) {
             // revalidate all content that used this tag when fetching
-            await revalidateTag(tag, process.env.NEXT_PUBLIC_ZENBLOG_BLOG_ID!)
+            await revalidateTag(tag, 'max')
             return NextResponse.json({ revalidated: true, tag })
         }
 

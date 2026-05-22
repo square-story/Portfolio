@@ -1,42 +1,52 @@
 ---
 title: Blipko
-summary: A WhatsApp chatbot that acts as a full-stack digital accountant.
+summary: A Telegram chatbot that acts as a full-stack digital accountant.
 ---
 
 ## The Spark ✨
 
-I tried them all—complex finance apps, rigorous Excel sheets, and manual notebooks. They all failed for one reason: **friction**. Standing in line for a coffee, the last thing I want to do is open an app, wait for it to load, navigate three menus, and log an expense.
+Traditional bookkeepers, complex finance apps, rigid Excel sheets, and manual notebooks all fail for one single reason: **friction**. When standing in line for a coffee or managing a busy shop counter, the last thing anyone wants to do is open a dedicated finance app, wait for it to load, navigate through multiple menus, and manually log a single transaction.
 
-I realized the only app I open without thinking is **WhatsApp**. So, I decided to build my accountant right there.
+I realized that the only app people open constantly without a second thought is their favorite messaging app. So, I decided to build a full-stack digital accountant right inside **Telegram**. Blipko is designed to make digital bookkeeping as simple, immediate, and natural as texting a friend.
 
 ## How it Works
 
-Blipko changes the paradigm from "Data Entry" to "Conversation".
+Blipko completely changes the paradigm from manual "Data Entry" to natural "Conversation."
 
-You simply text: *"Spent 45 on dinner and 15 for the cab home."*
+You simply text or speak to the bot:
+* *"Raju ko 500 diya"* (Paid ₹500 to Raju)
+* *"Amit se 2000 aaya"* (Received ₹2000 from Amit)
+* *"paid 300 groceries"*
 
-In the background, Blipko uses **OpenAI** to parse your natural language, identifying multiple transactions, assigning categories (Food, Transport), and recording the time. It replies instantly with a confirmation and a playful emoji.
+You can even send **voice notes** directly. In the background, Blipko automatically transcribes the voice note, parses the natural language query, identifies multiple transactions, detects contacts, categorizes the line items (e.g., Food, Transport, Groceries), handles multi-wallet logging (e.g., Shop, Personal), and records the timestamp. It replies instantly with a structured confirmation and a playful emoji.
+
+Users can also query their records instantly:
+* *"Raju balance"* → Returns how much Raju owes or is owed.
+* *"who hasn't paid?"* → Lists all pending customer or contact balances.
+* *"total spend this month"* → Generates a quick financial summary.
 
 ## Technical Architecture 🛠️
 
-- **Backend**: Node.js serverless functions handling webhooks from Meta.
-- **Intelligence**: GPT-4o mini for cost-effective, high-accuracy intent classification.
-- **Database**: PostgreSQL with strict schemas to ensure financial data integrity.
+Blipko is built with a decoupled, high-performance clean architecture:
+
+* **Backend**: Node.js and Express serverless webhook handlers that process incoming messages from the **Telegram Bot API**.
+* **Intelligence**: A dual-model AI parsing pipeline using **Gemini 2.0 Flash** (with structured JSON schema enforcement) as the primary engine, and **GPT-4o mini** as a high-reliability fallback.
+* **Voice Processing**: Voice notes are transcribed instantly using **Sarvam AI**, which is highly optimized for Indian languages, accents, and code-switching (e.g., Malayalam, Manglish, Hinglish).
+* **Database & Ledger**: PostgreSQL database managed via **Prisma ORM**. The schema supports strict financial integrity using a formal **double-entry ledger system** (`LedgerAccount` and `TransactionLine` entries) along with multi-wallet separation and multi-business/organization routing.
+* **Web Dashboard**: A modern, responsive dashboard built with **Next.js 15 (App Router)**, **TailwindCSS**, and **shadcn/ui**. It accesses the shared database directly using Next.js Server Actions, eliminating REST API overhead. It provides analytics, category breakdowns, family groups, and recurring dues management.
 
 ## Recent Polish 💎
 
-I recently tackled some critical user experience issues:
-
-- **Reduced Latency**: Optimized the webhook handshake and processing pipeline, bringing response times down from ~3s to &lt;800ms.
-- **Context Awareness**: Blipko now remembers recent context, so if you correct a category ("Actually, that was for Work"), it understands which transaction you're referring to.
+* **Reduced Latency**: Optimized the Telegram webhook handshake, database index structure, and AI parsing pipeline, bringing round-trip message response times down from over 3 seconds to **less than 800ms**.
+* **Context Awareness**: The message orchestrator loads recent conversation history, allowing Blipko to understand corrections. If you text: *"Actually, that was for Work"* immediately after logging a transaction, Blipko seamlessly updates the category for the correct record.
+* **Double-Entry Engine**: Structured the backend ledger schemas to automatically map incoming credits and debits to proper asset/liability accounts from the user's perspective.
 
 ## Roadmap 🗺️
 
-The goal is to make Blipko a complete financial companion:
-
-- **Visual Charts**: Generating spend analysis charts on the fly and sending them as images.
-- **Group Splitting**: "Split 50 with @Sarah for lunch" will automatically handle the math.
-- **PDF Reports**: One-click export for monthly statements.
+* **Visual Charts**: Generating spend analysis charts on the fly and sending them directly inside the Telegram chat as images.
+* **Group Splitting**: Automated math and debt splitting in group chats (e.g., *"Split 50 with @Sarah for lunch"*).
+* **PDF Reports**: One-click exports for monthly statements, profit & loss reports, and tax-ready ledger exports directly from the web dashboard.
+* **WhatsApp Integration**: Bringing the same Zero-UI bookkeeping experience to WhatsApp via Meta's Business APIs.
 
 ## Gallery
 
