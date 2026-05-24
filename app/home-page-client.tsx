@@ -43,33 +43,66 @@ export default function HomePageClient() {
                 <div className="space-y-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 font-normal">
                     <p>
                         I am currently working as a Founding Engineer at{' '}
-                        <a
-                            href="https://creeto.ai"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
-                        >
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                            Creeto.ai
-                        </a>, a platform building visual tools to bridge the gap between design and engineering. We're on a mission to make web development highly interactive and intuitive. Previously, I created{' '}
-                        <a
-                            href="https://blipko.lol/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
-                        >
-                            <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
-                            Blipko
-                        </a> to help users track balances and expenses via telegram, and worked on{' '}
-                        <a
-                            href="https://inspecto-flax.vercel.app/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
-                        >
-                            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                            Inspecto
-                        </a> to streamline vehicle checks.
+                        <span className="relative inline-block">
+                            <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
+                                <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
+                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=400&h=200" alt="Creeto.ai" className="w-full h-24 object-cover rounded-lg" />
+                                    <div>
+                                        <p className="text-sm font-bold text-black dark:text-white">Creeto.ai</p>
+                                        <p className="text-xs text-zinc-500 mt-1 leading-relaxed">Visual tools to bridge the gap between design and engineering, making web development highly interactive.</p>
+                                    </div>
+                                </div>
+                            </Cursor>
+                            <a
+                                href="https://creeto.ai"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                Creeto.ai
+                            </a>
+                        </span>, a platform building visual tools to bridge the gap between design and engineering. We're on a mission to make web development highly interactive and intuitive. Previously, I created{' '}
+                        <span className="relative inline-block">
+                            <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
+                                <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
+                                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=400&h=200" alt="Blipko" className="w-full h-24 object-cover rounded-lg" />
+                                    <div>
+                                        <p className="text-sm font-bold text-black dark:text-white">Blipko</p>
+                                        <p className="text-xs text-zinc-500 mt-1 leading-relaxed">A Telegram bot to track balances and expenses directly from your chat.</p>
+                                    </div>
+                                </div>
+                            </Cursor>
+                            <a
+                                href="https://blipko.lol/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
+                                Blipko
+                            </a>
+                        </span> to help users track balances and expenses via telegram, and worked on{' '}
+                        <span className="relative inline-block">
+                            <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
+                                <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
+                                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=400&h=200" alt="Inspecto" className="w-full h-24 object-cover rounded-lg" />
+                                    <div>
+                                        <p className="text-sm font-bold text-black dark:text-white">Inspecto</p>
+                                        <p className="text-xs text-zinc-500 mt-1 leading-relaxed">Streamlined vehicle check app for better maintenance and logging.</p>
+                                    </div>
+                                </div>
+                            </Cursor>
+                            <a
+                                href="https://inspecto-flax.vercel.app/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                                Inspecto
+                            </a>
+                        </span> to streamline vehicle checks.
                     </p>
 
                     <p>
