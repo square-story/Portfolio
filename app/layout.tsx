@@ -6,6 +6,7 @@ import { Footer } from './footer'
 import { ThemeProvider } from 'next-themes'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { WEBSITE_URL } from '@/lib/constants'
+import { Preloader } from '@/components/ui/preloader'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -51,6 +52,7 @@ export default function RootLayout({
       <body
         className={`${geist.variable} ${geistMono.variable} ${interTight.variable} bg-white text-zinc-900 tracking-tight antialiased dark:bg-zinc-950 dark:text-zinc-50`}
       >
+        <Preloader />
         <ThemeProvider
           enableSystem={true}
           attribute="class"
