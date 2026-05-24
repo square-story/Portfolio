@@ -2,6 +2,7 @@
 import { motion } from 'motion/react'
 import Link from 'next/link'
 import { Cursor } from '@/components/motion-primitives/cursor'
+import { Magnetic } from '@/components/motion-primitives/magnetic'
 import { TextEffect } from '@/components/ui/text-effect'
 
 const VARIANTS_CONTAINER = {
@@ -60,7 +61,7 @@ export default function HomePageClient() {
                         <span className="relative inline-block">
                             <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
                                 <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
-                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=400&h=200" alt="Creeto.ai" className="w-full h-24 object-cover rounded-lg" />
+                                    <img src="https://media.cleanshot.cloud/media/150297/RDMycwMRVTl3S7cMsl3OI0p4i2GvwKOO0jHh5TqG.jpeg?Expires=1779644145&Signature=bogcUvdSey-2jnKCEGkW8lGFqqCR2mW-ifUQbATwUqh5ElxXvniZzbNuZxpPULlVUp1xVhENpKfwY48w65FdVkax-wSx6XWQ-WukHeT-gJOKauc8JASIAXWl-PTFbUhNuZhKP4q2ZoMKppZTb0hfJ3fhdGHJayoFUKcvwPWOu2jbq1eg7xhIyv-4XR30LBTRnnrusnuKnRhViZ96c-FZJUrocDwqSaMdjaWt8uNEU10PTTO7hfMf7GQfIWwac~MKIIZFjG2nasbrxARk57dmNZBUUDH0uNU3SNzoOLNZvoZjfTqgnTpnvdftpnuVwFNXQ4-D-~sxCBioHsHVyEwBPg__&Key-Pair-Id=K269JMAT9ZF4GZ" alt="Creeto.ai" className="w-full h-24 object-cover rounded-lg" />
                                     <div>
                                         <p className="text-sm font-bold text-black dark:text-white">Creeto.ai</p>
                                         <p className="text-xs text-zinc-500 mt-1 leading-relaxed">Visual tools to bridge the gap between design and engineering, making web development highly interactive.</p>
@@ -81,11 +82,11 @@ export default function HomePageClient() {
                                 />
                                 Creeto.ai
                             </a>
-                        </span>, a platform building visual tools to bridge the gap between design and engineering. We're on a mission to make web development highly interactive and intuitive. Previously, I created{' '}
+                        </span>, currently working on the agentic workflow, managing the backend architecture and ensuring the scalable solution is shipped.. Previously, I created{' '}
                         <span className="relative inline-block">
                             <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
                                 <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
-                                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=400&h=200" alt="Blipko" className="w-full h-24 object-cover rounded-lg" />
+                                    <img src="https://media.cleanshot.cloud/media/150297/CwPDOeoF0xX7e1fg3V9q2GSdPZqKpGMlEh8tOqnN.jpeg?Expires=1779644089&Signature=jqWjAdGVBk1Wff2X5lXnuTlG5Xzkb9PrgQJZOuGtB3apTvgdGkCvgZuku6UxayGSsHH~JpcmAvfyImuJfZFC8wPTXFsyhn7uCEqF99buyXJo-fm2NONAManGbpQdufhXqX8yMrzlsAQ6fbRLNZcv-6x9wwxW0UTDyP5HD9dCQVLO0dLun49JwqZKnjuR2JASgiZ6JEMLbeLmRLQuWW1xxEgcKWmCm2sTXhBNaXEnFeeoUw~mX3zQh2TVo70CjummUQaVUjW~7CWQHuIRcySp2aAuOeAsWsXa~MmCezqnvuCch-JOxTVx03uTw8JzeZoaw-a03eyk9L0uasLDG5FnXg__&Key-Pair-Id=K269JMAT9ZF4GZ" alt="Blipko" className="w-full h-24 object-cover rounded-lg" />
                                     <div>
                                         <p className="text-sm font-bold text-black dark:text-white">Blipko</p>
                                         <p className="text-xs text-zinc-500 mt-1 leading-relaxed">A Telegram bot to track balances and expenses directly from your chat.</p>
@@ -110,7 +111,7 @@ export default function HomePageClient() {
                         <span className="relative inline-block">
                             <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
                                 <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
-                                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=400&h=200" alt="Inspecto" className="w-full h-24 object-cover rounded-lg" />
+                                    <img src="https://media.cleanshot.cloud/media/150297/Gwl7Xc6clBFKifsAaYUR5fNaEkWJbvY8jNFB5E9r.jpeg?Expires=1779644038&Signature=nAY~J10A3aoEDJfpEKvNLF-0-DKb6RD7CHDp0hL4Kt6Vy72kcR6untndYiGIVUHj0dYWnS-Cvu~DNuGhPD2I3OXXAdBTQkP-kODxOmY2Jy-R8Qt~a83zxEAsQup4QjgbKoTlDYOGTHhDwRsvpuTo6Fga6VSCpeUGw2I1G23zZqaGPoMVT-KW6XZoYqeieUijnBjXo3as6l8waCkkgDNoj013olUspsK8xya22F~YZm8OnPH11ZQo9BvmeNRuHqgYsJ~~MNaw8KkJdvlLKr6VMsPMB4MHCBj0JIAIzC7p7~-F~3TPBrZs17o6a5jKHbfWi1ibtm0yknfgxvFed0ZvRA__&Key-Pair-Id=K269JMAT9ZF4GZ" alt="Inspecto" className="w-full h-24 object-cover rounded-lg" />
                                     <div>
                                         <p className="text-sm font-bold text-black dark:text-white">Inspecto</p>
                                         <p className="text-xs text-zinc-500 mt-1 leading-relaxed">Streamlined vehicle check app for better maintenance and logging.</p>
@@ -147,47 +148,43 @@ export default function HomePageClient() {
                 <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-zinc-500 dark:text-zinc-400 text-sm font-medium">
                     <div className="relative">
                         <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
-                            <div className="p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-2 translate-x-12 translate-y-8 w-fit">
-                                <div className="flex items-center justify-between gap-4">
-                                    <span className="font-bold text-sm text-black dark:text-white">GitHub</span>
-                                    <span className="text-[10px] uppercase font-bold tracking-wider text-zinc-500">Last 30 Days</span>
-                                </div>
-                                <div className="relative w-40 h-30 overflow-hidden rounded-md border border-zinc-100 dark:border-zinc-800/50 bg-zinc-50 dark:bg-zinc-900/50">
-                                    <img
-                                        src="https://ghchart.rshah.org/square-story"
-                                        alt="GitHub Contributions"
-                                        className="absolute -right-1.25  h-28.75 max-w-none dark:opacity-80"
-                                    />
-                                </div>
-                            </div>
+                            <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">View Projects</div>
                         </Cursor>
-                        <a href="https://github.com/square-story" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">
-                            ↗ GitHub
-                        </a>
+                        <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }} actionArea="global" range={100}>
+                            <a href="https://github.com/square-story" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors block">
+                                GitHub
+                            </a>
+                        </Magnetic>
                     </div>
                     <div className="relative">
                         <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
                             <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">Follow Updates</div>
                         </Cursor>
-                        <a href="https://twitter.com/sadikbuilds" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">
-                            ↗ Twitter
-                        </a>
+                        <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }} actionArea="global" range={100}>
+                            <a href="https://twitter.com/sadikbuilds" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors block">
+                                Twitter
+                            </a>
+                        </Magnetic>
                     </div>
                     <div className="relative">
                         <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
                             <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">Connect</div>
                         </Cursor>
-                        <a href="https://www.linkedin.com/in/sadikkp" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">
-                            ↗ LinkedIn
-                        </a>
+                        <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }} actionArea="global" range={100}>
+                            <a href="https://www.linkedin.com/in/sadikkp" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors block">
+                                LinkedIn
+                            </a>
+                        </Magnetic>
                     </div>
                     <div className="relative">
                         <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
                             <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">Say Hello</div>
                         </Cursor>
-                        <a href="mailto:sadik.build@gmail.com" className="hover:text-black dark:hover:text-white transition-colors">
-                            ↗ Email
-                        </a>
+                        <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }} actionArea="global" range={100}>
+                            <a href="mailto:sadik.build@gmail.com" className="hover:text-black dark:hover:text-white transition-colors block">
+                                Email
+                            </a>
+                        </Magnetic>
                     </div>
                 </div>
             </motion.section>

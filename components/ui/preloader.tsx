@@ -57,26 +57,26 @@ export function Preloader() {
     return (
         <AnimatePresence mode="wait">
             {isLoading && (
-                <motion.div 
-                    variants={slideUp} 
-                    initial="initial" 
-                    exit="exit" 
-                    className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#141516] dark:bg-zinc-50"
+                <motion.div
+                    variants={slideUp}
+                    initial="initial"
+                    exit="exit"
+                    className="fixed inset-0 z-9999 flex items-center justify-center bg-[#141516] dark:bg-zinc-50"
                 >
-                    <motion.div 
+                    <motion.div
                         key={index}
-                        initial={{ opacity: 0, y: 10, filter: "blur(4px)" }} 
+                        initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
                         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         className="absolute text-white dark:text-zinc-900 text-4xl sm:text-5xl font-medium tracking-tight flex items-center justify-center z-10"
                     >
                         {words[index]}
                     </motion.div>
-                    <svg className="absolute top-[100%] left-0 w-full h-[300px]">
-                        <motion.path 
-                            variants={curve} 
-                            initial="initial" 
-                            exit="exit" 
+                    <svg className="absolute top-full left-0 w-full h-75">
+                        <motion.path
+                            variants={curve}
+                            initial="initial"
+                            exit="exit"
                             className="fill-[#141516] dark:fill-zinc-50"
                         />
                     </svg>
