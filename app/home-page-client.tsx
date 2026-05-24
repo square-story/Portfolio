@@ -118,7 +118,19 @@ export default function HomePageClient() {
                 <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-zinc-500 dark:text-zinc-400 text-sm font-medium">
                     <div className="relative">
                         <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
-                            <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">View Source</div>
+                            <div className="p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-2 translate-x-12 translate-y-8 w-fit">
+                                <div className="flex items-center justify-between gap-4">
+                                    <span className="font-bold text-sm text-black dark:text-white">GitHub</span>
+                                    <span className="text-[10px] uppercase font-bold tracking-wider text-zinc-500">Last 30 Days</span>
+                                </div>
+                                <div className="relative w-40 h-30 overflow-hidden rounded-md border border-zinc-100 dark:border-zinc-800/50 bg-zinc-50 dark:bg-zinc-900/50">
+                                    <img
+                                        src="https://ghchart.rshah.org/square-story"
+                                        alt="GitHub Contributions"
+                                        className="absolute -right-1.25  h-28.75 max-w-none dark:opacity-80"
+                                    />
+                                </div>
+                            </div>
                         </Cursor>
                         <a href="https://github.com/square-story" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">
                             ↗ GitHub
