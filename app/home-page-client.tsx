@@ -41,7 +41,7 @@ export default function HomePageClient() {
 
 
                 <div className="space-y-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 font-normal">
-                    <p>
+                    <div>
                         I am currently working as a Founding Engineer at{' '}
                         <span className="relative inline-block">
                             <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
@@ -59,7 +59,12 @@ export default function HomePageClient() {
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
                             >
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                <img
+                                    src="https://creeto.ai/favicon.ico"
+                                    alt="Creeto.ai favicon"
+                                    className="w-3.5 h-3.5 rounded-sm"
+                                    onError={(e) => { e.currentTarget.src = "https://gcdnb.pbrd.co/images/-Qwlye0gvxgT.png"; }}
+                                />
                                 Creeto.ai
                             </a>
                         </span>, a platform building visual tools to bridge the gap between design and engineering. We're on a mission to make web development highly interactive and intuitive. Previously, I created{' '}
@@ -79,7 +84,12 @@ export default function HomePageClient() {
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
                             >
-                                <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
+                                <img
+                                    src="https://blipko.lol/favicon.ico"
+                                    alt="Blipko favicon"
+                                    className="w-3.5 h-3.5 rounded-sm"
+                                    onError={(e) => { e.currentTarget.src = "https://www.google.com/s2/favicons?domain=blipko.lol&sz=64"; }}
+                                />
                                 Blipko
                             </a>
                         </span> to help users track balances and expenses via telegram, and worked on{' '}
@@ -99,15 +109,20 @@ export default function HomePageClient() {
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
                             >
-                                <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                                <img
+                                    src="https://inspecto-flax.vercel.app/favicon.ico"
+                                    alt="Inspecto favicon"
+                                    className="w-3.5 h-3.5 rounded-sm"
+                                    onError={(e) => { e.currentTarget.src = "https://www.google.com/s2/favicons?domain=inspecto-flax.vercel.app&sz=64"; }}
+                                />
                                 Inspecto
                             </a>
                         </span> to streamline vehicle checks.
-                    </p>
+                    </div>
 
-                    <p>
+                    <div>
                         Apart from my professional life, I am passionate about photography, open-source development, and exploring new technologies.
-                    </p>
+                    </div>
                 </div>
             </motion.section>
 
@@ -167,13 +182,13 @@ export default function HomePageClient() {
                 variants={VARIANTS_SECTION}
                 transition={TRANSITION_SECTION}
             >
-                <p className="text-sm text-zinc-500 dark:text-zinc-500 font-normal leading-relaxed">
+                <div className="text-sm text-zinc-500 dark:text-zinc-500 font-normal leading-relaxed">
                     Explore my{' '}
                     <Link href="/gallery" className="font-semibold text-black dark:text-white hover:opacity-75 transition-opacity">
                         interactive gallery
                     </Link>{' '}
                     to view the full reflection CoverFlow showcase of my photography.
-                </p>
+                </div>
             </motion.section>
         </motion.main>
     )

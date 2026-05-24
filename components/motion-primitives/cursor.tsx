@@ -37,7 +37,7 @@ export function Cursor({
 }: CursorProps) {
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
-  const cursorRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLSpanElement>(null);
   const [isVisible, setIsVisible] = useState(!attachToParent);
   const [mounted, setMounted] = useState(false);
 
@@ -136,7 +136,7 @@ export function Cursor({
 
   return (
     <>
-      {attachToParent && <div ref={cursorRef} style={{ display: 'none' }} />}
+      {attachToParent && <span ref={cursorRef} style={{ display: 'none' }} />}
       {mounted ? createPortal(content, document.body) : null}
     </>
   );
