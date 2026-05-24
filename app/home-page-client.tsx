@@ -2,6 +2,7 @@
 import { motion } from 'motion/react'
 import Link from 'next/link'
 import { Cursor } from '@/components/motion-primitives/cursor'
+import { TextEffect } from '@/components/ui/text-effect'
 
 const VARIANTS_CONTAINER = {
     hidden: { opacity: 0 },
@@ -35,8 +36,21 @@ export default function HomePageClient() {
                 transition={TRANSITION_SECTION}
                 className="space-y-6"
             >
-                <h1 className="text-2xl font-bold tracking-tight text-black dark:text-white">
-                    MOHAMMED SADIK
+                <h1 className="mb-8 flex items-center justify-between">
+                    <div>
+                        <Link href="/" className="font-medium text-black dark:text-white">
+                            MOHAMMED SADIK
+                        </Link>
+                        <TextEffect
+                            as="p"
+                            preset="fade"
+                            per="char"
+                            className="text-zinc-600 dark:text-zinc-500"
+                            delay={0.5}
+                        >
+                            Full Stack Engineer
+                        </TextEffect>
+                    </div>
                 </h1>
 
 

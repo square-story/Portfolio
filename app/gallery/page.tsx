@@ -57,22 +57,7 @@ export default function GalleryPage() {
             initial="hidden"
             animate="visible"
         >
-            <motion.section
-                variants={VARIANTS_SECTION}
-                transition={TRANSITION_SECTION}
-                className="flex items-center justify-between"
-            >
-                <div>
-                    <h1 className="text-xl font-medium tracking-tight">Gallery</h1>
-                    <p className="text-sm text-zinc-500">A collection of captured moments and visual renders.</p>
-                </div>
-                <Link
-                    href="/"
-                    className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-                >
-                    ← Back
-                </Link>
-            </motion.section>
+
 
             <motion.section
                 variants={VARIANTS_SECTION}
