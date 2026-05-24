@@ -147,7 +147,7 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
             )}
 
             {/* Content */}
-            <article className="prose prose-zinc dark:prose-invert max-w-none">
+            <article className="prose prose-zinc dark:prose-invert prose-a:no-underline max-w-none">
                 {parse(post.content, {
                     replace: (domNode) => {
                         if (domNode instanceof Element && domNode.name === 'pre') {
@@ -199,7 +199,7 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
                                     href={post.metadata.author.twitter}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="mt-2 inline-block text-sm font-medium hover:underline"
+                                    className="mt-2 inline-block text-sm font-medium hover:opacity-75 transition-opacity"
                                 >
                                     Follow on X
                                 </a>

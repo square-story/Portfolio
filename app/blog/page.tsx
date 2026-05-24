@@ -14,11 +14,11 @@ export default async function BlogPage() {
     })
 
     return (
-        <section className="mx-auto w-full max-w-3xl px-4 py-8 md:py-12 md:border-x min-h-screen">
-            <div className="mb-8 space-y-4">
-                <h1 className="font-semibold text-3xl md:text-4xl tracking-tight">Read my blog</h1>
-                <p className="text-muted-foreground text-lg">
-                    Thoughts, tutorials, and insights about design and development.
+        <section className="mx-auto w-full max-w-2xl px-4 py-8 min-h-screen">
+            <div className="mb-6">
+                <h1 className="text-2xl font-bold tracking-tight text-black dark:text-white mb-2">Writing</h1>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                    Thoughts, tutorials, and insights about design and engineering.
                 </p>
             </div>
 

@@ -74,56 +74,18 @@ export const PROJECTS: Project[] = [
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
-    company: 'Freelance',
-    title: 'Front-end Developer',
-    start: '2024',
+    company: 'Creeto.ai',
+    title: 'Founding Engineer',
+    start: '2026-02',
     end: 'Present',
-    link: 'https://sadik.is-a.dev',
+    link: 'https://creeto.ai',
     id: 'work1',
-    description: 'Designed and developed responsive web applications, created custom interactive UI components with motion primitives, and integrated generative AI services.',
+    description: '',
     technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'MongoDB'],
-  },
-  {
-    company: 'Inspecto',
-    title: 'Full-stack Developer (Contract)',
-    start: '2023',
-    end: '2024',
-    link: 'https://inspecto-flax.vercel.app/',
-    id: 'work2',
-    description: 'Engineered a vehicle inspection platform. Built real-time communications using Socket.io and implemented secure payment workflows with Stripe.',
-    technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'Socket.io', 'Stripe'],
   },
 ]
 
-export const BLOG_POSTS: BlogPost[] = [
-  {
-    title: 'Exploring the Intersection of Design, AI, and Design Engineering',
-    description: 'How AI is changing the way we design',
-    link: '/blog/exploring-the-intersection-of-design-ai-and-design-engineering',
-    uid: 'blog-1',
-  },
-  {
-    title: 'Why I left my job to start my own company',
-    description:
-      'A deep dive into my decision to leave my job and start my own company',
-    link: '/blog/exploring-the-intersection-of-design-ai-and-design-engineering',
-    uid: 'blog-2',
-  },
-  {
-    title: 'What I learned from my first year of freelancing',
-    description:
-      'A look back at my first year of freelancing and what I learned',
-    link: '/blog/exploring-the-intersection-of-design-ai-and-design-engineering',
-    uid: 'blog-3',
-  },
-  {
-    title: 'How to Export Metadata from MDX for Next.js SEO',
-    description:
-      'A guide on exporting metadata from MDX files to leverage Next.js SEO features.',
-    link: '/blog/example-mdx-metadata',
-    uid: 'blog-4',
-  },
-]
+
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
