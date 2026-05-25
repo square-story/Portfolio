@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono, Inter_Tight } from 'next/font/google'
+import { Geist, Geist_Mono } from 'next/font/google'
+import { GeistPixelSquare } from 'geist/font/pixel'
 import './globals.css'
 import { Header } from './header'
 import { Footer } from './footer'
@@ -37,11 +38,6 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-const interTight = Inter_Tight({
-  variable: '--font-inter-tight',
-  subsets: ['latin'],
-})
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -50,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${geistMono.variable} ${interTight.variable} bg-white text-zinc-900 tracking-tight antialiased dark:bg-zinc-950 dark:text-zinc-50`}
+        className={`${geist.variable} ${geistMono.variable} ${GeistPixelSquare.variable} bg-white text-zinc-900 tracking-tight antialiased dark:bg-zinc-950 dark:text-zinc-50`}
       >
         <Preloader />
         <ThemeProvider
@@ -60,7 +56,7 @@ export default function RootLayout({
           defaultTheme="system"
         >
           <TooltipProvider delayDuration={0}>
-            <div className="flex min-h-screen w-full flex-col font-(family-name:--font-inter-tight)">
+            <div className="flex min-h-screen w-full flex-col font-(family-name:--font-geist-pixel-square)">
               <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
                 <Header />
                 {children}
