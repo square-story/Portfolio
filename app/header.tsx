@@ -5,6 +5,9 @@ import { AnimatedBackground } from '@/components/ui/animated-background'
 import { MonitorIcon, MoonIcon, SunIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { useWebHaptics } from 'web-haptics/react'
+import { useSound } from '@/hooks/use-sound'
+import { clickSoftSound } from '@/lib/click-soft'
 
 const THEMES_OPTIONS = [
   {
@@ -27,6 +30,8 @@ const THEMES_OPTIONS = [
 function ThemeSwitch() {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
+  const { trigger } = useWebHaptics()
+  const [playClick] = useSound(clickSoftSound)
 
   useEffect(() => {
     setMounted(true)
@@ -58,6 +63,11 @@ function ThemeSwitch() {
             type="button"
             aria-label={`Switch to ${theme.label} theme`}
             data-id={theme.id}
+            onMouseEnter={() => trigger('selection')}
+            onClick={() => {
+              trigger('medium')
+              playClick()
+            }}
           >
             {theme.icon}
           </button>
@@ -69,6 +79,8 @@ function ThemeSwitch() {
 
 export function Header() {
   const pathname = usePathname()
+  const { trigger } = useWebHaptics()
+  const [playClick] = useSound(clickSoftSound)
 
   return (
     <header className="mb-12 flex items-center justify-between">
@@ -76,18 +88,24 @@ export function Header() {
         <Link 
           href="/" 
           className={`hover:text-black dark:hover:text-white transition-colors ${pathname === '/' ? 'text-black dark:text-white font-medium' : ''}`}
+          onMouseEnter={() => trigger('selection')}
+          onClick={() => { trigger('medium'); playClick(); }}
         >
           home
         </Link>
         <Link 
           href="/gallery" 
           className={`hover:text-black dark:hover:text-white transition-colors ${pathname === '/gallery' ? 'text-black dark:text-white font-medium' : ''}`}
+          onMouseEnter={() => trigger('selection')}
+          onClick={() => { trigger('medium'); playClick(); }}
         >
           gallery
         </Link>
         <Link 
           href="/blog" 
           className={`hover:text-black dark:hover:text-white transition-colors ${pathname.startsWith('/blog') ? 'text-black dark:text-white font-medium' : ''}`}
+          onMouseEnter={() => trigger('selection')}
+          onClick={() => { trigger('medium'); playClick(); }}
         >
           writing
         </Link>

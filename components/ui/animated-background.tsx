@@ -52,11 +52,20 @@ export function AnimatedBackground({
 
     const interactionProps = enableHover
       ? {
-          onMouseEnter: () => handleSetActiveId(id),
-          onMouseLeave: () => handleSetActiveId(null),
+          onMouseEnter: (e: any) => {
+            handleSetActiveId(id)
+            if (child.props.onMouseEnter) child.props.onMouseEnter(e)
+          },
+          onMouseLeave: (e: any) => {
+            handleSetActiveId(null)
+            if (child.props.onMouseLeave) child.props.onMouseLeave(e)
+          },
         }
       : {
-          onClick: () => handleSetActiveId(id),
+          onClick: (e: any) => {
+            handleSetActiveId(id)
+            if (child.props.onClick) child.props.onClick(e)
+          },
         }
 
     return cloneElement(

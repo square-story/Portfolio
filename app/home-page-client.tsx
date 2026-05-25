@@ -4,6 +4,9 @@ import Link from 'next/link'
 import { Cursor } from '@/components/motion-primitives/cursor'
 import { Magnetic } from '@/components/motion-primitives/magnetic'
 import { TextEffect } from '@/components/ui/text-effect'
+import { useWebHaptics } from 'web-haptics/react'
+import { useSound } from '@/hooks/use-sound'
+import { clickSoftSound } from '@/lib/click-soft'
 
 const VARIANTS_CONTAINER = {
     hidden: { opacity: 0 },
@@ -25,6 +28,9 @@ const TRANSITION_SECTION = {
 }
 
 export default function HomePageClient() {
+    const { trigger } = useWebHaptics()
+    const [playClick] = useSound(clickSoftSound)
+
     return (
         <motion.main
             className="space-y-8"
@@ -39,7 +45,12 @@ export default function HomePageClient() {
             >
                 <h1 className="mb-8 flex items-center justify-between">
                     <div>
-                        <Link href="/" className="font-medium text-black dark:text-white">
+                        <Link 
+                            href="/" 
+                            className="font-medium text-black dark:text-white"
+                            onMouseEnter={() => trigger('selection')}
+                            onClick={() => { trigger('medium'); playClick(); }}
+                        >
                             MOHAMMED SADIK
                         </Link>
                         <TextEffect
@@ -74,6 +85,8 @@ export default function HomePageClient() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
+                                onMouseEnter={() => trigger('selection')}
+                                onClick={() => { trigger('medium'); playClick(); }}
                             >
                                 <img
                                     src="https://creeto.ai/favicon.ico"
@@ -100,6 +113,8 @@ export default function HomePageClient() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
+                                onMouseEnter={() => trigger('selection')}
+                                onClick={() => { trigger('medium'); playClick(); }}
                             >
                                 <img
                                     src="https://blipko.lol/favicon.ico"
@@ -126,6 +141,8 @@ export default function HomePageClient() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
+                                onMouseEnter={() => trigger('selection')}
+                                onClick={() => { trigger('medium'); playClick(); }}
                             >
                                 <img
                                     src="https://inspecto-flax.vercel.app/favicon.ico"
@@ -154,7 +171,14 @@ export default function HomePageClient() {
                             <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">View Projects</div>
                         </Cursor>
                         <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }} actionArea="global" range={100}>
-                            <a href="https://github.com/square-story" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors block">
+                            <a 
+                                href="https://github.com/square-story" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="hover:text-black dark:hover:text-white transition-colors block"
+                                onMouseEnter={() => trigger('selection')}
+                                onClick={() => { trigger('medium'); playClick(); }}
+                            >
                                 GitHub
                             </a>
                         </Magnetic>
@@ -164,7 +188,14 @@ export default function HomePageClient() {
                             <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">Follow Updates</div>
                         </Cursor>
                         <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }} actionArea="global" range={100}>
-                            <a href="https://twitter.com/sadikbuilds" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors block">
+                            <a 
+                                href="https://twitter.com/sadikbuilds" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="hover:text-black dark:hover:text-white transition-colors block"
+                                onMouseEnter={() => trigger('selection')}
+                                onClick={() => { trigger('medium'); playClick(); }}
+                            >
                                 Twitter
                             </a>
                         </Magnetic>
@@ -174,7 +205,14 @@ export default function HomePageClient() {
                             <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">Connect</div>
                         </Cursor>
                         <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }} actionArea="global" range={100}>
-                            <a href="https://www.linkedin.com/in/sadikkp" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors block">
+                            <a 
+                                href="https://www.linkedin.com/in/sadikkp" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="hover:text-black dark:hover:text-white transition-colors block"
+                                onMouseEnter={() => trigger('selection')}
+                                onClick={() => { trigger('medium'); playClick(); }}
+                            >
                                 LinkedIn
                             </a>
                         </Magnetic>
@@ -184,7 +222,12 @@ export default function HomePageClient() {
                             <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">Say Hello</div>
                         </Cursor>
                         <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }} actionArea="global" range={100}>
-                            <a href="mailto:sadik.build@gmail.com" className="hover:text-black dark:hover:text-white transition-colors block">
+                            <a 
+                                href="mailto:sadik.build@gmail.com" 
+                                className="hover:text-black dark:hover:text-white transition-colors block"
+                                onMouseEnter={() => trigger('selection')}
+                                onClick={() => { trigger('medium'); playClick(); }}
+                            >
                                 Email
                             </a>
                         </Magnetic>
@@ -198,7 +241,12 @@ export default function HomePageClient() {
             >
                 <div className="text-sm text-zinc-500 dark:text-zinc-500 font-normal leading-relaxed">
                     Explore my{' '}
-                    <Link href="/gallery" className="font-semibold text-black dark:text-white hover:opacity-75 transition-opacity">
+                    <Link 
+                        href="/gallery" 
+                        className="font-semibold text-black dark:text-white hover:opacity-75 transition-opacity"
+                        onMouseEnter={() => trigger('selection')}
+                        onClick={() => { trigger('medium'); playClick(); }}
+                    >
                         interactive gallery
                     </Link>{' '}
                     to view the full reflection CoverFlow showcase of my photography.
