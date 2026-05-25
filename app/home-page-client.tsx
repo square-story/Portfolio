@@ -61,10 +61,11 @@ export default function HomePageClient() {
                         <span className="relative inline-block">
                             <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
                                 <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
-                                    <img src="https://media.cleanshot.cloud/media/150297/RDMycwMRVTl3S7cMsl3OI0p4i2GvwKOO0jHh5TqG.jpeg?Expires=1779644145&Signature=bogcUvdSey-2jnKCEGkW8lGFqqCR2mW-ifUQbATwUqh5ElxXvniZzbNuZxpPULlVUp1xVhENpKfwY48w65FdVkax-wSx6XWQ-WukHeT-gJOKauc8JASIAXWl-PTFbUhNuZhKP4q2ZoMKppZTb0hfJ3fhdGHJayoFUKcvwPWOu2jbq1eg7xhIyv-4XR30LBTRnnrusnuKnRhViZ96c-FZJUrocDwqSaMdjaWt8uNEU10PTTO7hfMf7GQfIWwac~MKIIZFjG2nasbrxARk57dmNZBUUDH0uNU3SNzoOLNZvoZjfTqgnTpnvdftpnuVwFNXQ4-D-~sxCBioHsHVyEwBPg__&Key-Pair-Id=K269JMAT9ZF4GZ" alt="Creeto.ai" className="w-full h-24 object-cover rounded-lg" />
+                                    <img src="https://gcdnb.pbrd.co/images/2vvR1aCkAsMh.png"
+                                        alt="Creeto.ai" className="w-full h-24 object-cover rounded-lg" />
                                     <div>
                                         <p className="text-sm font-bold text-black dark:text-white">Creeto.ai</p>
-                                        <p className="text-xs text-zinc-500 mt-1 leading-relaxed">Visual tools to bridge the gap between design and engineering, making web development highly interactive.</p>
+                                        <p className="text-xs text-zinc-500 mt-1 leading-relaxed">Agent that converts any knowledge into informative videos</p>
                                     </div>
                                 </div>
                             </Cursor>
@@ -86,7 +87,8 @@ export default function HomePageClient() {
                         <span className="relative inline-block">
                             <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
                                 <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
-                                    <img src="https://media.cleanshot.cloud/media/150297/CwPDOeoF0xX7e1fg3V9q2GSdPZqKpGMlEh8tOqnN.jpeg?Expires=1779644089&Signature=jqWjAdGVBk1Wff2X5lXnuTlG5Xzkb9PrgQJZOuGtB3apTvgdGkCvgZuku6UxayGSsHH~JpcmAvfyImuJfZFC8wPTXFsyhn7uCEqF99buyXJo-fm2NONAManGbpQdufhXqX8yMrzlsAQ6fbRLNZcv-6x9wwxW0UTDyP5HD9dCQVLO0dLun49JwqZKnjuR2JASgiZ6JEMLbeLmRLQuWW1xxEgcKWmCm2sTXhBNaXEnFeeoUw~mX3zQh2TVo70CjummUQaVUjW~7CWQHuIRcySp2aAuOeAsWsXa~MmCezqnvuCch-JOxTVx03uTw8JzeZoaw-a03eyk9L0uasLDG5FnXg__&Key-Pair-Id=K269JMAT9ZF4GZ" alt="Blipko" className="w-full h-24 object-cover rounded-lg" />
+                                    <img src="https://gcdnb.pbrd.co/images/IK7plQ1wzJYb.png"
+                                        alt="Blipko" className="w-full h-24 object-cover rounded-lg" />
                                     <div>
                                         <p className="text-sm font-bold text-black dark:text-white">Blipko</p>
                                         <p className="text-xs text-zinc-500 mt-1 leading-relaxed">A Telegram bot to track balances and expenses directly from your chat.</p>
@@ -111,7 +113,8 @@ export default function HomePageClient() {
                         <span className="relative inline-block">
                             <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
                                 <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
-                                    <img src="https://media.cleanshot.cloud/media/150297/Gwl7Xc6clBFKifsAaYUR5fNaEkWJbvY8jNFB5E9r.jpeg?Expires=1779644038&Signature=nAY~J10A3aoEDJfpEKvNLF-0-DKb6RD7CHDp0hL4Kt6Vy72kcR6untndYiGIVUHj0dYWnS-Cvu~DNuGhPD2I3OXXAdBTQkP-kODxOmY2Jy-R8Qt~a83zxEAsQup4QjgbKoTlDYOGTHhDwRsvpuTo6Fga6VSCpeUGw2I1G23zZqaGPoMVT-KW6XZoYqeieUijnBjXo3as6l8waCkkgDNoj013olUspsK8xya22F~YZm8OnPH11ZQo9BvmeNRuHqgYsJ~~MNaw8KkJdvlLKr6VMsPMB4MHCBj0JIAIzC7p7~-F~3TPBrZs17o6a5jKHbfWi1ibtm0yknfgxvFed0ZvRA__&Key-Pair-Id=K269JMAT9ZF4GZ" alt="Inspecto" className="w-full h-24 object-cover rounded-lg" />
+                                    <img src="https://gcdnb.pbrd.co/images/bKASBCR9gBDc.png"
+                                        alt="Inspecto" className="w-full h-24 object-cover rounded-lg" />
                                     <div>
                                         <p className="text-sm font-bold text-black dark:text-white">Inspecto</p>
                                         <p className="text-xs text-zinc-500 mt-1 leading-relaxed">Streamlined vehicle check app for better maintenance and logging.</p>
