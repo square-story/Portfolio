@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import {
   motion,
   useMotionValue,
@@ -7,7 +7,26 @@ import {
   type PanInfo,
   MotionValue,
 } from 'motion/react'
+import Image from 'next/image'
 import { Disclosure, DisclosureTrigger, DisclosureContent } from '@/components/motion-primitives/disclosure'
+
+// Fix 4 — module-scope constants (not recreated per render)
+const imageVariants = {
+  collapsed: { scale: 1, filter: 'blur(0px)' },
+  expanded: { scale: 1.1, filter: 'blur(3px)' },
+}
+
+const contentVariants = {
+  collapsed: { opacity: 0, y: 0 },
+  expanded: { opacity: 1, y: 0 },
+}
+
+const disclosureTransition = {
+  type: 'spring',
+  stiffness: 26.7,
+  damping: 4.1,
+  mass: 0.2,
+}
 
 export interface CoverFlowItem {
   id: string | number
@@ -62,11 +81,9 @@ export function CoverFlow({
   })
 
   useEffect(() => {
-    if (initialIndex !== activeIndex) {
-      setActiveIndex(initialIndex)
-      scrollX.set(initialIndex)
-    }
-  }, [initialIndex])
+    setActiveIndex(initialIndex)
+    scrollX.set(initialIndex)
+  }, [initialIndex, scrollX])
 
   useEffect(() => {
     onIndexChange?.(activeIndex)
@@ -87,6 +104,13 @@ export function CoverFlow({
       scrollX.set(clamped)
     },
     [items.length, scrollX],
+  )
+
+  const stableOnItemClick = useCallback(
+    (item: CoverFlowItem, index: number) => {
+      onItemClick?.(item, index)
+    },
+    [onItemClick],
   )
 
   useEffect(() => {
@@ -172,6 +196,10 @@ export function CoverFlow({
     },
     [activeIndex, jumpToIndex],
   )
+  if (items.length === 0) {
+    return null
+  }
+
   return (
     <motion.div
       ref={containerRef}
@@ -207,22 +235,20 @@ export function CoverFlow({
             centerGap={centerGap}
             rotation={rotation}
             isActive={index === activeIndex}
+            activeIndex={activeIndex}
             enableReflection={enableReflection}
             enableClickToSnap={enableClickToSnap}
             isDragging={isDragging}
-            onClick={() => {
-              if (index === activeIndex) {
-                onItemClick?.(item, index)
-              } else if (enableClickToSnap) {
-                jumpToIndex(index)
-              }
-            }}
+            onJumpToIndex={jumpToIndex}
+            onItemClick={stableOnItemClick}
           />
         ))}
       </div>
     </motion.div>
   )
 }
+
+// Fix 2 — updated CardProps: onClick removed, added activeIndex/onJumpToIndex/onItemClick
 interface CardProps {
   item: CoverFlowItem
   index: number
@@ -233,13 +259,16 @@ interface CardProps {
   centerGap: number
   rotation: number
   isActive: boolean
+  activeIndex: number
   enableReflection: boolean
   enableClickToSnap: boolean
   isDragging: boolean
-  onClick: () => void
+  onJumpToIndex: (index: number) => void
+  onItemClick?: (item: CoverFlowItem, index: number) => void
 }
 
-function CoverFlowItemCard({
+// Fix 2 — wrapped in memo() to prevent re-renders on isDragging toggle
+const CoverFlowItemCard = memo(function CoverFlowItemCard({
   item,
   index,
   scrollX,
@@ -249,10 +278,12 @@ function CoverFlowItemCard({
   centerGap,
   rotation,
   isActive,
+  activeIndex,
   enableReflection,
   enableClickToSnap,
   isDragging,
-  onClick,
+  onJumpToIndex,
+  onItemClick,
 }: CardProps) {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -262,17 +293,17 @@ function CoverFlowItemCard({
     }
   }, [isActive])
 
-  const position = useTransform(scrollX, (value) => index - value)
-  const zIndex = useTransform(position, (pos) => 1000 - Math.abs(pos) * 10)
-
-  const t = useTransform(position, (pos) => {
+  // Fix 6 — collapsed transform chain: scrollX → transforms (1 MotionValue) → derived values
+  const transforms = useTransform(scrollX, (value) => {
+    const pos = index - value
     const absPos = Math.abs(pos)
     const isCenter = absPos < 0.5
 
-    let rY = 0
-    if (pos < -0.5) rY = rotation
-    if (pos > 0.5) rY = -rotation
-    if (isCenter) rY = -pos * (rotation * 2)
+    let rotateY = 0
+    if (pos < -0.5) rotateY = rotation
+    if (pos > 0.5) rotateY = -rotation
+    if (isCenter) rotateY = -pos * (rotation * 2)
+
     let x = 0
     if (pos < 0) {
       const stackIndex = Math.max(0, absPos - 1)
@@ -291,15 +322,18 @@ function CoverFlowItemCard({
       z = Math.abs(pos) * -400
     }
 
-    return { rotateY: rY, x, z }
+    const zIndex = 1000 - Math.abs(pos) * 10
+    const filterVal = Math.abs(pos) < 0.5 ? 1 : 0.5
+
+    return { rotateY, x, z, zIndex, filterVal }
   })
 
-  const rotateY = useTransform(t, (v) => v.rotateY)
-  const x = useTransform(t, (v) => v.x)
-  const z = useTransform(t, (v) => v.z)
-  const brightness = useTransform(position, (pos) =>
-    Math.abs(pos) < 0.5 ? 1 : 0.5,
-  )
+  const rotateY = useTransform(transforms, (v) => v.rotateY)
+  const x = useTransform(transforms, (v) => v.x)
+  const z = useTransform(transforms, (v) => v.z)
+  const zIndex = useTransform(transforms, (v) => v.zIndex)
+  // Fix 1 — filterStyle extracted from inline style prop
+  const filterStyle = useTransform(transforms, (v) => `brightness(${v.filterVal})`)
 
   const getCursorClass = () => {
     if (isDragging) return 'cursor-grabbing'
@@ -307,27 +341,16 @@ function CoverFlowItemCard({
     return 'cursor-grab'
   }
 
-  const imageVariants = {
-    collapsed: { scale: 1, filter: 'blur(0px)' },
-    expanded: { scale: 1.1, filter: 'blur(3px)' },
-  }
-
-  const contentVariants = {
-    collapsed: { opacity: 0, y: 0 },
-    expanded: { opacity: 1, y: 0 },
-  }
-
-  const disclosureTransition = {
-    type: 'spring',
-    stiffness: 26.7,
-    damping: 4.1,
-    mass: 0.2,
-  }
-
+  // Fix 2 — click logic moved inside card, no inline arrow in parent
   const handleCardClick = () => {
     if (!isActive) {
-      onClick()
+      if (enableClickToSnap) {
+        onJumpToIndex(index)
+      }
     } else {
+      if (index === activeIndex) {
+        onItemClick?.(item, index)
+      }
       setIsOpen(!isOpen)
     }
   }
@@ -344,26 +367,35 @@ function CoverFlowItemCard({
         z,
         rotateY,
         zIndex,
-        filter: useTransform(brightness, (b) => `brightness(${b})`),
+        filter: filterStyle,
         pointerEvents: 'auto',
+        // Fix 5 — prevent flickering during 3D transforms
+        backfaceVisibility: 'hidden' as const,
       }}
     >
-      <div 
+      <div
         className="relative w-full h-full rounded-xl shadow-2xl bg-black overflow-hidden select-none"
         onClick={handleCardClick}
       >
         <div className="absolute inset-0 rounded-xl border border-white/10 z-20 pointer-events-none" />
+        {/* Fix 3 — Replace motion.img with div wrapper + next/image Image */}
         <div className="relative w-full h-full overflow-hidden rounded-xl">
-          <motion.img
-            src={item.image}
-            alt={item.title}
-            className="object-cover select-none pointer-events-none w-full h-full"
-            draggable={false}
-            sizes={`${width}px`}
+          <motion.div
+            className="absolute inset-0"
             animate={isOpen ? 'expanded' : 'collapsed'}
             variants={imageVariants}
             transition={disclosureTransition}
-          />
+          >
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              className="object-cover select-none pointer-events-none"
+              draggable={false}
+              sizes={`${width}px`}
+              priority={isActive}
+            />
+          </motion.div>
           <div className="absolute inset-0 bg-linear-to-tr from-white/10 to-transparent opacity-0 dark:opacity-20 pointer-events-none z-10" />
         </div>
 
@@ -380,7 +412,6 @@ function CoverFlowItemCard({
                 <button
                   className="w-full pb-2 text-left text-[14px] font-medium text-white dark:text-zinc-900 cursor-pointer focus:outline-none"
                   type="button"
-                  onClick={() => setIsOpen(!isOpen)}
                 >
                   {item.title}
                 </button>
@@ -407,14 +438,16 @@ function CoverFlowItemCard({
             marginTop: '2px',
           }}
         >
+          {/* Fix 3 — Replace img with next/image Image for reflection */}
           <div
             className="relative w-full h-full opacity-40"
             style={{ transform: 'scaleY(-1)' }}
           >
-            <img
+            <Image
               src={item.image}
               alt=""
-              className="object-cover blur-[1px] w-full h-full"
+              fill
+              className="object-cover blur-[1px]"
               sizes={`${width}px`}
             />
             <div className="absolute inset-0 bg-linear-to-b from-background/90 to-transparent" />
@@ -423,4 +456,4 @@ function CoverFlowItemCard({
       )}
     </motion.div>
   )
-}
+})
