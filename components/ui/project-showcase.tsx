@@ -1,48 +1,10 @@
 "use client"
 
 import type React from "react"
-
+import Image from "next/image"
 import { useState, useRef, useEffect } from "react"
 import { ArrowUpRight } from "lucide-react"
-
-interface Project {
-  title: string
-  description: string
-  year: string
-  link: string
-  image: string
-}
-
-const projects: Project[] = [
-  {
-    title: "Lumina",
-    description: "AI-powered design system generator.",
-    year: "2024",
-    link: "#",
-    image: "https://plus.unsplash.com/premium_photo-1723489242223-865b4a8cf7b8?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D$0",
-  },
-  {
-    title: "Flux",
-    description: "Real-time collaboration for creative teams.",
-    year: "2024",
-    link: "#",
-    image: "https://images.unsplash.com/photo-1530435460869-d13625c69bbf?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D$0",
-  },
-  {
-    title: "Prism",
-    description: "Color palette extraction from any image.",
-    year: "2023",
-    link: "#",
-    image: "https://i.pinimg.com/1200x/99/ca/5c/99ca5cf82cf12df8801f7b2bef38d325.jpg",
-  },
-  {
-    title: "Vertex",
-    description: "3D modeling toolkit for the web.",
-    year: "2023",
-    link: "#",
-    image: "https://i.pinimg.com/736x/7c/15/39/7c1539cf7ff0207cb49ce0d338de1e5f.jpg",
-  },
-]
+import { PROJECTS, type Project } from "@/app/data"
 
 export function ProjectShowcase() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
@@ -110,35 +72,39 @@ export function ProjectShowcase() {
         }}
       >
         <div className="relative w-70 h-45 bg-secondary rounded-xl overflow-hidden">
-          {projects.map((project, index) => (
-            <img
-              key={project.title}
-              src={project.image || "/placeholder.svg"}
-              alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out"
+          {PROJECTS.map((project, index) => (
+            <div
+              key={project.id}
+              className="absolute inset-0 transition-all duration-500 ease-out"
               style={{
                 opacity: hoveredIndex === index ? 1 : 0,
                 scale: hoveredIndex === index ? 1 : 1.1,
                 filter: hoveredIndex === index ? "none" : "blur(10px)",
               }}
-            />
+            >
+              <Image
+                src={project.thumbnail}
+                alt={project.name}
+                fill
+                sizes="280px"
+                className="object-cover"
+              />
+            </div>
           ))}
-          {/* Subtle gradient overlay */}
           <div className="absolute inset-0 bg-linear-to-t from-background/20 to-transparent" />
         </div>
       </div>
 
       <div className="space-y-0">
-        {projects.map((project, index) => (
+        {PROJECTS.map((project, index) => (
           <a
-            key={project.title}
+            key={project.id}
             href={project.link}
             className="group block"
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
           >
             <div className="relative py-5 border-t border-border transition-all duration-300 ease-out">
-              {/* Background highlight on hover */}
               <div
                 className={`
                   absolute inset-0 -mx-4 px-4 bg-secondary/50 rounded-lg
@@ -146,15 +112,12 @@ export function ProjectShowcase() {
                   ${hoveredIndex === index ? "opacity-100 scale-100" : "opacity-0 scale-95"}
                 `}
               />
-
               <div className="relative flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
-                  {/* Title with animated underline */}
                   <div className="inline-flex items-center gap-2">
                     <h3 className="text-foreground font-medium text-lg tracking-tight">
                       <span className="relative">
-                        {project.title}
-                        {/* Animated underline */}
+                        {project.name}
                         <span
                           className={`
                             absolute left-0 -bottom-0.5 h-px bg-foreground
@@ -164,8 +127,6 @@ export function ProjectShowcase() {
                         />
                       </span>
                     </h3>
-
-                    {/* Arrow that slides in */}
                     <ArrowUpRight
                       className={`
                         w-4 h-4 text-muted-foreground
@@ -177,8 +138,6 @@ export function ProjectShowcase() {
                       `}
                     />
                   </div>
-
-                  {/* Description with fade effect */}
                   <p
                     className={`
                       text-muted-foreground text-sm mt-1 leading-relaxed
@@ -189,23 +148,10 @@ export function ProjectShowcase() {
                     {project.description}
                   </p>
                 </div>
-
-                {/* Year badge */}
-                <span
-                  className={`
-                    text-xs font-mono text-muted-foreground tabular-nums
-                    transition-all duration-300 ease-out
-                    ${hoveredIndex === index ? "text-foreground/60" : ""}
-                  `}
-                >
-                  {project.year}
-                </span>
               </div>
             </div>
           </a>
         ))}
-
-        {/* Bottom border for last item */}
         <div className="border-t border-border" />
       </div>
     </section>
