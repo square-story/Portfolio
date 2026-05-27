@@ -93,16 +93,24 @@ export function Header() {
         >
           home
         </Link>
-        <Link 
-          href="/gallery" 
+        <Link
+          href="/gallery"
           className={`hover:text-black dark:hover:text-white transition-colors ${pathname === '/gallery' ? 'text-black dark:text-white font-medium' : ''}`}
           onMouseEnter={() => trigger('selection')}
           onClick={() => { trigger('medium'); playClick(); }}
         >
           gallery
         </Link>
-        <Link 
-          href="/blog" 
+        <Link
+          href="/work"
+          className={`hover:text-black dark:hover:text-white transition-colors ${pathname === '/work' ? 'text-black dark:text-white font-medium' : ''}`}
+          onMouseEnter={() => trigger('selection')}
+          onClick={() => { trigger('medium'); playClick(); }}
+        >
+          work
+        </Link>
+        <Link
+          href="/blog"
           className={`hover:text-black dark:hover:text-white transition-colors ${pathname.startsWith('/blog') ? 'text-black dark:text-white font-medium' : ''}`}
           onMouseEnter={() => trigger('selection')}
           onClick={() => { trigger('medium'); playClick(); }}

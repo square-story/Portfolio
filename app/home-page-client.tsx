@@ -68,7 +68,7 @@ export default function HomePageClient() {
 
                 <div className="space-y-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 font-normal">
                     <div>
-                        I am currently working as a Founding Engineer at{' '}
+                        I'm a Founding Engineer at{' '}
                         <span className="relative inline-block">
                             <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
                                 <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
@@ -96,7 +96,7 @@ export default function HomePageClient() {
                                 />
                                 Creeto.ai
                             </a>
-                        </span>, currently working on the agentic workflow, managing the backend architecture and ensuring the scalable solution is shipped.. Previously, I created{' '}
+                        </span>, working on the agentic workflow and backend architecture to ship scalable solutions. Previously, I created{' '}
                         <span className="relative inline-block">
                             <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
                                 <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
@@ -124,7 +124,7 @@ export default function HomePageClient() {
                                 />
                                 Blipko
                             </a>
-                        </span> to help users track balances and expenses via telegram, and worked on{' '}
+                        </span> to help users track expenses and balances via Telegram, and built{' '}
                         <span className="relative inline-block">
                             <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
                                 <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
@@ -152,11 +152,11 @@ export default function HomePageClient() {
                                 />
                                 Inspecto
                             </a>
-                        </span> to streamline vehicle checks.
+                        </span> to streamline vehicle inspections.
                     </div>
 
                     <div>
-                        Apart from my professional life, I am passionate about photography, open-source development, and exploring new technologies.
+                        Outside work, I'm passionate about photography, open-source, and exploring new technologies.
                     </div>
                 </div>
             </motion.section>
