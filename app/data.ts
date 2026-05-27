@@ -35,6 +35,40 @@ type SocialLink = {
   link: string
 }
 
+export type GalleryItem = {
+  id: number
+  image: string
+  title: string
+  subtitle?: string
+}
+
+export const GALLERY_ITEMS: GalleryItem[] = [
+  {
+    id: 1,
+    image: '/assets/workspace_setup.png',
+    title: 'Desk Setup',
+    subtitle: 'Where ideas turn into code',
+  },
+  {
+    id: 2,
+    image: '/assets/misty_mountains.png',
+    title: 'Misty Mountains',
+    subtitle: 'Chasing the quiet morning sun',
+  },
+  {
+    id: 3,
+    image: '/assets/neon_street.png',
+    title: 'Neon Streets',
+    subtitle: 'Midnight wanders through rain-washed lanes',
+  },
+  {
+    id: 4,
+    image: '/assets/abstract_shapes.png',
+    title: 'Abstract Worlds',
+    subtitle: 'Exploring geometric structures',
+  },
+]
+
 export const PROJECTS: Project[] = [
   {
     name: 'Blipko',
