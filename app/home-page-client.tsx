@@ -249,7 +249,7 @@ export default function HomePageClient() {
                     >
                         interactive gallery
                     </Link>{' '}
-                    to view the full reflection CoverFlow showcase of my photography.
+                    to flick through a deck of my photography.
                 </div>
             </motion.section>
         </motion.main>

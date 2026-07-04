@@ -1,7 +1,6 @@
 'use client'
 import { motion } from 'motion/react'
-import Link from 'next/link'
-import { CoverFlow } from '@/components/ui/coverflow'
+import TossDeckCarousel from '@/components/pixel-perfect/toss-deck-carousel'
 import { GALLERY_ITEMS } from '@/app/data'
 
 const VARIANTS_CONTAINER = {
@@ -31,26 +30,13 @@ export default function GalleryPage() {
             initial="hidden"
             animate="visible"
         >
-
-
             <motion.section
                 variants={VARIANTS_SECTION}
                 transition={TRANSITION_SECTION}
                 className="w-full flex justify-center py-6"
             >
                 <div className="min-h-105 w-full relative bg-transparent flex items-center justify-center">
-                    <CoverFlow
-                        items={GALLERY_ITEMS}
-                        itemWidth={290}
-                        itemHeight={350}
-                        initialIndex={0}
-                        enableScroll={true}
-                        scrollThreshold={60}
-                        centerGap={180}
-                        stackSpacing={60}
-                        enableReflection={false}
-                        enableClickToSnap={true}
-                    />
+                    <TossDeckCarousel items={GALLERY_ITEMS} />
                 </div>
             </motion.section>
         </motion.main>
