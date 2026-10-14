@@ -39,8 +39,6 @@ export function Preloader() {
         return () => clearTimeout(timeout);
     }, [index, isLoading]);
 
-    if (dimension.width === 0) return null;
-
     const initialPath = `M0 0 Q${dimension.width / 2} 300 ${dimension.width} 0 L${dimension.width} 0 L0 0 Z`;
     const targetPath = `M0 0 Q${dimension.width / 2} 0 ${dimension.width} 0 L${dimension.width} 0 L0 0 Z`;
 
@@ -72,14 +70,16 @@ export function Preloader() {
                     >
                         {words[index]}
                     </motion.div>
-                    <svg className="absolute top-full left-0 w-full h-75">
-                        <motion.path
-                            variants={curve}
-                            initial="initial"
-                            exit="exit"
-                            className="fill-[#141516] dark:fill-zinc-50"
-                        />
-                    </svg>
+                    {dimension.width > 0 && (
+                        <svg className="absolute top-full left-0 w-full h-75">
+                            <motion.path
+                                variants={curve}
+                                initial="initial"
+                                exit="exit"
+                                className="fill-[#141516] dark:fill-zinc-50"
+                            />
+                        </svg>
+                    )}
                 </motion.div>
             )}
         </AnimatePresence>
