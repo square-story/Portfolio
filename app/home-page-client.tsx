@@ -45,8 +45,8 @@ export default function HomePageClient() {
             >
                 <h1 className="mb-8 flex items-center justify-between">
                     <div>
-                        <Link 
-                            href="/" 
+                        <Link
+                            href="/"
                             className="font-medium text-black dark:text-white"
                             onMouseEnter={() => trigger('selection')}
                             onClick={() => { trigger('medium'); playClick(); }}
@@ -89,10 +89,14 @@ export default function HomePageClient() {
                                 onClick={() => { trigger('medium'); playClick(); }}
                             >
                                 <img
-                                    src="https://creeto.ai/favicon.ico"
+                                    src="https://creeto.ai/favicon-dark.ico"
                                     alt="Creeto.ai favicon"
-                                    className="w-3.5 h-3.5 rounded-sm"
-                                    onError={(e) => { e.currentTarget.src = "https://gcdnb.pbrd.co/images/-Qwlye0gvxgT.png"; }}
+                                    className="w-3.5 h-3.5 rounded-sm dark:hidden"
+                                />
+                                <img
+                                    src="https://creeto.ai/favicon-light.ico"
+                                    alt=""
+                                    className="w-3.5 h-3.5 rounded-sm hidden dark:block"
                                 />
                                 Creeto.ai
                             </a>
@@ -171,10 +175,10 @@ export default function HomePageClient() {
                             <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">View Projects</div>
                         </Cursor>
                         <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }} actionArea="global" range={100}>
-                            <a 
-                                href="https://github.com/square-story" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
+                            <a
+                                href="https://github.com/square-story"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="hover:text-black dark:hover:text-white transition-colors block"
                                 onMouseEnter={() => trigger('selection')}
                                 onClick={() => { trigger('medium'); playClick(); }}
@@ -188,10 +192,10 @@ export default function HomePageClient() {
                             <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">Follow Updates</div>
                         </Cursor>
                         <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }} actionArea="global" range={100}>
-                            <a 
-                                href="https://twitter.com/sadikbuilds" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
+                            <a
+                                href="https://twitter.com/sadikbuilds"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="hover:text-black dark:hover:text-white transition-colors block"
                                 onMouseEnter={() => trigger('selection')}
                                 onClick={() => { trigger('medium'); playClick(); }}
@@ -205,10 +209,10 @@ export default function HomePageClient() {
                             <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">Connect</div>
                         </Cursor>
                         <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }} actionArea="global" range={100}>
-                            <a 
-                                href="https://www.linkedin.com/in/sadikkp" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
+                            <a
+                                href="https://www.linkedin.com/in/sadikkp"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="hover:text-black dark:hover:text-white transition-colors block"
                                 onMouseEnter={() => trigger('selection')}
                                 onClick={() => { trigger('medium'); playClick(); }}
@@ -222,8 +226,8 @@ export default function HomePageClient() {
                             <div className="px-3 py-1.5 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full text-xs font-medium backdrop-blur-md translate-x-12 translate-y-8">Say Hello</div>
                         </Cursor>
                         <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }} actionArea="global" range={100}>
-                            <a 
-                                href="mailto:sadik.build@gmail.com" 
+                            <a
+                                href="mailto:sadik.build@gmail.com"
                                 className="hover:text-black dark:hover:text-white transition-colors block"
                                 onMouseEnter={() => trigger('selection')}
                                 onClick={() => { trigger('medium'); playClick(); }}
