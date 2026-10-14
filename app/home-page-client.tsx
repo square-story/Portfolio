@@ -3,7 +3,7 @@ import { motion } from 'motion/react'
 import Link from 'next/link'
 import { Cursor } from '@/components/motion-primitives/cursor'
 import { Magnetic } from '@/components/motion-primitives/magnetic'
-import { TextEffect } from '@/components/ui/text-effect'
+import { DiaText } from '@/components/ui/dia-text'
 import { useWebHaptics } from 'web-haptics/react'
 import { useSound } from '@/hooks/use-sound'
 import { clickSoftSound } from '@/lib/click-soft'
@@ -53,15 +53,9 @@ export default function HomePageClient() {
                         >
                             MOHAMMED SADIK
                         </Link>
-                        <TextEffect
-                            as="p"
-                            preset="fade"
-                            per="char"
-                            className="text-zinc-600 dark:text-zinc-500"
-                            delay={0.5}
-                        >
-                            Full Stack Engineer
-                        </TextEffect>
+                        <p className="[--dia-fg:var(--color-zinc-600)] dark:[--dia-fg:var(--color-zinc-500)]">
+                            <DiaText text="Full Stack Engineer" delay={0.5} textColor="var(--dia-fg)" />
+                        </p>
                     </div>
                 </h1>
 

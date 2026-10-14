@@ -4,37 +4,44 @@ import { motion, AnimatePresence } from 'motion/react';
 
 const words = ['Hello', 'Bonjour', 'Ciao', 'Olà', 'やあ', 'Hallå', 'Guten tag', 'Hallo'];
 
+// ponytail: fixed threshold, tune if fast visitors still see the overlay
+const SLOW_MS = 500;
+
 export function Preloader() {
     const [index, setIndex] = useState(0);
     const [dimension, setDimension] = useState({ width: 0, height: 0 });
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        // Prevent scrolling while preloader is active
-        document.body.style.overflow = 'hidden';
-        setDimension({ width: window.innerWidth, height: window.innerHeight });
+        // Only show when the page is slow to load
+        if (document.readyState === 'complete') return;
+
+        const timer = setTimeout(() => {
+            setDimension({ width: window.innerWidth, height: window.innerHeight });
+            document.body.style.overflow = 'hidden';
+            setIsLoading(true);
+        }, SLOW_MS);
+
+        const onLoad = () => {
+            clearTimeout(timer);
+            document.body.style.overflow = '';
+            setIsLoading(false);
+        };
+        window.addEventListener('load', onLoad);
 
         return () => {
+            clearTimeout(timer);
+            window.removeEventListener('load', onLoad);
             document.body.style.overflow = '';
         };
     }, []);
 
     useEffect(() => {
-        if (!isLoading) {
-            document.body.style.overflow = '';
-            return;
-        }
-
-        if (index === words.length - 1) {
-            const timer = setTimeout(() => {
-                setIsLoading(false);
-            }, 600);
-            return () => clearTimeout(timer);
-        }
+        if (!isLoading) return;
 
         const timeout = setTimeout(() => {
-            setIndex(index + 1);
-        }, index === 0 ? 1000 : 180);
+            setIndex((index + 1) % words.length);
+        }, 180);
 
         return () => clearTimeout(timeout);
     }, [index, isLoading]);
