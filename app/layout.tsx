@@ -5,7 +5,6 @@ import './globals.css'
 import { Header } from './header'
 import { Footer } from './footer'
 import { ThemeProvider } from 'next-themes'
-import { TooltipProvider } from '@/components/ui/tooltip'
 import { WEBSITE_URL } from '@/lib/constants'
 import { Preloader } from '@/components/ui/preloader'
 
@@ -55,15 +54,13 @@ export default function RootLayout({
           storageKey="theme"
           defaultTheme="system"
         >
-          <TooltipProvider delayDuration={0}>
-            <div className="flex min-h-screen w-full flex-col font-(family-name:--font-geist-pixel-square)">
-              <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
-                <Header />
-                {children}
-                <Footer />
-              </div>
+          <div className="flex min-h-screen w-full flex-col font-(family-name:--font-geist-pixel-square)">
+            <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
+              <Header />
+              {children}
+              <Footer />
             </div>
-          </TooltipProvider>
+          </div>
         </ThemeProvider>
       </body>
     </html>

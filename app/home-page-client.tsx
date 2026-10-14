@@ -234,24 +234,6 @@ export default function HomePageClient() {
                     </div>
                 </div>
             </motion.section>
-
-            <motion.section
-                variants={VARIANTS_SECTION}
-                transition={TRANSITION_SECTION}
-            >
-                <div className="text-sm text-zinc-500 dark:text-zinc-500 font-normal leading-relaxed">
-                    Explore my{' '}
-                    <Link 
-                        href="/gallery" 
-                        className="font-semibold text-black dark:text-white hover:opacity-75 transition-opacity"
-                        onMouseEnter={() => trigger('selection')}
-                        onClick={() => { trigger('medium'); playClick(); }}
-                    >
-                        interactive gallery
-                    </Link>{' '}
-                    to flick through a deck of my photography.
-                </div>
-            </motion.section>
         </motion.main>
     )
 }
