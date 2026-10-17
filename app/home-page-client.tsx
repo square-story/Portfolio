@@ -7,6 +7,12 @@ import { DiaText } from '@/components/ui/dia-text'
 import { useWebHaptics } from 'web-haptics/react'
 import { useSound } from '@/hooks/use-sound'
 import { clickSoftSound } from '@/lib/click-soft'
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/r-hover-card'
+import type { ReactNode } from 'react'
+import { PROJECTS } from '@/app/data'
+
+const blipko = PROJECTS.find((p) => p.slug === 'blipko')!
+const inspecto = PROJECTS.find((p) => p.slug === 'inspecto')!
 
 const VARIANTS_CONTAINER = {
     hidden: { opacity: 0 },
@@ -25,6 +31,81 @@ const VARIANTS_SECTION = {
 
 const TRANSITION_SECTION = {
     duration: 0.4,
+}
+
+type ProjectLinkProps = {
+    href: string
+    name: string
+    role: string
+    tagline: string
+    favicon: ReactNode
+    highlights: string[]
+    stack?: string[]
+    repo?: string
+}
+
+function ProjectLink({ href, name, role, tagline, favicon, highlights, stack = [], repo }: ProjectLinkProps) {
+    const { trigger } = useWebHaptics()
+    const [playClick] = useSound(clickSoftSound)
+
+    return (
+        <HoverCard openDelay={100}>
+            <HoverCardTrigger asChild>
+                <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
+                    onMouseEnter={() => trigger('selection')}
+                    onClick={() => { trigger('medium'); playClick(); }}
+                >
+                    {favicon}
+                    {name}
+                </a>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-80">
+                <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                        <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 [&_img]:size-5">
+                            {favicon}
+                        </div>
+                        <div className="min-w-0">
+                            <p className="text-sm font-medium text-black dark:text-white">{name}</p>
+                            <p className="truncate text-xs text-zinc-500">{new URL(href).hostname} · {role}</p>
+                        </div>
+                    </div>
+                    <p className="text-[13px] leading-relaxed text-zinc-600 dark:text-zinc-400">{tagline}</p>
+                    <ul className="space-y-1 text-xs text-zinc-500">
+                        {highlights.map((h) => (
+                            <li key={h} className="flex gap-2">
+                                <span className="text-zinc-400 dark:text-zinc-600">–</span>
+                                {h}
+                            </li>
+                        ))}
+                    </ul>
+                    {stack.length > 0 && (
+                        <div className="flex flex-wrap gap-1">
+                            {stack.map((t) => (
+                                <span key={t} className="rounded-md border border-zinc-200 bg-zinc-50 px-1.5 py-0.5 text-[11px] text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400">
+                                    {t}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+                    <div className="flex gap-4 border-t border-zinc-200 pt-3 text-xs font-medium dark:border-zinc-800">
+                        <a href={href} target="_blank" rel="noopener noreferrer" className="text-black hover:underline dark:text-white">
+                            Visit site ↗
+                        </a>
+                        {repo && (
+                            <a href={repo} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-black hover:underline dark:hover:text-white">
+                                Source ↗
+                            </a>
+                        )}
+                    </div>
+                </div>
+            </HoverCardContent>
+        </HoverCard>
+    )
 }
 
 export default function HomePageClient() {
@@ -63,94 +144,64 @@ export default function HomePageClient() {
                 <div className="space-y-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 font-normal">
                     <div>
                         I'm a Founding Engineer at{' '}
-                        <span className="relative inline-block">
-                            <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
-                                <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
-                                    <img src="https://gcdnb.pbrd.co/images/2vvR1aCkAsMh.png"
-                                        alt="Creeto.ai" className="w-full h-24 object-cover rounded-lg" />
-                                    <div>
-                                        <p className="text-sm font-bold text-black dark:text-white">Creeto.ai</p>
-                                        <p className="text-xs text-zinc-500 mt-1 leading-relaxed">Agent that converts any knowledge into informative videos</p>
-                                    </div>
-                                </div>
-                            </Cursor>
-                            <a
-                                href="https://creeto.ai"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
-                                onMouseEnter={() => trigger('selection')}
-                                onClick={() => { trigger('medium'); playClick(); }}
-                            >
-                                <img
-                                    src="https://creeto.ai/favicon-dark.ico"
-                                    alt="Creeto.ai favicon"
-                                    className="w-3.5 h-3.5 rounded-sm dark:hidden"
-                                />
-                                <img
-                                    src="https://creeto.ai/favicon-light.ico"
-                                    alt=""
-                                    className="w-3.5 h-3.5 rounded-sm hidden dark:block"
-                                />
-                                Creeto.ai
-                            </a>
-                        </span>, working on the agentic workflow and backend architecture to ship scalable solutions. Previously, I created{' '}
-                        <span className="relative inline-block">
-                            <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
-                                <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
-                                    <img src="https://gcdnb.pbrd.co/images/IK7plQ1wzJYb.png"
-                                        alt="Blipko" className="w-full h-24 object-cover rounded-lg" />
-                                    <div>
-                                        <p className="text-sm font-bold text-black dark:text-white">Blipko</p>
-                                        <p className="text-xs text-zinc-500 mt-1 leading-relaxed">A Telegram bot to track balances and expenses directly from your chat.</p>
-                                    </div>
-                                </div>
-                            </Cursor>
-                            <a
-                                href="https://blipko.lol/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
-                                onMouseEnter={() => trigger('selection')}
-                                onClick={() => { trigger('medium'); playClick(); }}
-                            >
+                        <ProjectLink
+                            href="https://creeto.ai"
+                            name="Creeto.ai"
+                            role="Founding Engineer"
+                            tagline="AI talking-head videos for founders and creators. Drop in a topic, doc or PDF and get a finished short-form video starring your digital twin."
+                            highlights={[
+                                'Personal avatars and voice cloning',
+                                'Auto scenes, b-roll and timed captions',
+                                'Create videos straight from WhatsApp',
+                            ]}
+                            favicon={
+                                <>
+                                    <img src="https://creeto.ai/favicon-dark.ico" alt="Creeto.ai favicon" className="w-3.5 h-3.5 rounded-sm dark:hidden" />
+                                    <img src="https://creeto.ai/favicon-light.ico" alt="" className="w-3.5 h-3.5 rounded-sm hidden dark:block" />
+                                </>
+                            }
+                        />, working on the agentic workflow and backend architecture to ship scalable solutions. Previously, I created{' '}
+                        <ProjectLink
+                            href="https://blipko.lol/"
+                            name="Blipko"
+                            role="Creator"
+                            tagline={blipko.description}
+                            highlights={[
+                                'Log spends by text or voice in Malayalam, Hindi or English',
+                                '50/30/20 budgets that follow your payday',
+                                '/status and /report right inside the chat',
+                            ]}
+                            stack={blipko.techStack.slice(0, 6)}
+                            repo={blipko.repoLink}
+                            favicon={
                                 <img
                                     src="https://blipko.lol/favicon.ico"
                                     alt="Blipko favicon"
                                     className="w-3.5 h-3.5 rounded-sm"
                                     onError={(e) => { e.currentTarget.src = "https://www.google.com/s2/favicons?domain=blipko.lol&sz=64"; }}
                                 />
-                                Blipko
-                            </a>
-                        </span> to help users track expenses and balances via Telegram, and built{' '}
-                        <span className="relative inline-block">
-                            <Cursor attachToParent variants={{ initial: { scale: 0.5, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.5, opacity: 0 } }} transition={{ type: 'spring', bounce: 0, duration: 0.3 }}>
-                                <div className="w-64 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl flex flex-col gap-3 translate-x-12 translate-y-8">
-                                    <img src="https://gcdnb.pbrd.co/images/bKASBCR9gBDc.png"
-                                        alt="Inspecto" className="w-full h-24 object-cover rounded-lg" />
-                                    <div>
-                                        <p className="text-sm font-bold text-black dark:text-white">Inspecto</p>
-                                        <p className="text-xs text-zinc-500 mt-1 leading-relaxed">Streamlined vehicle check app for better maintenance and logging.</p>
-                                    </div>
-                                </div>
-                            </Cursor>
-                            <a
-                                href="https://inspecto-flax.vercel.app/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 text-sm font-medium text-black dark:text-white transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 align-baseline"
-                                onMouseEnter={() => trigger('selection')}
-                                onClick={() => { trigger('medium'); playClick(); }}
-                            >
+                            }
+                        /> to help users track expenses and balances via Telegram, and built{' '}
+                        <ProjectLink
+                            href="https://inspecto-flax.vercel.app/"
+                            name="Inspecto"
+                            role="Creator"
+                            tagline={inspecto.description}
+                            highlights={[
+                                'Book verified inspectors for any vehicle',
+                                'Real-time updates and Stripe payments',
+                            ]}
+                            stack={inspecto.techStack.filter((t) => t !== 'Git').slice(0, 6)}
+                            repo={inspecto.repoLink}
+                            favicon={
                                 <img
                                     src="https://inspecto-flax.vercel.app/favicon.ico"
                                     alt="Inspecto favicon"
                                     className="w-3.5 h-3.5 rounded-sm"
                                     onError={(e) => { e.currentTarget.src = "https://www.google.com/s2/favicons?domain=inspecto-flax.vercel.app&sz=64"; }}
                                 />
-                                Inspecto
-                            </a>
-                        </span> to streamline vehicle inspections.
+                            }
+                        /> to streamline vehicle inspections.
                     </div>
 
                     <div>
