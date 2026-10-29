@@ -1,11 +1,13 @@
 'use client'
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 
 /** Keep Safari's browser chrome in step with the active site theme. */
 export function ThemeColorSync() {
   const { resolvedTheme } = useTheme()
+  const pathname = usePathname()
 
   useEffect(() => {
     if (!resolvedTheme) return
@@ -16,7 +18,7 @@ export function ThemeColorSync() {
     themeColors.forEach((themeColor) => {
       themeColor.content = color
     })
-  }, [resolvedTheme])
+  }, [pathname, resolvedTheme])
 
   return null
 }
