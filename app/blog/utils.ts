@@ -1,7 +1,21 @@
 import { zenblog, BlogPost } from '@/lib/zenblog'
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
-    const { data: posts } = await zenblog.posts.list({ limit: 100 })
+    const pageSize = 100
+    const posts = []
+    let offset = 0
+    let total = Infinity
+
+    while (offset < total) {
+        const page = await zenblog.posts.list({ limit: pageSize, offset })
+        posts.push(...page.data)
+        total = page.total
+        offset += page.data.length
+
+        // Avoid looping forever if the API returns an empty page unexpectedly.
+        if (page.data.length === 0) break
+    }
+
     return posts.map((post: any) => ({
         metadata: {
             title: post.title,
@@ -89,5 +103,4 @@ export function formatDate(date: string, includeRelative = false) {
 
     return `${fullDate} (${formattedDate})`
 }
-
 

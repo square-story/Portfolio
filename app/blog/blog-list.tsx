@@ -3,7 +3,7 @@ import Link from 'next/link'
 import type { BlogPost } from '@/lib/zenblog'
 import { AnimatedBackground } from '@/components/motion-primitives/animated-background'
 import { useState, useRef, useEffect } from "react"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Image as ImageIcon } from "lucide-react"
 
 interface BlogListProps {
     posts: BlogPost[]
@@ -16,6 +16,7 @@ export function BlogList({ posts }: BlogListProps) {
     const [isVisible, setIsVisible] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
     const animationRef = useRef<number | null>(null)
+    const hoveredPost = hoveredIndex === null ? null : posts[hoveredIndex]
 
     useEffect(() => {
         const lerp = (start: number, end: number, factor: number) => {
@@ -64,20 +65,20 @@ export function BlogList({ posts }: BlogListProps) {
                     transition: "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                 }}
             >
-                <div className="relative w-60 h-45 bg-zinc-100 dark:bg-zinc-900 rounded-xl overflow-hidden">
-                    {posts.map((post, index) => (
+                <div className="relative aspect-[4/3] w-60 overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-900">
+                    {hoveredPost?.metadata.image ? (
                         <img
-                            key={post.slug}
-                            src={post.metadata.image || "/placeholder.svg"}
-                            alt={post.metadata.title}
-                            className="absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out"
-                            style={{
-                                opacity: hoveredIndex === index ? 1 : 0,
-                                scale: hoveredIndex === index ? 1 : 1.1,
-                                filter: hoveredIndex === index ? "none" : "blur(10px)",
-                            }}
+                            key={hoveredPost.slug}
+                            src={hoveredPost.metadata.image}
+                            alt={hoveredPost.metadata.title}
+                            className="absolute inset-0 m-0 h-full w-full object-cover transition-transform duration-500 ease-out"
+                            style={{ margin: 0 }}
                         />
-                    ))}
+                    ) : (
+                        <div className="absolute inset-0 flex items-center justify-center text-zinc-400 dark:text-zinc-600" aria-hidden="true">
+                            <ImageIcon className="h-10 w-10" />
+                        </div>
+                    )}
                     <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
                 </div>
             </div>
