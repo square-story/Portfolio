@@ -74,6 +74,12 @@
 html {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  background-color: var(--background);
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 /*
   ---break---

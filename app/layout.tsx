@@ -6,11 +6,15 @@ import { Header } from './header'
 import { Footer } from './footer'
 import { ThemeProvider } from 'next-themes'
 import { WEBSITE_URL } from '@/lib/constants'
+import { ThemeColorSync } from '@/components/theme-color-sync'
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#ffffff',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#09090b' },
+  ],
 }
 
 export const metadata: Metadata = {
@@ -52,6 +56,7 @@ export default function RootLayout({
           storageKey="theme"
           defaultTheme="system"
         >
+          <ThemeColorSync />
           <div className="flex min-h-screen w-full flex-col font-(family-name:--font-geist-pixel-square)">
             <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
               <Header />
