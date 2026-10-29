@@ -1,5 +1,5 @@
 'use client'
-import { motion } from 'motion/react'
+import { AnimatePresence, motion } from 'motion/react'
 import Link from 'next/link'
 import { Cursor } from '@/components/motion-primitives/cursor'
 import { Magnetic } from '@/components/motion-primitives/magnetic'
@@ -8,7 +8,7 @@ import { useWebHaptics } from 'web-haptics/react'
 import { useSound } from '@/hooks/use-sound'
 import { clickSoftSound } from '@/lib/click-soft'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/r-hover-card'
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { PROJECTS } from '@/app/data'
 
 const blipko = PROJECTS.find((p) => p.slug === 'blipko')!
@@ -111,6 +111,7 @@ function ProjectLink({ href, name, role, tagline, favicon, highlights, stack = [
 export default function HomePageClient() {
     const { trigger } = useWebHaptics()
     const [playClick] = useSound(clickSoftSound)
+    const [portraitIndex, setPortraitIndex] = useState(0)
 
     return (
         <motion.main
@@ -125,18 +126,57 @@ export default function HomePageClient() {
                 className="space-y-6"
             >
                 <h1 className="mb-8 flex items-center justify-between">
-                    <div>
-                        <Link
-                            href="/"
-                            className="font-medium text-black dark:text-white"
-                            onMouseEnter={() => trigger('selection')}
-                            onClick={() => { trigger('medium'); playClick(); }}
+                    <div className="flex items-center gap-3">
+                        <motion.button
+                            type="button"
+                            aria-label={`Change profile photo, ${portraitIndex + 1} of 3`}
+                            title="Tap to cycle profile photos"
+                            className="group relative size-14 shrink-0 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-black"
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => {
+                                setPortraitIndex((current) => (current + 1) % 3)
+                                trigger('medium')
+                                playClick()
+                            }}
                         >
-                            MOHAMMED SADIK
-                        </Link>
-                        <p className="[--dia-fg:var(--color-zinc-600)] dark:[--dia-fg:var(--color-zinc-500)]">
-                            <DiaText text="Full Stack Engineer" delay={0.5} textColor="var(--dia-fg)" />
-                        </p>
+                            <span className="absolute inset-0 overflow-hidden rounded-full ring-1 ring-black/10 dark:ring-white/15">
+                                <AnimatePresence mode="wait" initial={false}>
+                                    <motion.img
+                                        key={portraitIndex}
+                                        src={[
+                                            '/instagram-profile.png',
+                                            '/instagram-profile-alt.png',
+                                            '/profile-photo-third.png',
+                                        ][portraitIndex]}
+                                        alt="Mohammed Sadik"
+                                        className="size-full object-cover"
+                                        initial={{ opacity: 0, scale: 1.08 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.96 }}
+                                        transition={{ duration: 0.2 }}
+                                    />
+                                </AnimatePresence>
+                            </span>
+                            <span aria-hidden="true" className="absolute -bottom-1 -right-1 flex size-5 items-center justify-center rounded-full border-2 border-white bg-zinc-900 text-[10px] text-white dark:border-black dark:bg-white dark:text-black transition-transform group-hover:rotate-45">
+                                ↻
+                            </span>
+                            <span aria-hidden="true" className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] tabular-nums text-zinc-400 dark:text-zinc-500">
+                                {portraitIndex + 1} / 3
+                            </span>
+                        </motion.button>
+                        <div>
+                            <Link
+                                href="/"
+                                className="font-medium text-black dark:text-white"
+                                onMouseEnter={() => trigger('selection')}
+                                onClick={() => { trigger('medium'); playClick(); }}
+                            >
+                                MOHAMMED SADIK
+                            </Link>
+                            <p className="[--dia-fg:var(--color-zinc-600)] dark:[--dia-fg:var(--color-zinc-500)]">
+                                <DiaText text="Full Stack Engineer" delay={0.5} textColor="var(--dia-fg)" />
+                            </p>
+                        </div>
                     </div>
                 </h1>
 
@@ -205,7 +245,43 @@ export default function HomePageClient() {
                     </div>
 
                     <div>
-                        Outside work, I'm passionate about photography, open-source, and exploring new technologies.
+                        Outside work, I'm passionate about{' '}
+                        <HoverCard openDelay={100}>
+                            <HoverCardTrigger asChild>
+                                <a
+                                    href="https://www.instagram.com/square_story/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-black underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-current dark:text-white dark:decoration-zinc-700"
+                                    onMouseEnter={() => trigger('selection')}
+                                    onClick={() => { trigger('medium'); playClick(); }}
+                                >
+                                    photography
+                                </a>
+                            </HoverCardTrigger>
+                            <HoverCardContent className="w-64">
+                                <div className="space-y-3">
+                                    <img
+                                        src="/instagram-profile.png"
+                                        alt="Instagram profile photo"
+                                        className="size-16 rounded-full object-cover"
+                                    />
+                                    <div>
+                                        <p className="text-xs text-zinc-500">Photography</p>
+                                        <p className="text-sm font-medium text-black dark:text-white">@square_story</p>
+                                    </div>
+                                    <a
+                                        href="https://www.instagram.com/square_story/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-block text-xs font-medium text-zinc-600 hover:text-black hover:underline dark:text-zinc-400 dark:hover:text-white"
+                                        onClick={() => { trigger('medium'); playClick(); }}
+                                    >
+                                        View Instagram ↗
+                                    </a>
+                                </div>
+                            </HoverCardContent>
+                        </HoverCard>, open-source, and exploring new technologies.
                     </div>
                 </div>
             </motion.section>
