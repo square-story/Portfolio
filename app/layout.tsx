@@ -7,6 +7,10 @@ import { Footer } from './footer'
 import { ThemeProvider } from 'next-themes'
 import { WEBSITE_URL } from '@/lib/constants'
 import { ThemeColorSync } from '@/components/theme-color-sync'
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+
+const DEFAULT_OG_IMAGE = '/og?title=Full%20Stack%20Engineer'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -19,15 +23,25 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(WEBSITE_URL),
-  alternates: {
-    canonical: '/',
-  },
   title: {
-    default: 'SADIK - Personal website',
-    template: '%s | SADIK',
+    default: 'Mohammed Sadik — Full Stack Engineer',
+    template: '%s | Mohammed Sadik',
   },
   description:
     'Mohammed Sadik is a full stack engineer building products, writing, and exploring photography.',
+  authors: [{ name: 'Mohammed Sadik', url: WEBSITE_URL }],
+  creator: 'Mohammed Sadik',
+  openGraph: {
+    type: 'website',
+    siteName: 'Mohammed Sadik',
+    locale: 'en_US',
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@sadikbuilds',
+    images: [DEFAULT_OG_IMAGE],
+  },
 }
 
 const geist = Geist({
@@ -73,6 +87,8 @@ export default function RootLayout({
             </div>
           </div>
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

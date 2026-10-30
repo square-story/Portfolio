@@ -4,6 +4,7 @@ import { BlogList } from './blog-list'
 export const metadata = {
     title: 'Writing',
     description: 'Writing by Mohammed Sadik.',
+    alternates: { canonical: '/blog' },
 }
 
 export const revalidate = 60 // ISR: re-generate at most every 60 seconds

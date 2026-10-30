@@ -109,7 +109,9 @@ function ProjectLink({ href, name, role, tagline, favicon, highlights, stack = [
     )
 }
 
-export default function HomePageClient() {
+type RecentPost = { slug: string; title: string; publishedAt: string }
+
+export default function HomePageClient({ posts }: { posts: RecentPost[] }) {
     const { trigger } = useWebHaptics()
     const [playClick] = useSound(clickSoftSound)
     const [portraitIndex, setPortraitIndex] = useState(0)
@@ -303,6 +305,60 @@ export default function HomePageClient() {
                     </div>
                 </div>
             </motion.section>
+
+            <motion.section
+                variants={VARIANTS_SECTION}
+                transition={TRANSITION_SECTION}
+                aria-labelledby="selected-work"
+            >
+                <h2 id="selected-work" className="mb-3 text-sm font-medium text-black dark:text-white">Selected work</h2>
+                <ul className="space-y-3">
+                    {PROJECTS.map((project) => (
+                        <li key={project.slug}>
+                            <Link
+                                href={`/work/${project.slug}`}
+                                className="group block rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4"
+                                onMouseEnter={() => trigger('selection')}
+                                onClick={() => { trigger('medium'); playClick(); }}
+                            >
+                                <span className="text-[15px] font-medium text-zinc-800 transition-colors group-hover:text-black dark:text-zinc-200 dark:group-hover:text-white">
+                                    {project.name} →
+                                </span>
+                                <span className="block text-sm text-zinc-500 dark:text-zinc-400">{project.description}</span>
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </motion.section>
+
+            {posts.length > 0 && (
+                <motion.section
+                    variants={VARIANTS_SECTION}
+                    transition={TRANSITION_SECTION}
+                    aria-labelledby="recent-writing"
+                >
+                    <h2 id="recent-writing" className="mb-3 text-sm font-medium text-black dark:text-white">Recent writing</h2>
+                    <ul className="space-y-2">
+                        {posts.map((post) => (
+                            <li key={post.slug}>
+                                <Link
+                                    href={`/blog/${post.slug}`}
+                                    className="group flex items-baseline justify-between gap-4 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4"
+                                    onMouseEnter={() => trigger('selection')}
+                                    onClick={() => { trigger('medium'); playClick(); }}
+                                >
+                                    <span className="text-[15px] text-zinc-800 transition-colors group-hover:text-black dark:text-zinc-200 dark:group-hover:text-white">
+                                        {post.title}
+                                    </span>
+                                    <time dateTime={post.publishedAt} className="shrink-0 text-sm tabular-nums text-zinc-400 dark:text-zinc-500">
+                                        {new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                                    </time>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </motion.section>
+            )}
 
             <motion.section
                 variants={VARIANTS_SECTION}

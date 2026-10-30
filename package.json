@@ -17,6 +17,8 @@
     "@tailwindcss/typography": "^0.5.19",
     "@types/mdx": "^2.0.13",
     "@uidotdev/usehooks": "^2.4.1",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
     "geist": "^1.7.1",
     "html-react-parser": "^5.2.17",
