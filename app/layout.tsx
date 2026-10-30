@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Caveat, Geist, Geist_Mono } from 'next/font/google'
 import { GeistPixelSquare } from 'geist/font/pixel'
 import './globals.css'
 import { Header } from './header'
@@ -54,6 +54,11 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
+const caveat = Caveat({
+  variable: '--font-caveat',
+  subsets: ['latin'],
+})
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -62,7 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${geistMono.variable} ${GeistPixelSquare.variable} bg-white text-zinc-900 tracking-tight antialiased dark:bg-zinc-950 dark:text-zinc-50`}
+        className={`${geist.variable} ${geistMono.variable} ${caveat.variable} ${GeistPixelSquare.variable} bg-white text-zinc-900 tracking-tight antialiased dark:bg-zinc-950 dark:text-zinc-50`}
       >
         <ThemeProvider
           enableSystem={true}

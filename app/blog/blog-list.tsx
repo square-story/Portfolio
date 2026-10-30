@@ -2,20 +2,44 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import type { FocusEvent, MouseEvent } from 'react'
+import type { MouseEvent } from 'react'
 import { useState } from 'react'
-import { ArrowUpRight, Image as ImageIcon } from 'lucide-react'
+import { Image as ImageIcon } from 'lucide-react'
 import { motion, useMotionValue, useReducedMotion, useSpring } from 'motion/react'
 import type { BlogPost } from '@/lib/zenblog'
-import { AnimatedBackground } from '@/components/motion-primitives/animated-background'
 
 interface BlogListProps {
     posts: BlogPost[]
+    newSlug: string | null
 }
 
-export function BlogList({ posts }: BlogListProps) {
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-    const [isVisible, setIsVisible] = useState(false)
+// Open loop that starts bottom-left, runs clockwise and overshoots its start, like a pen circling a word.
+const CIRCLE_PATH = 'M20 33 C10 32 3 26 3.5 18 C4 9 14 3.5 29 3 C44 2.5 57 8 56.5 17.5 C56 27 45 33.5 30 33.8 C24 34 17 32.5 13 30'
+
+function NewBadge() {
+    return (
+        // Absolute so the row doesn't shift; hidden below md where the side margin is too narrow.
+        <span className="absolute left-0 top-1/2 -ml-3 hidden -translate-x-full -translate-y-1/2 -rotate-6 select-none font-(family-name:--font-caveat) text-xl leading-none text-zinc-600 md:block dark:text-zinc-400">
+            {/* Width + aspect ratio rather than insets: iOS Safari won't stretch an absolute SVG between insets. */}
+            <svg
+                aria-hidden="true"
+                focusable="false"
+                viewBox="0 0 60 36"
+                preserveAspectRatio="none"
+                className="new-circle pointer-events-none absolute -left-2 -top-1 aspect-[60/36] w-[calc(100%+1rem)]"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+            >
+                <path d={CIRCLE_PATH} pathLength="1" strokeWidth={1.4} vectorEffect="non-scaling-stroke" />
+            </svg>
+            new
+        </span>
+    )
+}
+
+export function BlogList({ posts, newSlug }: BlogListProps) {
+    const [hoveredPost, setHoveredPost] = useState<BlogPost | null>(null)
     const shouldReduceMotion = useReducedMotion()
     const cursorX = useMotionValue(0)
     const cursorY = useMotionValue(0)
@@ -23,33 +47,15 @@ export function BlogList({ posts }: BlogListProps) {
     const springY = useSpring(cursorY, { stiffness: 320, damping: 32, mass: 0.4 })
     const previewX = shouldReduceMotion ? cursorX : springX
     const previewY = shouldReduceMotion ? cursorY : springY
-    const hoveredPost = hoveredIndex === null ? null : posts[hoveredIndex]
+    const isVisible = hoveredPost !== null
 
     const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
         cursorX.set(event.clientX + 20)
         cursorY.set(event.clientY - 100)
     }
 
-    const showPost = (slug: string) => {
-        const index = posts.findIndex((post) => post.slug === slug)
-        if (index !== -1) {
-            setHoveredIndex(index)
-            setIsVisible(true)
-        }
-    }
-
-    const hidePost = () => {
-        setHoveredIndex(null)
-        setIsVisible(false)
-    }
-
-    const handleFocus = (event: FocusEvent<HTMLAnchorElement>) => {
-        const index = posts.findIndex((post) => post.slug === event.currentTarget.dataset.id)
-        if (index !== -1) setHoveredIndex(index)
-    }
-
     return (
-        <div className="relative flex flex-col pt-4" onMouseMove={handleMouseMove}>
+        <div className="relative" onMouseMove={handleMouseMove}>
             <motion.div
                 aria-hidden="true"
                 className="pointer-events-none fixed left-0 top-0 z-50 hidden overflow-hidden rounded-xl shadow-2xl md:block"
@@ -79,52 +85,33 @@ export function BlogList({ posts }: BlogListProps) {
             {posts.length === 0 ? (
                 <p className="py-5 text-sm text-zinc-500 dark:text-zinc-400">No posts yet.</p>
             ) : (
-                <AnimatedBackground
-                    enableHover
-                    className="rounded-md bg-zinc-50 dark:bg-zinc-900/40"
-                    transition={{ type: 'spring', bounce: 0, duration: shouldReduceMotion ? 0 : 0.2 }}
-                    onValueChange={(id) => {
-                        if (id === null) hidePost()
-                        else showPost(id)
-                    }}
-                >
-                    {posts.map((post, index) => {
-                        const date = new Date(post.metadata.publishedAt).toLocaleDateString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric',
-                        })
-
-                        return (
+                <ul className="-mx-4 my-0 flex list-none flex-col gap-1 pl-0">
+                    {posts.map((post) => (
+                        <li key={post.slug} className="my-0 pl-0">
                             <Link
-                                key={post.slug}
-                                data-id={post.slug}
                                 href={`/blog/${post.slug}`}
-                                onFocus={handleFocus}
-                                onBlur={hidePost}
-                                className="group -mx-3 flex w-full flex-col px-3 py-4 transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 sm:py-5"
+                                onMouseEnter={() => setHoveredPost(post)}
+                                onMouseLeave={() => setHoveredPost(null)}
+                                onFocus={() => setHoveredPost(post)}
+                                onBlur={() => setHoveredPost(null)}
+                                className="group relative flex items-center gap-3 rounded-full px-4 py-2 no-underline lowercase transition-colors duration-200 hover:bg-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-2 dark:hover:bg-zinc-900/60"
                             >
-                                <div className="flex w-full flex-col justify-between gap-1 sm:flex-row sm:items-start">
-                                    <div className="inline-flex items-center gap-2">
-                                        <h2 className="text-[15px] font-medium text-zinc-800 transition-colors duration-150 group-hover:text-black dark:text-zinc-200 dark:group-hover:text-white">
-                                            <span className="relative">
-                                                {post.metadata.title}
-                                                <span className={`absolute -bottom-0.5 left-0 h-px bg-zinc-800 transition-[width] duration-300 ease-out dark:bg-zinc-200 ${hoveredIndex === index ? 'w-full' : 'w-0'}`} />
-                                            </span>
-                                        </h2>
-                                        <ArrowUpRight
-                                            aria-hidden="true"
-                                            className={`size-4 text-zinc-400 transition-[opacity,transform] duration-300 ease-out ${hoveredIndex === index ? 'translate-x-0 translate-y-0 opacity-100' : '-translate-x-2 translate-y-2 opacity-0'}`}
-                                        />
-                                    </div>
-                                    <time dateTime={post.metadata.publishedAt} className="shrink-0 text-sm tabular-nums text-zinc-400 dark:text-zinc-500">
-                                        {date}
-                                    </time>
-                                </div>
+                                {/* First child so screen readers hear "new" before the title. */}
+                                {post.slug === newSlug && <NewBadge />}
+                                <span className="min-w-0 truncate text-[15px] font-normal leading-tight text-zinc-800 dark:text-zinc-200">
+                                    {post.metadata.title}
+                                </span>
+                                <span
+                                    aria-hidden="true"
+                                    className="h-px min-w-4 flex-1 bg-zinc-100 transition-colors duration-200 group-hover:bg-zinc-300 dark:bg-zinc-800 dark:group-hover:bg-zinc-700"
+                                />
+                                <time dateTime={post.metadata.publishedAt} className="shrink-0 text-sm tabular-nums text-zinc-400 dark:text-zinc-500">
+                                    {new Date(post.metadata.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                </time>
                             </Link>
-                        )
-                    })}
-                </AnimatedBackground>
+                        </li>
+                    ))}
+                </ul>
             )}
         </div>
     )
