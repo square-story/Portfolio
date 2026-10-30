@@ -1,5 +1,6 @@
 'use client'
 
+import { Caveat } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { MouseEvent } from 'react'
@@ -7,6 +8,9 @@ import { useState } from 'react'
 import { Image as ImageIcon } from 'lucide-react'
 import { motion, useMotionValue, useReducedMotion, useSpring } from 'motion/react'
 import type { BlogPost } from '@/lib/zenblog'
+
+// Defined here, not in app/fonts.ts, so it only loads on routes that render this list.
+const caveat = Caveat({ subsets: ['latin'], display: 'swap' })
 
 interface BlogListProps {
     posts: BlogPost[]
@@ -19,7 +23,7 @@ const CIRCLE_PATH = 'M20 33 C10 32 3 26 3.5 18 C4 9 14 3.5 29 3 C44 2.5 57 8 56.
 function NewBadge() {
     return (
         // Absolute so the row doesn't shift; hidden below md where the side margin is too narrow.
-        <span className="absolute left-0 top-1/2 -ml-3 hidden -translate-x-full -translate-y-1/2 -rotate-6 select-none font-(family-name:--font-caveat) text-xl leading-none text-zinc-600 md:block dark:text-zinc-400">
+        <span className={`${caveat.className} absolute left-0 top-1/2 -ml-3 hidden -translate-x-full -translate-y-1/2 -rotate-6 select-none text-xl leading-none text-zinc-600 md:block dark:text-zinc-400`}>
             {/* Width + aspect ratio rather than insets: iOS Safari won't stretch an absolute SVG between insets. */}
             <svg
                 aria-hidden="true"

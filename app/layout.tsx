@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next'
-import { Caveat, Geist, Geist_Mono } from 'next/font/google'
-import { GeistPixelSquare } from 'geist/font/pixel'
 import './globals.css'
+import { geistMono, geistPixel } from './fonts'
 import { Header } from './header'
 import { Footer } from './footer'
 import { ThemeProvider } from 'next-themes'
@@ -44,30 +43,15 @@ export const metadata: Metadata = {
   },
 }
 
-const geist = Geist({
-  variable: '--font-geist',
-  subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
-
-const caveat = Caveat({
-  variable: '--font-caveat',
-  subsets: ['latin'],
-})
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${geistPixel.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${geistMono.variable} ${caveat.variable} ${GeistPixelSquare.variable} bg-white text-zinc-900 tracking-tight antialiased dark:bg-zinc-950 dark:text-zinc-50`}
+        className="bg-white text-zinc-900 tracking-tight antialiased dark:bg-zinc-950 dark:text-zinc-50"
       >
         <ThemeProvider
           enableSystem={true}
@@ -76,7 +60,7 @@ export default function RootLayout({
           defaultTheme="system"
         >
           <ThemeColorSync />
-          <div className="flex min-h-screen w-full flex-col font-(family-name:--font-geist-pixel-square)">
+          <div className="flex min-h-screen w-full flex-col">
             <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
               <a
                 href="#main-content"
