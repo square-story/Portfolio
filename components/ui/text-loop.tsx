@@ -6,6 +6,7 @@ import {
   Transition,
   Variants,
   AnimatePresenceProps,
+  useReducedMotion,
 } from 'motion/react'
 import { useState, useEffect, Children } from 'react'
 
@@ -30,11 +31,12 @@ export function TextLoop({
   trigger = true,
   mode = 'popLayout',
 }: TextLoopProps) {
+  const shouldReduceMotion = useReducedMotion()
   const [currentIndex, setCurrentIndex] = useState(0)
   const items = Children.toArray(children)
 
   useEffect(() => {
-    if (!trigger) return
+    if (!trigger || shouldReduceMotion) return
 
     const intervalMs = interval * 1000
     const timer = setInterval(() => {
@@ -45,7 +47,7 @@ export function TextLoop({
       })
     }, intervalMs)
     return () => clearInterval(timer)
-  }, [items.length, interval, onIndexChange, trigger])
+  }, [items.length, interval, onIndexChange, shouldReduceMotion, trigger])
 
   const motionVariants: Variants = {
     initial: { y: 20, opacity: 0 },
@@ -54,7 +56,7 @@ export function TextLoop({
   }
 
   return (
-    <div className={cn('relative inline-block whitespace-nowrap', className)}>
+    <div aria-live="off" className={cn('relative inline-block whitespace-nowrap', className)}>
       <AnimatePresence mode={mode} initial={false}>
         <motion.div
           key={currentIndex}

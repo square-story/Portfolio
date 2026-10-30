@@ -1,9 +1,13 @@
 'use client'
+
+import Image from 'next/image'
 import Link from 'next/link'
+import type { FocusEvent, MouseEvent } from 'react'
+import { useState } from 'react'
+import { ArrowUpRight, Image as ImageIcon } from 'lucide-react'
+import { motion, useMotionValue, useReducedMotion, useSpring } from 'motion/react'
 import type { BlogPost } from '@/lib/zenblog'
 import { AnimatedBackground } from '@/components/motion-primitives/animated-background'
-import { useState, useRef, useEffect } from "react"
-import { ArrowUpRight, Image as ImageIcon } from "lucide-react"
 
 interface BlogListProps {
     posts: BlogPost[]
@@ -11,137 +15,117 @@ interface BlogListProps {
 
 export function BlogList({ posts }: BlogListProps) {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-    const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 })
     const [isVisible, setIsVisible] = useState(false)
-    const containerRef = useRef<HTMLDivElement>(null)
-    const animationRef = useRef<number | null>(null)
+    const shouldReduceMotion = useReducedMotion()
+    const cursorX = useMotionValue(0)
+    const cursorY = useMotionValue(0)
+    const springX = useSpring(cursorX, { stiffness: 320, damping: 32, mass: 0.4 })
+    const springY = useSpring(cursorY, { stiffness: 320, damping: 32, mass: 0.4 })
+    const previewX = shouldReduceMotion ? cursorX : springX
+    const previewY = shouldReduceMotion ? cursorY : springY
     const hoveredPost = hoveredIndex === null ? null : posts[hoveredIndex]
 
-    useEffect(() => {
-        const lerp = (start: number, end: number, factor: number) => {
-            return start + (end - start) * factor
-        }
+    const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+        cursorX.set(event.clientX + 20)
+        cursorY.set(event.clientY - 100)
+    }
 
-        const animate = () => {
-            setSmoothPosition((prev) => ({
-                x: lerp(prev.x, mousePosition.x, 0.15),
-                y: lerp(prev.y, mousePosition.y, 0.15),
-            }))
-            animationRef.current = requestAnimationFrame(animate)
-        }
-
-        animationRef.current = requestAnimationFrame(animate)
-
-        return () => {
-            if (animationRef.current) {
-                cancelAnimationFrame(animationRef.current)
-            }
-        }
-    }, [mousePosition])
-
-    const handleMouseMove = (e: React.MouseEvent) => {
-        if (containerRef.current) {
-            const rect = containerRef.current.getBoundingClientRect()
-            setMousePosition({
-                x: e.clientX - rect.left,
-                y: e.clientY - rect.top,
-            })
+    const showPost = (slug: string) => {
+        const index = posts.findIndex((post) => post.slug === slug)
+        if (index !== -1) {
+            setHoveredIndex(index)
+            setIsVisible(true)
         }
     }
 
-    return (
-        <div className="flex flex-col pt-4 relative" ref={containerRef} onMouseMove={handleMouseMove}>
+    const hidePost = () => {
+        setHoveredIndex(null)
+        setIsVisible(false)
+    }
 
-            {/* Floating Image Container */}
-            <div
-                className="pointer-events-none fixed z-50 overflow-hidden rounded-xl shadow-2xl"
-                style={{
-                    left: containerRef.current?.getBoundingClientRect().left ?? 0,
-                    top: containerRef.current?.getBoundingClientRect().top ?? 0,
-                    transform: `translate3d(${smoothPosition.x + 20}px, ${smoothPosition.y - 100}px, 0)`,
-                    opacity: isVisible ? 1 : 0,
-                    scale: isVisible ? 1 : 0.8,
-                    transition: "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                }}
+    const handleFocus = (event: FocusEvent<HTMLAnchorElement>) => {
+        const index = posts.findIndex((post) => post.slug === event.currentTarget.dataset.id)
+        if (index !== -1) setHoveredIndex(index)
+    }
+
+    return (
+        <div className="relative flex flex-col pt-4" onMouseMove={handleMouseMove}>
+            <motion.div
+                aria-hidden="true"
+                className="pointer-events-none fixed left-0 top-0 z-50 hidden overflow-hidden rounded-xl shadow-2xl md:block"
+                style={{ x: previewX, y: previewY, opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.8 }}
+                transition={{ opacity: { duration: shouldReduceMotion ? 0 : 0.25 }, scale: { duration: shouldReduceMotion ? 0 : 0.25 } }}
             >
                 <div className="relative aspect-[4/3] w-60 overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-900">
                     {hoveredPost?.metadata.image ? (
-                        <img
+                        <Image
                             key={hoveredPost.slug}
                             src={hoveredPost.metadata.image}
-                            alt={hoveredPost.metadata.title}
-                            className="absolute inset-0 m-0 h-full w-full object-cover transition-transform duration-500 ease-out"
-                            style={{ margin: 0 }}
+                            alt=""
+                            width={240}
+                            height={180}
+                            sizes="240px"
+                            className="absolute inset-0 m-0 h-full w-full object-cover"
                         />
                     ) : (
-                        <div className="absolute inset-0 flex items-center justify-center text-zinc-400 dark:text-zinc-600" aria-hidden="true">
-                            <ImageIcon className="h-10 w-10" />
+                        <div className="absolute inset-0 flex items-center justify-center text-zinc-400 dark:text-zinc-600">
+                            <ImageIcon className="size-10" />
                         </div>
                     )}
                     <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
                 </div>
-            </div>
+            </motion.div>
 
-            <AnimatedBackground
-                enableHover
-                className="bg-zinc-50 dark:bg-zinc-900/40 rounded-md"
-                transition={{
-                    type: 'spring',
-                    bounce: 0,
-                    duration: 0.2,
-                }}
-                onValueChange={(id) => {
-                    if (id === null) {
-                        setHoveredIndex(null)
-                        setIsVisible(false)
-                    } else {
-                        const index = posts.findIndex(p => p.slug === id)
-                        if (index !== -1) {
-                            setHoveredIndex(index)
-                            setIsVisible(true)
-                        }
-                    }
-                }}
-            >
-                {posts.map((post, index) => {
-                    const date = new Date(post.metadata.publishedAt).toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                    })
-                    return (
-                        <Link
-                            key={post.slug}
-                            data-id={post.slug}
-                            href={`/blog/${post.slug}`}
-                            className="group flex flex-col w-full py-4 sm:py-5 hover:opacity-70 transition-opacity no-underline -mx-3 px-3"
-                        >
-                            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-1 w-full">
-                                <div className="inline-flex items-center gap-2">
-                                    <h3 className="text-[15px] font-medium text-zinc-800 dark:text-zinc-200 group-hover:text-black dark:group-hover:text-white transition-colors duration-150">
-                                        <span className="relative">
-                                            {post.metadata.title}
-                                            <span
-                                                className={`absolute left-0 -bottom-0.5 h-px bg-zinc-800 dark:bg-zinc-200 transition-all duration-300 ease-out ${hoveredIndex === index ? "w-full" : "w-0"}`}
-                                            />
-                                        </span>
-                                    </h3>
-                                    <ArrowUpRight
-                                        className={`w-4 h-4 text-zinc-400 transition-all duration-300 ease-out ${hoveredIndex === index
-                                            ? "opacity-100 translate-x-0 translate-y-0"
-                                            : "opacity-0 -translate-x-2 translate-y-2"
-                                            }`}
-                                    />
+            {posts.length === 0 ? (
+                <p className="py-5 text-sm text-zinc-500 dark:text-zinc-400">No posts yet.</p>
+            ) : (
+                <AnimatedBackground
+                    enableHover
+                    className="rounded-md bg-zinc-50 dark:bg-zinc-900/40"
+                    transition={{ type: 'spring', bounce: 0, duration: shouldReduceMotion ? 0 : 0.2 }}
+                    onValueChange={(id) => {
+                        if (id === null) hidePost()
+                        else showPost(id)
+                    }}
+                >
+                    {posts.map((post, index) => {
+                        const date = new Date(post.metadata.publishedAt).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric',
+                        })
+
+                        return (
+                            <Link
+                                key={post.slug}
+                                data-id={post.slug}
+                                href={`/blog/${post.slug}`}
+                                onFocus={handleFocus}
+                                onBlur={hidePost}
+                                className="group -mx-3 flex w-full flex-col px-3 py-4 transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 sm:py-5"
+                            >
+                                <div className="flex w-full flex-col justify-between gap-1 sm:flex-row sm:items-start">
+                                    <div className="inline-flex items-center gap-2">
+                                        <h2 className="text-[15px] font-medium text-zinc-800 transition-colors duration-150 group-hover:text-black dark:text-zinc-200 dark:group-hover:text-white">
+                                            <span className="relative">
+                                                {post.metadata.title}
+                                                <span className={`absolute -bottom-0.5 left-0 h-px bg-zinc-800 transition-[width] duration-300 ease-out dark:bg-zinc-200 ${hoveredIndex === index ? 'w-full' : 'w-0'}`} />
+                                            </span>
+                                        </h2>
+                                        <ArrowUpRight
+                                            aria-hidden="true"
+                                            className={`size-4 text-zinc-400 transition-[opacity,transform] duration-300 ease-out ${hoveredIndex === index ? 'translate-x-0 translate-y-0 opacity-100' : '-translate-x-2 translate-y-2 opacity-0'}`}
+                                        />
+                                    </div>
+                                    <time dateTime={post.metadata.publishedAt} className="shrink-0 text-sm tabular-nums text-zinc-400 dark:text-zinc-500">
+                                        {date}
+                                    </time>
                                 </div>
-                                <span className="shrink-0 text-sm text-zinc-400 dark:text-zinc-500 tabular-nums">
-                                    {date}
-                                </span>
-                            </div>
-                        </Link>
-                    )
-                })}
-            </AnimatedBackground>
+                            </Link>
+                        )
+                    })}
+                </AnimatedBackground>
+            )}
         </div>
     )
 }

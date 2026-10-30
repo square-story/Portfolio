@@ -1,12 +1,14 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { formatDate, getBlogPosts, getPost } from '@/app/blog/utils'
-import parse, { Element, domToReact } from 'html-react-parser'
+import parse, { Element, domToReact, type DOMNode } from 'html-react-parser'
 import { CodeBlock } from '@/components/ui/code-block'
 import { WEBSITE_URL } from '@/lib/constants'
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
 
 export async function generateStaticParams() {
-    let posts = await getBlogPosts()
+    const posts = await getBlogPosts()
 
     return posts.map((post) => ({
         slug: post.slug,
@@ -17,19 +19,19 @@ export const revalidate = 3600 // ISR: re-generate individual post pages at most
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
     const params = await props.params
-    let post = await getPost(params.slug)
+    const post = await getPost(params.slug)
     if (!post) {
         return
     }
 
-    let {
+    const {
         title,
         publishedAt: publishedTime,
         summary: description,
         image,
         author,
     } = post.metadata
-    let ogImage = image
+    const ogImage = image
         ? image
         : `${WEBSITE_URL}/og?title=${encodeURIComponent(title)}`
 
@@ -60,14 +62,14 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 
 export default async function Blog(props: { params: Promise<{ slug: string }> }) {
     const params = await props.params
-    let post = await getPost(params.slug)
+    const post = await getPost(params.slug)
 
     if (!post) {
         notFound()
     }
 
     return (
-        <section className="mx-auto max-w-2xl px-4 py-8 md:px-0">
+        <section className="mx-auto max-w-2xl py-8">
             <script
                 type="application/ld+json"
                 suppressHydrationWarning
@@ -80,8 +82,8 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
                         dateModified: post.metadata.publishedAt,
                         description: post.metadata.summary,
                         image: post.metadata.image
-                            ? `${WEBSITE_URL}${post.metadata.image}`
-                            : `/og?title=${encodeURIComponent(post.metadata.title)}`,
+                            ? new URL(post.metadata.image, WEBSITE_URL).href
+                            : new URL(`/og?title=${encodeURIComponent(post.metadata.title)}`, WEBSITE_URL).href,
                         url: `${WEBSITE_URL}/blog/${post.slug}`,
                         author: {
                             '@type': 'Person',
@@ -91,7 +93,9 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
                 }}
             />
 
-            {/* Back Link or Breadcrumb could go here */}
+            <Link href="/blog" className="mb-7 inline-flex items-center gap-2 text-xs text-zinc-500 transition-colors hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-4 dark:hover:text-white">
+                <ArrowLeft aria-hidden="true" className="size-3.5" /> All writing
+            </Link>
 
             {/* Header Section */}
             <div className="mb-8 text-center">
@@ -141,7 +145,7 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
                         alt={post.metadata.title}
                         width={1200}
                         height={630}
-                        className="object-cover"
+                        className="h-auto w-full object-cover"
                     />
                 </div>
             )}
@@ -151,11 +155,10 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
                 {parse(post.content, {
                     replace: (domNode) => {
                         if (domNode instanceof Element && domNode.name === 'pre') {
-                            const { children, attribs } = domNode
+                            const { children, attribs } = domNode as Element & { children: DOMNode[] }
                             return (
-                                <CodeBlock {...(attribs as any)}>
-                                    {/* @ts-ignore: domNodeToReact is working */}
-                                    {domToReact(children as any)}
+                                <CodeBlock className={attribs.class}>
+                                    {domToReact(children)}
                                 </CodeBlock>
                             )
                         }

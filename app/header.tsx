@@ -55,21 +55,22 @@ function ThemeSwitch() {
         setTheme(id as string)
       }}
     >
-      {THEMES_OPTIONS.map((theme) => {
+      {THEMES_OPTIONS.map((option) => {
         return (
           <button
-            key={theme.id}
+            key={option.id}
             className="inline-flex h-7 w-7 items-center justify-center text-zinc-500 transition-colors duration-100 focus-visible:outline-2 data-[checked=true]:text-zinc-950 dark:text-zinc-400 dark:data-[checked=true]:text-zinc-50 cursor-pointer"
             type="button"
-            aria-label={`Switch to ${theme.label} theme`}
-            data-id={theme.id}
+            aria-label={`Switch to ${option.label} theme`}
+            aria-pressed={theme === option.id}
+            data-id={option.id}
             onMouseEnter={() => trigger('selection')}
             onClick={() => {
               trigger('medium')
               playClick()
             }}
           >
-            {theme.icon}
+            {option.icon}
           </button>
         )
       })}
@@ -84,10 +85,11 @@ export function Header() {
 
   return (
     <header className="mb-12 flex items-center justify-between">
-      <nav className="flex gap-4 text-sm font-normal text-zinc-500 dark:text-zinc-400">
+      <nav aria-label="Primary navigation" className="flex gap-4 text-sm font-normal text-zinc-500 dark:text-zinc-400">
         <Link 
           href="/" 
-          className={`hover:text-black dark:hover:text-white transition-colors ${pathname === '/' ? 'text-black dark:text-white font-medium' : ''}`}
+          className={`rounded-sm transition-colors hover:text-black focus-visible:outline-2 focus-visible:outline-offset-4 dark:hover:text-white ${pathname === '/' ? 'font-medium text-black dark:text-white' : ''}`}
+          aria-current={pathname === '/' ? 'page' : undefined}
           onMouseEnter={() => trigger('selection')}
           onClick={() => { trigger('medium'); playClick(); }}
         >
@@ -95,7 +97,8 @@ export function Header() {
         </Link>
         <Link
           href="/work"
-          className={`hover:text-black dark:hover:text-white transition-colors ${pathname === '/work' ? 'text-black dark:text-white font-medium' : ''}`}
+          className={`rounded-sm transition-colors hover:text-black focus-visible:outline-2 focus-visible:outline-offset-4 dark:hover:text-white ${pathname.startsWith('/work') ? 'font-medium text-black dark:text-white' : ''}`}
+          aria-current={pathname.startsWith('/work') ? 'page' : undefined}
           onMouseEnter={() => trigger('selection')}
           onClick={() => { trigger('medium'); playClick(); }}
         >
@@ -103,7 +106,8 @@ export function Header() {
         </Link>
         <Link
           href="/blog"
-          className={`hover:text-black dark:hover:text-white transition-colors ${pathname.startsWith('/blog') ? 'text-black dark:text-white font-medium' : ''}`}
+          className={`rounded-sm transition-colors hover:text-black focus-visible:outline-2 focus-visible:outline-offset-4 dark:hover:text-white ${pathname.startsWith('/blog') ? 'font-medium text-black dark:text-white' : ''}`}
+          aria-current={pathname.startsWith('/blog') ? 'page' : undefined}
           onMouseEnter={() => trigger('selection')}
           onClick={() => { trigger('medium'); playClick(); }}
         >

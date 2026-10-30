@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: '%s | SADIK',
   },
   description:
-    'SADIK - Personal website created with Next.js 15, React 19 and Motion-Primitives.',
+    'Mohammed Sadik is a full stack engineer building products, writing, and exploring photography.',
 }
 
 const geist = Geist({
@@ -59,8 +59,16 @@ export default function RootLayout({
           <ThemeColorSync />
           <div className="flex min-h-screen w-full flex-col font-(family-name:--font-geist-pixel-square)">
             <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
+              <a
+                href="#main-content"
+                className="sr-only absolute left-4 top-2 z-50 rounded-md bg-background px-3 py-2 text-sm text-foreground shadow focus:not-sr-only focus:outline-2 focus:outline-offset-2"
+              >
+                Skip to content
+              </a>
               <Header />
-              {children}
+              <main id="main-content" tabIndex={-1} className="focus-visible:outline-2 focus-visible:outline-offset-4">
+                {children}
+              </main>
               <Footer />
             </div>
           </div>

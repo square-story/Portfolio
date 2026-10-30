@@ -1,5 +1,6 @@
 'use client'
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Cursor } from '@/components/motion-primitives/cursor'
 import { Magnetic } from '@/components/motion-primitives/magnetic'
@@ -112,12 +113,13 @@ export default function HomePageClient() {
     const { trigger } = useWebHaptics()
     const [playClick] = useSound(clickSoftSound)
     const [portraitIndex, setPortraitIndex] = useState(0)
+    const shouldReduceMotion = useReducedMotion()
 
     return (
-        <motion.main
+        <motion.div
             className="space-y-8"
             variants={VARIANTS_CONTAINER}
-            initial="hidden"
+            initial={shouldReduceMotion ? 'visible' : 'hidden'}
             animate="visible"
         >
             <motion.section
@@ -125,14 +127,14 @@ export default function HomePageClient() {
                 transition={TRANSITION_SECTION}
                 className="space-y-6"
             >
-                <h1 className="mb-8 flex items-center justify-between">
+                <header className="mb-8 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <motion.button
                             type="button"
-                            aria-label={`Change profile photo, ${portraitIndex + 1} of 3`}
+                            aria-label={`Show next profile photo; current photo ${portraitIndex + 1} of 3`}
                             title="Tap to cycle profile photos"
-                            className="group relative size-14 shrink-0 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-black"
-                            whileTap={{ scale: 0.9 }}
+                            className="group relative size-14 shrink-0 touch-manipulation rounded-full outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-black"
+                            whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
                             onClick={() => {
                                 setPortraitIndex((current) => (current + 1) % 3)
                                 trigger('medium')
@@ -141,20 +143,27 @@ export default function HomePageClient() {
                         >
                             <span className="absolute inset-0 overflow-hidden rounded-full ring-1 ring-black/10 dark:ring-white/15">
                                 <AnimatePresence mode="wait" initial={false}>
-                                    <motion.img
+                                    <motion.div
                                         key={portraitIndex}
-                                        src={[
-                                            '/instagram-profile.png',
-                                            '/instagram-profile-alt.png',
-                                            '/profile-photo-third.png',
-                                        ][portraitIndex]}
-                                        alt="Mohammed Sadik"
-                                        className="size-full object-cover"
+                                        className="absolute inset-0"
                                         initial={{ opacity: 0, scale: 1.08 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         exit={{ opacity: 0, scale: 0.96 }}
-                                        transition={{ duration: 0.2 }}
-                                    />
+                                        transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+                                    >
+                                        <Image
+                                            src={[
+                                                '/instagram-profile.png',
+                                                '/instagram-profile-alt.png',
+                                                '/profile-photo-third.png',
+                                            ][portraitIndex]}
+                                            alt={`Portrait ${portraitIndex + 1} of Mohammed Sadik`}
+                                            fill
+                                            sizes="56px"
+                                            priority={portraitIndex === 0}
+                                            className="object-cover"
+                                        />
+                                    </motion.div>
                                 </AnimatePresence>
                             </span>
                             <span aria-hidden="true" className="absolute -bottom-1 -right-1 flex size-5 items-center justify-center rounded-full border-2 border-white bg-zinc-900 text-[10px] text-white dark:border-black dark:bg-white dark:text-black transition-transform group-hover:rotate-45">
@@ -165,25 +174,26 @@ export default function HomePageClient() {
                             </span>
                         </motion.button>
                         <div>
-                            <Link
-                                href="/"
-                                className="font-medium text-black dark:text-white"
-                                onMouseEnter={() => trigger('selection')}
-                                onClick={() => { trigger('medium'); playClick(); }}
-                            >
-                                MOHAMMED SADIK
-                            </Link>
+                            <h1 className="text-balance font-medium text-black dark:text-white">
+                                <Link
+                                    href="/"
+                                    onMouseEnter={() => trigger('selection')}
+                                    onClick={() => { trigger('medium'); playClick(); }}
+                                >
+                                    MOHAMMED SADIK
+                                </Link>
+                            </h1>
                             <p className="[--dia-fg:var(--color-zinc-600)] dark:[--dia-fg:var(--color-zinc-500)]">
-                                <DiaText text="Full Stack Engineer" delay={0.5} textColor="var(--dia-fg)" />
+                                <DiaText text="Full Stack Engineer" delay={shouldReduceMotion ? 0 : 0.5} duration={shouldReduceMotion ? 0 : 1.5} textColor="var(--dia-fg)" />
                             </p>
                         </div>
                     </div>
-                </h1>
+                </header>
 
 
                 <div className="space-y-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 font-normal">
                     <div>
-                        I'm a Founding Engineer at{' '}
+                        I&apos;m a Founding Engineer at{' '}
                         <ProjectLink
                             href="https://creeto.ai"
                             name="Creeto.ai"
@@ -196,8 +206,8 @@ export default function HomePageClient() {
                             ]}
                             favicon={
                                 <>
-                                    <img src="https://creeto.ai/favicon-dark.ico" alt="Creeto.ai favicon" className="w-3.5 h-3.5 rounded-sm dark:hidden" />
-                                    <img src="https://creeto.ai/favicon-light.ico" alt="" className="w-3.5 h-3.5 rounded-sm hidden dark:block" />
+                                    <Image src="https://creeto.ai/favicon-dark.ico" alt="" width={14} height={14} unoptimized className="w-3.5 h-3.5 rounded-sm dark:hidden" />
+                                    <Image src="https://creeto.ai/favicon-light.ico" alt="" width={14} height={14} unoptimized className="w-3.5 h-3.5 rounded-sm hidden dark:block" />
                                 </>
                             }
                         />, working on the agentic workflow and backend architecture to ship scalable solutions. Previously, I created{' '}
@@ -214,9 +224,12 @@ export default function HomePageClient() {
                             stack={blipko.techStack.slice(0, 6)}
                             repo={blipko.repoLink}
                             favicon={
-                                <img
+                                <Image
                                     src="https://blipko.lol/favicon.ico"
-                                    alt="Blipko favicon"
+                                    alt=""
+                                    width={14}
+                                    height={14}
+                                    unoptimized
                                     className="w-3.5 h-3.5 rounded-sm"
                                     onError={(e) => { e.currentTarget.src = "https://www.google.com/s2/favicons?domain=blipko.lol&sz=64"; }}
                                 />
@@ -234,9 +247,12 @@ export default function HomePageClient() {
                             stack={inspecto.techStack.filter((t) => t !== 'Git').slice(0, 6)}
                             repo={inspecto.repoLink}
                             favicon={
-                                <img
+                                <Image
                                     src="https://inspecto-flax.vercel.app/favicon.ico"
-                                    alt="Inspecto favicon"
+                                    alt=""
+                                    width={14}
+                                    height={14}
+                                    unoptimized
                                     className="w-3.5 h-3.5 rounded-sm"
                                     onError={(e) => { e.currentTarget.src = "https://www.google.com/s2/favicons?domain=inspecto-flax.vercel.app&sz=64"; }}
                                 />
@@ -245,7 +261,7 @@ export default function HomePageClient() {
                     </div>
 
                     <div>
-                        Outside work, I'm passionate about{' '}
+                        Outside work, I&apos;m passionate about{' '}
                         <HoverCard openDelay={100}>
                             <HoverCardTrigger asChild>
                                 <a
@@ -261,9 +277,11 @@ export default function HomePageClient() {
                             </HoverCardTrigger>
                             <HoverCardContent className="w-64">
                                 <div className="space-y-3">
-                                    <img
+                                    <Image
                                         src="/instagram-profile.png"
                                         alt="Instagram profile photo"
+                                        width={64}
+                                        height={64}
                                         className="size-16 rounded-full object-cover"
                                     />
                                     <div>
@@ -359,6 +377,6 @@ export default function HomePageClient() {
                     </div>
                 </div>
             </motion.section>
-        </motion.main>
+        </motion.div>
     )
 }
