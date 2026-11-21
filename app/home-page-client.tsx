@@ -1,7 +1,8 @@
 'use client'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Mascot } from 'page-mascot'
 import { Cursor } from '@/components/motion-primitives/cursor'
 import { Magnetic } from '@/components/motion-primitives/magnetic'
 import { DiaText } from '@/components/ui/dia-text'
@@ -9,7 +10,7 @@ import { useWebHaptics } from 'web-haptics/react'
 import { useSound } from '@/hooks/use-sound'
 import { clickSoftSound } from '@/lib/click-soft'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/r-hover-card'
-import { useState, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { PROJECTS } from '@/app/data'
 
 const blipko = PROJECTS.find((p) => p.slug === 'blipko')!
@@ -114,7 +115,6 @@ type RecentPost = { slug: string; title: string; publishedAt: string }
 export default function HomePageClient({ posts }: { posts: RecentPost[] }) {
     const { trigger } = useWebHaptics()
     const [playClick] = useSound(clickSoftSound)
-    const [portraitIndex, setPortraitIndex] = useState(0)
     const shouldReduceMotion = useReducedMotion()
 
     return (
@@ -131,50 +131,21 @@ export default function HomePageClient({ posts }: { posts: RecentPost[] }) {
             >
                 <header className="mb-8 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <motion.button
-                            type="button"
-                            aria-label={`Show next profile photo; current photo ${portraitIndex + 1} of 3`}
-                            title="Tap to cycle profile photos"
-                            className="group relative size-14 shrink-0 touch-manipulation rounded-full outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-black"
-                            whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
+                        {/* Mascot renders its own button; the click bubbles here for haptics + sound. */}
+                        <div
+                            className="flex size-16 shrink-0 touch-manipulation items-end justify-center overflow-hidden rounded-full bg-zinc-100 ring-1 ring-black/10 dark:bg-zinc-900 dark:ring-white/15 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-zinc-400 has-[:focus-visible]:ring-offset-2 dark:has-[:focus-visible]:ring-offset-black [&>button]:outline-none"
                             onClick={() => {
-                                setPortraitIndex((current) => (current + 1) % 3)
                                 trigger('medium')
                                 playClick()
                             }}
                         >
-                            <span className="absolute inset-0 overflow-hidden rounded-full ring-1 ring-black/10 dark:ring-white/15">
-                                <AnimatePresence mode="wait" initial={false}>
-                                    <motion.div
-                                        key={portraitIndex}
-                                        className="absolute inset-0"
-                                        initial={{ opacity: 0, scale: 1.08 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.96 }}
-                                        transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
-                                    >
-                                        <Image
-                                            src={[
-                                                '/instagram-profile.png',
-                                                '/instagram-profile-alt.png',
-                                                '/profile-photo-third.png',
-                                            ][portraitIndex]}
-                                            alt={`Portrait ${portraitIndex + 1} of Mohammed Sadik`}
-                                            fill
-                                            sizes="56px"
-                                            priority={portraitIndex === 0}
-                                            className="object-cover"
-                                        />
-                                    </motion.div>
-                                </AnimatePresence>
-                            </span>
-                            <span aria-hidden="true" className="absolute -bottom-1 -right-1 flex size-5 items-center justify-center rounded-full border-2 border-white bg-zinc-900 text-[10px] text-white dark:border-black dark:bg-white dark:text-black transition-transform group-hover:rotate-45">
-                                ↻
-                            </span>
-                            <span aria-hidden="true" className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] tabular-nums text-zinc-400 dark:text-zinc-500">
-                                {portraitIndex + 1} / 3
-                            </span>
-                        </motion.button>
+                            <Mascot
+                                directions="/mascots/sadik-directions.webp"
+                                reactions="/mascots/sadik-reactions.webp"
+                                size={60}
+                                label="cartoon Mohammed Sadik"
+                            />
+                        </div>
                         <div>
                             <h1 className="text-balance font-medium text-black dark:text-white">
                                 <Link
