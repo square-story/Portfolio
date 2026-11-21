@@ -133,7 +133,7 @@ export default function HomePageClient({ posts }: { posts: RecentPost[] }) {
                     <div className="flex items-center gap-3">
                         {/* Mascot renders its own button; the click bubbles here for haptics + sound. */}
                         <div
-                            className="flex size-16 shrink-0 touch-manipulation items-end justify-center overflow-hidden rounded-full bg-zinc-100 ring-1 ring-black/10 dark:bg-zinc-900 dark:ring-white/15 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-zinc-400 has-[:focus-visible]:ring-offset-2 dark:has-[:focus-visible]:ring-offset-black [&>button]:outline-none"
+                            className="flex size-16 shrink-0 touch-manipulation items-end justify-center overflow-hidden rounded-full bg-zinc-100 ring-1 ring-black/10 dark:bg-zinc-900 dark:ring-white/15 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-zinc-400 has-[:focus-visible]:ring-offset-2 dark:has-[:focus-visible]:ring-offset-black [&>button]:-mb-[3px] [&>button]:outline-none"
                             onClick={() => {
                                 trigger('medium')
                                 playClick()
@@ -142,7 +142,7 @@ export default function HomePageClient({ posts }: { posts: RecentPost[] }) {
                             <Mascot
                                 directions="/mascots/sadik-directions.webp"
                                 reactions="/mascots/sadik-reactions.webp"
-                                size={60}
+                                size={68}
                                 label="cartoon Mohammed Sadik"
                             />
                         </div>
